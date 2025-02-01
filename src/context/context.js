@@ -2,22 +2,31 @@ import React, { createContext, useContext, useReducer } from "react";
 import rootReducer from "./reducers/rootReducer";
 
 const initialState = {
-previousServices: {
+    
+    previousServices: {
 
-},
-newCore: {
-internet: {
-    info: '',
-    cost: 0
-},
-tv: {
-    info: '',
-    cost: 0
-}
-},
-newMobile: {
+    },
+    newCore: {
+        internet: {
+            info: '',
+            cost: 0
+        },
+        tv: {
+            info: '',
+            cost: 0
+        }
 
-}
+    },
+    newMobile: {
+        lines: [],
+        info: '',
+        total: 0
+
+    },
+    rep: {
+        name: '',
+        contact: ''
+    }
 }
 
 const Context = createContext(initialState);
