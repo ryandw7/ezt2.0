@@ -10,7 +10,15 @@ const useMobileActions = () => {
         isBYOD: false
     }
     const addMobileLine = () => {
-        dispatch({type: })
+        dispatch({type: 'ADD_LINE'})
+    }
+
+    const removeMobileLine = (id) => {
+        dispatch({type: 'REMOVE_LINE', payload: id})
+    }
+
+    const updateMobileLine = (id, updatedLineObj) => {
+        dispatch({})
     }
 
 };

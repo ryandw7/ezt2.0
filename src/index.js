@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client"; // Notice the '/client';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import theme from "./styles/theme";
 import { ContextProvider } from "./context/context";
@@ -9,7 +10,9 @@ root.render(
     <ThemeProvider theme={theme}>
         <CssBaseline>
             <ContextProvider>
+                <BrowserRouter>
                 <App />
+                </BrowserRouter>
             </ContextProvider>
         </CssBaseline>
     </ThemeProvider>

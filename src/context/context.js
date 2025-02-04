@@ -3,8 +3,11 @@ import rootReducer from "./reducers/rootReducer";
 
 const initialState = {
     
-    previousServices: {
-
+    currentServices: {
+        internet: '',
+        internetCost: Number,
+        tv: '',
+        tvCost: ''
     },
     newCore: {
         internet: {

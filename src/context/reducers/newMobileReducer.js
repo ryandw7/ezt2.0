@@ -1,5 +1,3 @@
-
-
 const initialState = {
     lines: [],
     info: '',
@@ -20,7 +18,9 @@ const newMobileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case 'ADD_LINE':
-            return { ...state, lines: [...state.lines, newMobileObj] }
+            const newLine = newMobileObj;
+            newLine.id = state.lines.length;
+            return { ...state, lines: [...state.lines, newLine] }
         case 'REMOVE_LINE':
             const filteredLines = state.lines.filter((line) => line.id !== action.payload);
             return { ...state, lines: filteredLines }
