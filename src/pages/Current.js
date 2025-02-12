@@ -4,7 +4,7 @@ import CurrentForm from '../features/CurrentForm';
 import useAppContext from '../context/context';
 import useCurrentSelectors from '../context/selectors/useCurrentSelectors';
 
-export default function Previous() {
+export default function Current() {
     const { currentInternet } = useCurrentSelectors();
 
     const { state } = useAppContext();

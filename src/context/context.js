@@ -2,23 +2,23 @@ import React, { createContext, useContext, useReducer } from "react";
 import rootReducer from "./reducers/rootReducer";
 
 const initialState = {
-    
+
     currentServices: {
         internet: '',
         internetCost: Number,
         tv: '',
-        tvCost: ''
+        tvCost: Number,
+        mobile: '',
+        mobileCost: Number,
+        notes: ''
+
     },
     newCore: {
-        internet: {
-            info: '',
-            cost: 0
-        },
-        tv: {
-            info: '',
-            cost: 0
-        }
-
+        internet: '',
+        internetCost: Number,
+        tv: '',
+        tvCost: Number,
+        notes: ''
     },
     newMobile: {
         lines: [],

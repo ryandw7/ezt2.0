@@ -1,6 +1,7 @@
 import useAppContext from "../context";
 
 const useMobileActions = () => {
+    
     const { state, dispatch } = useAppContext();
 
     const lineObj = {
@@ -9,6 +10,7 @@ const useMobileActions = () => {
         number: '',
         isBYOD: false
     }
+
     const addMobileLine = () => {
         dispatch({type: 'ADD_LINE'})
     }

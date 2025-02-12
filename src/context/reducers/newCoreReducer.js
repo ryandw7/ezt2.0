@@ -1,32 +1,24 @@
-
-
 const initialState = {
     internet: '',
     internetCost: Number,
     tv: '',
     tvCost: Number,
-    mobile: '',
-    mobileCost: Number,
     notes: ''
 }
 
-const currentReducer = (state = initialState, action) => {
+const NewCoreReducer = (state = initialState, action) => {
     console.log(state)
     console.log('DISPATCHING ' + action.type)
     switch(action.type){
-        case 'UPDATE_CURRENT_INTERNET':
+        case 'UPDATE_NEW_INTERNET':
             return {...state, internet: action.payload}
-        case 'UPDATE_CURRENT_INTERNET_COST':
+        case 'UPDATE_NEW_INTERNET_COST':
             return {...state, internetCost: action.payload}
-        case 'UPDATE_CURRENT_TV':
+        case 'UPDATE_NEW_TV':
             return {...state, tv: action.payload}
-        case 'UPDATE_CURRENT_TV_COST':
+        case 'UPDATE_NEW_TV_COST':
             return {...state, tvCost: action.payload}
-        case 'UPDATE_CURRENT_MOBILE':
-            return {...state, mobile: action.payload}
-        case 'UPDATE_CURRENT_MOBILE_COST':
-            return {...state, mobileCost: action.payload}
-        case 'UPDATE_CURRENT_NOTES':
+        case 'UPDATE_NEW_CORE_NOTES':
             return {...state, notes: action.payload}
         default:
             return state;
@@ -34,4 +26,4 @@ const currentReducer = (state = initialState, action) => {
     
 }
 
-export default currentReducer;
+export default NewCoreReducer;
