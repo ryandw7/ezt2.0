@@ -38,7 +38,7 @@ export default function newCoreForm() {
     return (
         <Box sx={{ display: 'flex', width: "100%", flexDirection: "column", height: "80vh", justifyContent: "space-around" }}>
             <Box>
-                <TextField id="internet" label="Internet" variant="outlined" value={internet} onChange={handleChange} />
+                <TextField id="internet" label="Internet" variant="outlined" value={newInternet} onChange={handleChange} />
                 <TextField id="internetCost" label="Internet Cost" variant="outlined" value={newInternetCost} onChange={handleChange} />
             </Box>
             <Box>

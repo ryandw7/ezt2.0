@@ -21,7 +21,23 @@ const initialState = {
         notes: ''
     },
     newMobile: {
-        lines: [],
+        lines: [{
+            isEdit: true,
+            id: 0,
+            name: '',
+            isBYOD: true,
+            number: Number,
+            port: true,
+            dataPlan: 'unlimited',
+            deviceModel: null,
+            deviceTotalCost: Number,
+            deviceDiscountDesc: '',
+            DeviceDiscount: Number,
+            deviceMonthly: Number,
+            payInFull: false,
+            cost: Number,
+            lineDiscount: Number
+        }],
         info: '',
         total: 0
 

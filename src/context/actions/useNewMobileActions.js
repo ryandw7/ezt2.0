@@ -1,6 +1,6 @@
 import useAppContext from "../context";
 
-const useMobileActions = () => {
+const useNewMobileActions = () => {
     
     const { state, dispatch } = useAppContext();
 
@@ -19,10 +19,14 @@ const useMobileActions = () => {
         dispatch({type: 'REMOVE_LINE', payload: id})
     }
 
-    const updateMobileLine = (id, updatedLineObj) => {
-        dispatch({})
+    const setIsEdit = (id) => {
+        dispatch({type: 'SET_NEW_EDIT', payload: id})
+    }
+    const updateNewMobileLine = (id, key, value) => {
+        dispatch({type: 'UPDATE_LINE', payload: {id, key, value}})
     }
 
+    return {addMobileLine, removeMobileLine, setIsEdit, updateNewMobileLine}
 };
 
-export default useMobileActions;
+export default useNewMobileActions;
