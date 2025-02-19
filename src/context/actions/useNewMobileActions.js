@@ -11,6 +11,10 @@ const useNewMobileActions = () => {
         isBYOD: false
     }
 
+    const quickAddMobileLine = () => {
+        dispatch({type: 'QUICK_ADD_LINE'})
+    }
+
     const addMobileLine = () => {
         dispatch({type: 'ADD_LINE'})
     }
@@ -26,7 +30,10 @@ const useNewMobileActions = () => {
         dispatch({type: 'UPDATE_LINE', payload: {id, key, value}})
     }
 
-    return {addMobileLine, removeMobileLine, setIsEdit, updateNewMobileLine}
+    const updatePricing = () => {
+        dispatch({type: 'UPDATE_PRICING'})
+    }
+    return {addMobileLine, removeMobileLine, setIsEdit, updateNewMobileLine, updatePricing, quickAddMobileLine}
 };
 
 export default useNewMobileActions;

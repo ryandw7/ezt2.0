@@ -28,7 +28,7 @@ const initialState = {
             isBYOD: true,
             number: Number,
             port: true,
-            dataPlan: 'unlimited',
+            dataPlan: 'Unlimited',
             deviceModel: null,
             deviceTotalCost: Number,
             deviceDiscountDesc: '',
@@ -38,9 +38,11 @@ const initialState = {
             cost: Number,
             lineDiscount: Number
         }],
+        hasUnlimited: true,
+        hasBTG: false,
         info: '',
         total: 0
-
+    
     },
     rep: {
         name: '',

@@ -8,7 +8,7 @@ const initialState = {
         isBYOD: true,
         number: Number,
         port: true,
-        dataPlan: 'unlimited',
+        dataPlan: 'Unlimited',
         deviceModel: null,
         deviceTotalCost: Number,
         deviceDiscountDesc: '',
@@ -18,6 +18,8 @@ const initialState = {
         cost: Number,
         lineDiscount: Number
     }],
+    hasUnlimited: true,
+    hasBTG: false,
     info: '',
     total: 0
 
@@ -32,7 +34,7 @@ const newMobileReducer = (state = initialState, action) => {
         isBYOD: true,
         number: Number,
         port: true,
-        dataPlan: 'unlimited',
+        dataPlan: 'Unlimited',
         deviceModel: null,
         deviceTotalCost: Number,
         deviceDiscountDesc: '',
@@ -44,6 +46,23 @@ const newMobileReducer = (state = initialState, action) => {
     };
 
     switch (action.type) {
+        case 'QUICK_ADD_LINE': {
+            const newLine = newMobileObj;
+            newLine.id = state.lines.length;
+            newLine.isEdit = false;
+            const newLinesArr = state.lines.map((line) => {
+                if (line.id !== newLine.id) {
+                    return {
+                        ...line,
+                        isEdit: false
+                    }
+                } else {
+                    return line
+                }
+            })
+
+            return { ...state, lines: [...newLinesArr, newLine] }
+        }
         case 'ADD_LINE': {
             const newLine = newMobileObj;
             newLine.id = state.lines.length;
@@ -97,6 +116,44 @@ const newMobileReducer = (state = initialState, action) => {
                 }
             })
             return { ...state, lines: newLinesArr }
+        }
+        case 'UPDATE_PRICING': {
+            let hasUnlimited = false;
+            let hasBTG = false;
+
+            const updatedLines = state.lines.map((item) => {
+                switch (item.dataPlan) {
+                    case 'Unlimited': {
+                        if (hasUnlimited === false) {
+                            item.cost = 40;
+                            hasUnlimited = true;
+                        } else {
+                            item.cost = 20;
+                        }
+                        return item;
+                    }
+                    case 'Unlimited Plus': {
+                        if (hasUnlimited === false) {
+                            item.cost = 50;
+                            hasUnlimited = true;
+                        } else {
+                            item.cost = 30;
+                        }
+                        return item;
+                    }
+                    case 'By the Gig': {
+                        if (hasBTG === false) {
+                            item.cost = 20;
+                            hasBTG = true;
+                        } else {
+                            item.cost = 0;
+                        }
+                        return item;
+                    }
+                }
+            });
+            console.log(updatedLines);
+            return { ...state, lines: updatedLines, hasUnlimited: hasUnlimited, hasBTG: hasBTG }
         }
         default: {
             return state;
