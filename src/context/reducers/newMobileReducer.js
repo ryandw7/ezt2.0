@@ -6,17 +6,17 @@ const initialState = {
         id: 0,
         name: '',
         isBYOD: true,
-        number: Number,
+        number: 0,
         port: true,
         dataPlan: 'Unlimited',
         deviceModel: null,
-        deviceTotalCost: Number,
+        deviceTotalCost: 0,
         deviceDiscountDesc: '',
-        DeviceDiscount: Number,
-        deviceMonthly: Number,
+        DeviceDiscount: 0,
+        deviceMonthly: 0,
         payInFull: false,
-        cost: Number,
-        lineDiscount: Number
+        cost: 0,
+        lineDiscount: 0
     }],
     hasUnlimited: true,
     hasBTG: false,
@@ -26,23 +26,23 @@ const initialState = {
 }
 
 const newMobileReducer = (state = initialState, action) => {
-
+    console.log(state)
     const newMobileObj = {
         isEdit: true,
         id: 0,
         name: '',
         isBYOD: true,
-        number: Number,
+        number: 0,
         port: true,
         dataPlan: 'Unlimited',
         deviceModel: null,
-        deviceTotalCost: Number,
+        deviceTotalCost: 0,
         deviceDiscountDesc: '',
-        DeviceDiscount: Number,
-        deviceMonthly: Number,
+        DeviceDiscount: 0,
+        deviceMonthly: 0,
         payInFull: false,
-        cost: Number,
-        lineDiscount: Number
+        cost: 0,
+        lineDiscount: 0
     };
 
     switch (action.type) {

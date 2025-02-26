@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, TextField, Button, Paper, Switch, FormControlLabel, Select, MenuItem, InputLabel } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 
 export default function NewMobileLine({ line }) {
     const { updateNewMobileLine, setIsEdit, updatePricing } = useNewMobileActions();
-    const { name, isEdit, id, number, isBYOD, port, deviceModel, payInFull, deviceTotalCost, deviceDiscount, deviceDiscountDesc, lineDiscount,dataPlan, cost } = line;
+    const { name, isEdit, id, number, isBYOD, port, deviceModel, payInFull, deviceTotalCost, deviceDiscount, deviceDiscountDesc, lineDiscount, lineDiscountDesc, dataPlan, cost } = line;
 
     const handleChange = (e) => {
         const key = e.target.id || e.target.name;
@@ -12,7 +12,16 @@ export default function NewMobileLine({ line }) {
         if (key === 'isBYOD') {
             updateNewMobileLine(id, 'isBYOD', !isBYOD);
         } else {
-            updateNewMobileLine(id, key, value);
+            if (key === 'deviceTotalCost' || key === 'deviceDiscount' || key === 'lineDiscount') {
+                if (/^\d*(\.\d{0,2})?$/.test(value) || value === "") {
+                    if (value === ""){
+                        value = 0
+                    }
+                    updateNewMobileLine(id, key, Number(value));
+                }
+            } else {
+                updateNewMobileLine(id, key, value);
+            }
         }
     };
 
@@ -26,7 +35,7 @@ export default function NewMobileLine({ line }) {
         updateNewMobileLine(id, key, !line[key]);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         updatePricing()
     }, [])
     return (
@@ -61,18 +70,19 @@ export default function NewMobileLine({ line }) {
                         </Box>
                     )}
                     <Box>
-                        <TextField fullWidth id="lineDiscount" label="Line Discount" variant='outlined' value={lineDiscount} onChange={handleChange} sx={{ mb: 2 }} />
+                        <TextField id="lineDiscountDesc" label="Line Discount" variant='outlined' value={lineDiscountDesc} onChange={handleChange} sx={{ mb: 2 }} />
+                        <TextField id="lineDiscount" label="Discount Amount" variant='outlined' value={lineDiscount} onChange={handleChange} sx={{ mb: 2 }} />
                     </Box>
                     <Button variant="contained" onClick={stopEdit} sx={{ mt: 2 }}>Done</Button>
                 </Paper>
             ) : (
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", p: 2, borderBottom: "1px solid #ddd" }}>
                     <Typography variant="body1">{dataPlan}</Typography>
-                    
-                    <Typography variant="body1" sx={{ marginLeft: "auto", p:"5px" }}>${cost.toFixed(2)}</Typography>
-                  
-                    
-                    <Button variant="outlined" onClick={()=>setIsEdit(id)}>Edit</Button>
+
+                    <Typography variant="body1" sx={{ marginLeft: "auto", p: "5px" }}>${cost.toFixed(2)}</Typography>
+
+
+                    <Button variant="outlined" onClick={() => setIsEdit(id)}>Edit</Button>
                 </Box>
             )}
         </Box>

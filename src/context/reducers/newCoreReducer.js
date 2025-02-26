@@ -1,11 +1,10 @@
 const initialState = {
     internet: '',
-    internetCost: Number,
+    internetCost: 0,
     tv: '',
-    tvCost: Number,
+    tvCost: 0,
     notes: ''
 }
-
 const NewCoreReducer = (state = initialState, action) => {
     console.log(state)
     console.log('DISPATCHING ' + action.type)

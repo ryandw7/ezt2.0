@@ -2,12 +2,13 @@
 
 const initialState = {
     internet: '',
-    internetCost: Number,
+    internetCost: 0,
     tv: '',
-    tvCost: Number,
+    tvCost: 0,
     mobile: '',
-    mobileCost: Number,
+    mobileCost: 0,
     notes: ''
+
 }
 
 const currentReducer = (state = initialState, action) => {

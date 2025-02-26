@@ -12,7 +12,7 @@ const useCurrentActions = () => {
 
     const updateCurrentInternetCost = (updatedInternetCost) => {
 
-        dispatch({type: 'UPDATE_CURRENT_INTERNET_COST', payload: updatedInternetCost});
+        dispatch({type: 'UPDATE_CURRENT_INTERNET_COST', payload: Number(updatedInternetCost)});
 
     }
 
@@ -24,7 +24,7 @@ const useCurrentActions = () => {
 
     const updateCurrentTvCost = (updatedTvCost) => {
 
-        dispatch({type: 'UPDATE_CURRENT_TV_COST', payload: updatedTvCost});
+        dispatch({type: 'UPDATE_CURRENT_TV_COST', payload: Number(updatedTvCost)});
 
     }
 
@@ -33,7 +33,7 @@ const useCurrentActions = () => {
     }
 
     const updateCurrentMobileCost = (updatedMobileCost) => {
-        dispatch({type: 'UPDATE_CURRENT_MOBILE_COST', payload: updatedMobileCost})
+        dispatch({type: 'UPDATE_CURRENT_MOBILE_COST', payload: Number(updatedMobileCost)})
     }
 
     const updateCurrentNotes = (updatedNotes) => {

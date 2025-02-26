@@ -1,11 +1,11 @@
 import useAppContext from "../context"
 
 export const getCurrentInternet = (state) => state.currentServices?.internet || '';
-export const getCurrentInternetCost = (state) => state.currentServices?.internetCost || '';
+export const getCurrentInternetCost = (state) => state.currentServices?.internetCost || 0;
 export const getCurrentTv = (state) => state.currentServices?.tv || '';
-export const getCurrentTvCost = (state) => state.currentServices?.tvCost || '';
+export const getCurrentTvCost = (state) => state.currentServices?.tvCost || 0;
 export const getCurrentMobile = (state) => state.currentServices?.mobile || '';
-export const getCurrentMobileCost = (state) => state.currentServices?.mobileCost || '';
+export const getCurrentMobileCost = (state) => state.currentServices?.mobileCost || 0;
 export const getCurrentNotes = (state) => state.currentServices?.notes || '';
 
 const useCurrentSelectors = () => {
@@ -15,11 +15,11 @@ const useCurrentSelectors = () => {
         return {};
     }
     const currentInternet = getCurrentInternet(state);
-    const currentInternetCost = getCurrentInternetCost(state) || '';
+    const currentInternetCost = getCurrentInternetCost(state) || 0;
     const currentTv = getCurrentTv(state) || '';
-    const currentTvCost = getCurrentTvCost(state) || '';
+    const currentTvCost = getCurrentTvCost(state);
     const currentMobile = getCurrentMobile(state) || '';
-    const currentMobileCost = getCurrentMobileCost(state) || '';
+    const currentMobileCost = getCurrentMobileCost(state);
     const currentNotes = getCurrentNotes(state) || '';
 
     return { currentInternet, currentInternetCost, currentTv, currentTvCost, currentMobile, currentMobileCost, currentNotes }

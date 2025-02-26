@@ -5,19 +5,19 @@ const initialState = {
 
     currentServices: {
         internet: '',
-        internetCost: Number,
+        internetCost: 0,
         tv: '',
-        tvCost: Number,
+        tvCost: 0,
         mobile: '',
-        mobileCost: Number,
+        mobileCost: 0,
         notes: ''
 
     },
     newCore: {
         internet: '',
-        internetCost: Number,
+        internetCost: 0,
         tv: '',
-        tvCost: Number,
+        tvCost: 0,
         notes: ''
     },
     newMobile: {
@@ -26,23 +26,23 @@ const initialState = {
             id: 0,
             name: '',
             isBYOD: true,
-            number: Number,
+            number: 0,
             port: true,
             dataPlan: 'Unlimited',
             deviceModel: null,
-            deviceTotalCost: Number,
+            deviceTotalCost: 0,
             deviceDiscountDesc: '',
-            DeviceDiscount: Number,
-            deviceMonthly: Number,
+            DeviceDiscount: 0,
+            deviceMonthly: 0,
             payInFull: false,
-            cost: Number,
-            lineDiscount: Number
+            cost: 0,
+            lineDiscount: 0
         }],
         hasUnlimited: true,
         hasBTG: false,
         info: '',
         total: 0
-    
+
     },
     rep: {
         name: '',
