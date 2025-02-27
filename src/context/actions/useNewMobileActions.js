@@ -4,12 +4,7 @@ const useNewMobileActions = () => {
     
     const { state, dispatch } = useAppContext();
 
-    const lineObj = {
-        name: '',
-        data: '',
-        number: '',
-        isBYOD: false
-    }
+    
 
     const quickAddMobileLine = () => {
         dispatch({type: 'QUICK_ADD_LINE'})

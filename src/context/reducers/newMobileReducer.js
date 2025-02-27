@@ -1,53 +1,14 @@
-import { breadcrumbsClasses } from "@mui/material";
+import { createInitialState, lineObj } from "../stateTools.js";
+console.log(createInitialState)
 
-const initialState = {
-    lines: [{
-        isEdit: true,
-        id: 0,
-        name: '',
-        isBYOD: true,
-        number: 0,
-        port: true,
-        dataPlan: 'Unlimited',
-        deviceModel: null,
-        deviceTotalCost: 0,
-        deviceDiscountDesc: '',
-        DeviceDiscount: 0,
-        deviceMonthly: 0,
-        payInFull: false,
-        cost: 0,
-        lineDiscount: 0
-    }],
-    hasUnlimited: true,
-    hasBTG: false,
-    info: '',
-    total: 0
 
-}
+const initialState = createInitialState().newMobile;
 
 const newMobileReducer = (state = initialState, action) => {
-    console.log(state)
-    const newMobileObj = {
-        isEdit: true,
-        id: 0,
-        name: '',
-        isBYOD: true,
-        number: 0,
-        port: true,
-        dataPlan: 'Unlimited',
-        deviceModel: null,
-        deviceTotalCost: 0,
-        deviceDiscountDesc: '',
-        DeviceDiscount: 0,
-        deviceMonthly: 0,
-        payInFull: false,
-        cost: 0,
-        lineDiscount: 0
-    };
-
+    
     switch (action.type) {
         case 'QUICK_ADD_LINE': {
-            const newLine = newMobileObj;
+            const newLine = lineObj();
             newLine.id = state.lines.length;
             newLine.isEdit = false;
             const newLinesArr = state.lines.map((line) => {
@@ -64,7 +25,7 @@ const newMobileReducer = (state = initialState, action) => {
             return { ...state, lines: [...newLinesArr, newLine] }
         }
         case 'ADD_LINE': {
-            const newLine = newMobileObj;
+            const newLine = lineObj();
             newLine.id = state.lines.length;
             newLine.isEdit = true;
             const newLinesArr = state.lines.map((line) => {
@@ -100,7 +61,7 @@ const newMobileReducer = (state = initialState, action) => {
         }
         case 'SET_NEW_EDIT': {
             const id = action.payload;
-            console.log(action.payload)
+           
             const newLinesArr = state.lines.map((line) => {
                 if (line.id !== id) {
                     console.log(line.id, id)
@@ -152,7 +113,7 @@ const newMobileReducer = (state = initialState, action) => {
                     }
                 }
             });
-            console.log(updatedLines);
+           
             return { ...state, lines: updatedLines, hasUnlimited: hasUnlimited, hasBTG: hasBTG }
         }
         default: {

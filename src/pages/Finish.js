@@ -8,7 +8,7 @@ export default function Finish() {
 
     const { newMobileLines } = useNewMobileSelectors();
     return (
-        <Box>
+        <Box sx={{width:"90%"}}>
             <FormGroup>
                 <FormControlLabel control={<Checkbox />} label="Mobile Form" />
                 <FormControlLabel control={<Checkbox />} label="Prices" />

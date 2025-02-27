@@ -32,7 +32,7 @@ export default function NewMobileLines() {
         updatePricing();
     }, [])
     return (
-        <Box sx={{ height: "80vh", width: "80vw", display: "flex", flexDirection: "row", gap: 2, alignItems: "center", justifyContent: "space-around", flexWrap:"nowrap", m:"0"}}>
+        <Box sx={{ height: "80vh", width: "100vw", display: "flex", flexDirection: "row", gap: 2, alignItems: "center", justifyContent: "space-around", flexWrap:"nowrap", m:"0"}}>
             {/* Scrollable List of Non-Edit Lines */}
             <Box sx={{ width: () => handleResize(), height: "80%", p: 2, transition: 'width 0.3s ease-in-out' }}>
             <Paper elevation={3} sx={{height:"100%", width:"100%", overflowY:"auto"}}>
@@ -47,7 +47,7 @@ export default function NewMobileLines() {
             </Paper>
             <Box sx={{m:"0", justifySelf: "flex-end", alignSelf: "flex-end", height: "15%", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-around", position:"relative" }}>
                     <Button variant="contained" onClick={handleAdd} sx={{ mt: 2 }}>Add Line</Button>
-                    <Button variant="contained" onClick={handleAdd} sx={{ mt: 2 }}>Quick Add</Button>
+                    <Button variant="contained" onClick={handleQuickAdd} sx={{ mt: 2 }}>Quick Add</Button>
                 </Box>
             </Box>
             {/* Main Editing Section */}
