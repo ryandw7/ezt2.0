@@ -4,7 +4,7 @@ import useNewMobileActions from '../context/actions/useNewMobileActions';
 
 export default function NewMobileLine({ line }) {
     const { updateNewMobileLine, setIsEdit, updatePricing } = useNewMobileActions();
-    const { name, isEdit, id, number, isBYOD, port, deviceModel, payInFull, deviceTotalCost, deviceDiscount, deviceDiscountDesc, lineDiscount, lineDiscountDesc, dataPlan, cost } = line;
+    const { name, isEdit, id, phoneNumber, isBYOD, port, deviceModel, payInFull, deviceTotalCost, deviceDiscount, deviceDiscountDesc, lineDiscount, lineDiscountDesc, dataPlan, cost } = line;
 
     const handleChange = (e) => {
         const key = e.target.id || e.target.name;
@@ -12,7 +12,8 @@ export default function NewMobileLine({ line }) {
         if (key === 'isBYOD') {
             updateNewMobileLine(id, 'isBYOD', !isBYOD);
         } else {
-            if (key === 'deviceTotalCost' || key === 'deviceDiscount' || key === 'lineDiscount') {
+          //  if (key === 'deviceTotalCost' || key === 'deviceDiscount' || key === 'lineDiscount') {
+          if((['deviceTotalCost', 'deviceDiscount', 'lineDiscount']).includes(key)){
                 if (/^\d*(\.\d{0,2})?$/.test(value) || value === "") {
                     if (value === ""){
                         value = 0
@@ -43,11 +44,13 @@ export default function NewMobileLine({ line }) {
             {isEdit ? (
                 <Paper elevation={3} sx={{ width: "60%", maxHeight: "70vh", overflowY: "auto", p: 3 }}>
                     <Box>
+        {/*NAME | BYOD*/}
                         <TextField fullWidth id="name" label="Name" variant='outlined' value={name} onChange={handleChange} sx={{ mb: 2 }} />
                         <FormControlLabel control={<Switch checked={isBYOD} id="isBYOD" onChange={handleToggle} />} label="BYOD" />
                     </Box>
                     <Box>
-                        <TextField fullWidth id="number" label="Phone Number" variant='outlined' value={number} onChange={handleChange} sx={{ mb: 2 }} />
+        {/*PHONE NUMBER | */}
+                        <TextField fullWidth id="phoneNumber" label="Phone Number" variant='outlined' value={phoneNumber !== 0 ? phoneNumber : ''} onChange={handleChange} sx={{ mb: 2 }} />
                         <FormControlLabel control={<Switch checked={port} id="port" onChange={handleToggle} />} label="Port Number" />
                         <InputLabel id="dataPlan">Data Plan</InputLabel>
                         <Select fullWidth name="dataPlan" labelId="dataPlan" id="dataPlan" value={dataPlan} label="Data Plan" onChange={handleChange}>
@@ -59,19 +62,19 @@ export default function NewMobileLine({ line }) {
                     {!isBYOD && (
                         <Box>
                             <TextField fullWidth id="deviceModel" label="Device Model" variant='outlined' value={deviceModel} onChange={handleChange} sx={{ mb: 2 }} />
-                            <TextField fullWidth id="deviceTotalCost" label="Total Cost" variant='outlined' value={deviceTotalCost} onChange={handleChange} sx={{ mb: 2 }} />
+                            <TextField fullWidth id="deviceTotalCost" label="Total Cost" variant='outlined' value={deviceTotalCost !== 0 ? deviceTotalCost : ''} onChange={handleChange} sx={{ mb: 2 }} />
                             <FormControlLabel control={<Switch checked={payInFull} id="payInFull" onChange={handleToggle} />} label="Pay in Full" />
                             {!payInFull && (
                                 <Box>
                                     <TextField fullWidth id="deviceDiscountDesc" label="Device Discount" variant='outlined' value={deviceDiscountDesc} onChange={handleChange} sx={{ mb: 2 }} />
-                                    <TextField fullWidth id="deviceDiscount" label="Discount Amount" variant='outlined' value={deviceDiscount} onChange={handleChange} sx={{ mb: 2 }} />
+                                    <TextField fullWidth id="deviceDiscount" label="Discount Amount" variant='outlined' value={deviceDiscount !== 0 ? deviceDiscount : ''} onChange={handleChange} sx={{ mb: 2 }} />
                                 </Box>
                             )}
                         </Box>
                     )}
                     <Box>
                         <TextField id="lineDiscountDesc" label="Line Discount" variant='outlined' value={lineDiscountDesc} onChange={handleChange} sx={{ mb: 2 }} />
-                        <TextField id="lineDiscount" label="Discount Amount" variant='outlined' value={lineDiscount} onChange={handleChange} sx={{ mb: 2 }} />
+                        <TextField id="lineDiscount" label="Discount Amount" variant='outlined' value={lineDiscount !== 0 ? lineDiscount : ''} onChange={handleChange} sx={{ mb: 2 }} />
                     </Box>
                     <Button variant="contained" onClick={stopEdit} sx={{ mt: 2 }}>Done</Button>
                 </Paper>

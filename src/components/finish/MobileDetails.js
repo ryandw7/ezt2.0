@@ -19,50 +19,63 @@ export default function MobileDetails({ lines }) {
             cost: 0,
             lineDiscount: 0
         } */
+    const parsePhoneNumber = (number) => {
+        return '(' + number.slice(0,3) + ') ' + number.slice(3,6) + '-' + number.slice(6,10)
+    }
+    const RowGroup = ({ children, sx = {}}) => {
+       return ( <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between", margin: "5px auto", ...sx }}>
+            {children}
+        </Box>)
+    }
     let totalMobileCost = 0;
     return (
         <Box sx={{ width: "100%" }}>
             <List sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-around", alignContent: "center" }}>
                 {
                     lines.map((line) => {
+                        let tax = 1.80
                         let totalLineCost = line.cost - line.lineDiscount;
                         let deviceMonthly = (line.deviceTotalCost - line.deviceDiscount) / 24;
                         totalLineCost += deviceMonthly;
-                        totalMobileCost += totalLineCost;
+                        totalLineCost += tax;
+                        totalMobileCost += totalLineCost
                         return (
                             <ListItem sx={{ width: "100%" }}>
                                 <Paper sx={{ display: "flex", flexDirection: "column", justifyContent: "space-around", alignContent: "center", width: "90%" }}>
-                                    <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
-                                        <Typography>Name: {line.name || '________'}</Typography>
-                                        <Typography>{line.isBYOD ? 'BYOD' : 'New Device'}</Typography>
-                                    </Box>
-                                    {line.isBYOD &&
-                                        <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
-                                            <Typography>IMEI: {line.imei ? line.imei : '_______________'}</Typography>
-                                            {!line.newNumber && <Typography>Phone Number: {line.phoneNumber ? line.phoneNumber : '_____________'}</Typography>}
-                                        </Box>}
-                                    {!line.isBYOD && <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
-                                       <Typography>{line.deviceModel}</Typography>
-                                       <Typography>{line.deviceTotalCost.toFixed(2)}</Typography>
-                                       <Typography>${(line.deviceTotalCost / 24).toFixed(2)}</Typography> 
-                                    </Box>}
-                                    {line.deviceDiscount && <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
+                                    <RowGroup>{/*NAME | PHONE NUMBER | BYOD/NEW */}
+                                        <Typography variant="h5">Name: {line.name || '______________________'}</Typography>
+                                        {!line.newNumber && <Typography variant="h5">{line.phoneNumber ? parsePhoneNumber(line.phoneNumber) : 'Phone Number: __________________'}</Typography>}
+                                        <Typography variant="h5">{line.isBYOD ? 'BYOD' : 'New Device'}</Typography>
+                                    </RowGroup>{/*IMEI*/}
+                                    {line.isBYOD && <RowGroup>
+                                        <Typography>IMEI: {line.imei ? line.imei : '________________________________'}</Typography>
+                                    </RowGroup>}
 
+                                    {!line.isBYOD && <RowGroup>
+                                        <Typography>{line.deviceModel}</Typography>
+                                        <Typography>{line.deviceTotalCost.toFixed(2)}</Typography>
+                                        <Typography>${(line.deviceTotalCost / 24).toFixed(2)}</Typography>
+                                    </RowGroup>}
+                                    {line.deviceDiscount !== 0 && <RowGroup>
                                         <Typography>{line.deviceDiscountDesc}</Typography>
                                         <Typography>-${line.deviceDiscount.toFixed(2)}</Typography>
                                         <Typography>-${(line.deviceDiscount / 24).toFixed(2)}</Typography>
-                                        </Box>}
-                                    <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
+                                    </RowGroup>}
+                                    <RowGroup>
                                         <Typography>{line.dataPlan}</Typography>
                                         <Typography>${line.cost.toFixed(2)}</Typography>
-                                    </Box>
-                                    <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
-                                        {line.lineDiscount !== 0 && <><Typography>{line.lineDiscountDesc || 'discount'}</Typography><Typography>-${lineDiscount}</Typography></>}
-                                    </Box>
-                                    <Box sx={{ width: "90%", display: "flex", justifyContent: "space-between" }}>
+                                    </RowGroup>
+                                    {line.lineDiscount !== 0 &&<RowGroup>
+                                         <Typography>{line.lineDiscountDesc || 'discount'}</Typography><Typography>-${line.lineDiscount}</Typography>
+                                    </RowGroup>}
+                                    <RowGroup sx={{borderBottom: '3px solid white'}}>
+                                        <Typography>Tax</Typography>
+                                        <Typography>${tax.toFixed(2)}</Typography>
+                                    </RowGroup>
+                                    <RowGroup>
                                         <Typography sx={{ fontWeight: "bold" }}>Total</Typography>
                                         <Typography sx={{ fontWeight: "bold" }}>${totalLineCost.toFixed(2)}</Typography>
-                                    </Box>
+                                    </RowGroup>
                                 </Paper>
                             </ListItem>
                         )
