@@ -3,11 +3,11 @@ import { Box, Button, Typography, Paper } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
 import NewMobileLine from './NewMobileLine';
-
+import MobileLineView from '../components/finish/MobileLineView';
 export default function NewMobileLines() {
-    const { newMobileLines } = useNewMobileSelectors();
-    console.log(newMobileLines)
-    const { addMobileLine, updatePricing, quickAddMobileLine } = useNewMobileActions();
+    const { newMobileLines, getNewMobileLineCost } = useNewMobileSelectors();
+
+    const { addMobileLine, quickAddMobileLine, updateNewMobileLine } = useNewMobileActions();
 
     const handleAdd = () => {
         addMobileLine();
@@ -17,6 +17,17 @@ export default function NewMobileLines() {
         quickAddMobileLine();
     }
 
+    const handleUpdate = (id) => (key, value) => {
+        updateNewMobileLine(id, key, value)
+    }
+
+    const handleStartEdit = (id) => {
+        updateNewMobileLine(id, 'isEdit', true)
+    }
+
+    const handleStopEdit = (id) => {
+        updateNewMobileLine(id, 'isEdit', false)
+    }
     // Get the line that is currently being edited
     const editingLine = newMobileLines.find(line => line.isEdit) || null;
 
@@ -28,24 +39,22 @@ export default function NewMobileLines() {
         }
 
     }
-    useEffect(() => {
-        updatePricing();
-    }, [])
+
     return (
-        <Box sx={{ height: "80vh", width: "100vw", display: "flex", flexDirection: "row", gap: 2, alignItems: "center", justifyContent: "space-around", flexWrap:"nowrap", m:"0"}}>
+        <Box sx={{ height: "80vh", width: "100vw", display: "flex", flexDirection: "row", gap: 2, alignItems: "center", justifyContent: "space-around", flexWrap: "nowrap", m: "0" }}>
             {/* Scrollable List of Non-Edit Lines */}
             <Box sx={{ width: () => handleResize(), height: "80%", p: 2, transition: 'width 0.3s ease-in-out' }}>
-            <Paper elevation={3} sx={{height:"100%", width:"100%", overflowY:"auto"}}>
-                <Typography variant="h6" sx={{ mb: 1 }}>Lines</Typography>
-                {newMobileLines
-                    .filter(line => !line.isEdit) // Exclude the currently edited line
-                    .map((item) => (
-                        <NewMobileLine key={item.id} line={item} />
-                    ))
-                }
-                
-            </Paper>
-            <Box sx={{m:"0", justifySelf: "flex-end", alignSelf: "flex-end", height: "15%", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-around", position:"relative" }}>
+                <Paper elevation={3} sx={{ height: "100%", width: "100%", overflowY: "auto" }}>
+                    <Typography variant="h6" sx={{ mb: 1 }}>Lines</Typography>
+                    {newMobileLines
+                        .filter(line => !line.isEdit) // Exclude the currently edited line
+                        .map((item) => (
+                            <MobileLineView key={item.id} line={item} handleStartEdit={()=>handleStartEdit(item.id)} lineCost={getNewMobileLineCost(item.id)} />
+                        ))
+                    }
+
+                </Paper>
+                <Box sx={{ m: "0", justifySelf: "flex-end", alignSelf: "flex-end", height: "15%", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-around", position: "relative" }}>
                     <Button variant="contained" onClick={handleAdd} sx={{ mt: 2 }}>Add Line</Button>
                     <Button variant="contained" onClick={handleQuickAdd} sx={{ mt: 2 }}>Quick Add</Button>
                 </Box>
@@ -54,7 +63,7 @@ export default function NewMobileLines() {
 
             {editingLine && (
                 <Box sx={{ width: "60%", height: "80%", p: 2 }}>
-                    <NewMobileLine key={editingLine.id} line={editingLine} isEditing={true} />
+                    <NewMobileLine key={editingLine.id} line={editingLine} handleUpdate={handleUpdate(editingLine.id)} lineCost={getNewMobileLineCost(editingLine.id)} />
                 </Box>
             )}
 

@@ -1,11 +1,11 @@
-import { createInitialState, lineObj } from "../stateTools.js";
+import { createInitialState, lineObj, updateDataFlags } from "../stateTools.js";
 console.log(createInitialState)
 
 
 const initialState = createInitialState().newMobile;
 
 const newMobileReducer = (state = initialState, action) => {
-    
+    console.log(state)
     switch (action.type) {
         case 'QUICK_ADD_LINE': {
             const newLine = lineObj();
@@ -21,8 +21,8 @@ const newMobileReducer = (state = initialState, action) => {
                     return line
                 }
             })
-
-            return { ...state, lines: [...newLinesArr, newLine] }
+            const { hasBTG, hasUnlimited } = updateDataFlags(newLinesArr);
+            return { ...state, hasBTG, hasUnlimited, lines: [...newLinesArr, newLine] }
         }
         case 'ADD_LINE': {
             const newLine = lineObj();
@@ -38,30 +38,49 @@ const newMobileReducer = (state = initialState, action) => {
                     return line
                 }
             })
-
-            return { ...state, lines: [...newLinesArr, newLine] }
+            const { hasBTG, hasUnlimited } = updateDataFlags(newLinesArr);
+            return { ...state, hasBTG, hasUnlimited, lines: [...newLinesArr, newLine] }
         }
         case 'REMOVE_LINE': {
             const filteredLines = state.lines.filter((line) => line.id !== action.payload);
-            return { ...state, lines: filteredLines }
+            const { hasBTG, hasUnlimited } = updateDataFlags(filteredLines);
+
+            return { ...state, hasBTG, hasUnlimited, lines: filteredLines }
         }
         case 'UPDATE_LINE': {
             const { id, key, value } = action.payload;
+
+            let dataFlag = false;
+
             const updatedLines = state.lines.map((line) => {
                 if (line.id === id) {
+                    if(key === 'dataPlan'){
+                        dataFlag = true;
+                    }
                     return {
                         ...line,
                         [key]: value
+                    }
+                } else if (key === 'isEdit' && value === true) {
+                    return {
+                        ...line,
+                        isEdit: false
                     }
                 } else {
                     return line
                 }
             })
-            return { ...state, lines: updatedLines }
+            if (!dataFlag) {
+                return { ...state, lines: updatedLines }
+            }
+
+            const { hasBTG, hasUnlimited } = updateDataFlags(updatedLines);
+            return { ...state, lines: updatedLines, hasBTG, hasUnlimited }
         }
+
         case 'SET_NEW_EDIT': {
             const id = action.payload;
-           
+
             const newLinesArr = state.lines.map((line) => {
                 if (line.id !== id) {
                     console.log(line.id, id)
@@ -113,7 +132,7 @@ const newMobileReducer = (state = initialState, action) => {
                     }
                 }
             });
-           
+
             return { ...state, lines: updatedLines, hasUnlimited: hasUnlimited, hasBTG: hasBTG }
         }
         default: {
@@ -121,6 +140,7 @@ const newMobileReducer = (state = initialState, action) => {
         }
 
     };
+    
 };
 
 export default newMobileReducer;

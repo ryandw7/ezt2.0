@@ -49,3 +49,10 @@ export const createInitialState = () => ({
         contact: ''
     }
 })
+
+export const updateDataFlags = (lines) => {
+    const hasUnlimited = lines.some(line => line.plan === "Unlimited");
+    const hasBTG = lines.some(line => line.plan === "BTG");
+
+    return { hasUnlimited, hasBTG };
+}
