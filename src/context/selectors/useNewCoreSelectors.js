@@ -7,7 +7,7 @@ export const getNewTvCost = (state) => state.newCore?.tvCost || '';
 export const getNewMobile = (state) => state.newCore?.mobile || '';
 export const getNewMobileCost = (state) => state.newCore?.mobileCost || '';
 export const getNewCoreNotes = (state) => state.newCore?.notes || '';
-
+export const getNewCore = (state) => state.newCore
 const useNewCoreSelectors = () => {
     const { state } = useAppContext();
     if (!state) {
@@ -19,8 +19,9 @@ const useNewCoreSelectors = () => {
     const newTv = getNewTv(state) || '';
     const newTvCost = getNewTvCost(state) || '';
     const newCoreNotes = getNewCoreNotes(state) || '';
+    const newCore = getNewCore(state) || {};
 
-    return { newInternet, newInternetCost, newTv, newTvCost, newCoreNotes }
+    return { newCore, newInternet, newInternetCost, newTv, newTvCost, newCoreNotes }
 }
 
 export default useNewCoreSelectors;

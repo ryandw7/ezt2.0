@@ -27,7 +27,6 @@ export const createInitialState = () => ({
         mobile: '',
         mobileCost: 0,
         notes: ''
-
     },
     newCore: {
         internet: '',
@@ -51,8 +50,10 @@ export const createInitialState = () => ({
 })
 
 export const updateDataFlags = (lines) => {
-    const hasUnlimited = lines.some(line => line.plan === "Unlimited");
-    const hasBTG = lines.some(line => line.plan === "BTG");
-
+    console.log(lines)
+    
+    const hasUnlimited = lines.some(line => line.dataPlan === "Unlimited");
+    const hasBTG = lines.some(line => line.dataPlan === "BTG");
+    console.log(`hasUnlimited: ${hasUnlimited}\nhasBTG: ${hasBTG}`)
     return { hasUnlimited, hasBTG };
 }

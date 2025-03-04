@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { Box, Button, Typography, Paper } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
-import NewMobileLine from './NewMobileLine';
-import MobileLineView from '../components/finish/MobileLineView';
+import NewMobileLine from '../components/mobile/MobileLineForm';
+import MobileLineView from '../components/mobile/MobileLineView';
+
 export default function NewMobileLines() {
+
     const { newMobileLines, getNewMobileLineCost } = useNewMobileSelectors();
 
     const { addMobileLine, quickAddMobileLine, updateNewMobileLine } = useNewMobileActions();

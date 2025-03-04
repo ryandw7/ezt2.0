@@ -1,11 +1,9 @@
 import { createInitialState, lineObj, updateDataFlags } from "../stateTools.js";
-console.log(createInitialState)
-
 
 const initialState = createInitialState().newMobile;
 
 const newMobileReducer = (state = initialState, action) => {
-    console.log(state)
+   
     switch (action.type) {
         case 'QUICK_ADD_LINE': {
             const newLine = lineObj();
@@ -21,7 +19,7 @@ const newMobileReducer = (state = initialState, action) => {
                     return line
                 }
             })
-            const { hasBTG, hasUnlimited } = updateDataFlags(newLinesArr);
+            const { hasBTG, hasUnlimited } = updateDataFlags([...newLinesArr, newLine]);
             return { ...state, hasBTG, hasUnlimited, lines: [...newLinesArr, newLine] }
         }
         case 'ADD_LINE': {

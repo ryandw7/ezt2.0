@@ -4,6 +4,9 @@ import useAppContext from "../context.js";
 const useCurrentActions = () => {
     const { state, dispatch } = useAppContext();
 
+    const updateCurrent = (key, value) => {
+        dispatch({type: 'UPDATE_CURRENT', payload: {key, value}})
+    }
     const updateCurrentInternet = (updatedInternet) => {
 
         dispatch({type: 'UPDATE_CURRENT_INTERNET', payload: updatedInternet});
@@ -39,7 +42,7 @@ const useCurrentActions = () => {
     const updateCurrentNotes = (updatedNotes) => {
         dispatch({type: 'UPDATE_CURRENT_NOTES', payload: updatedNotes})
     }
-    return { updateCurrentInternet, updateCurrentInternetCost, updateCurrentTv, updateCurrentTvCost, updateCurrentMobile, updateCurrentMobileCost, updateCurrentNotes }
+    return { updateCurrent, updateCurrentInternet, updateCurrentInternetCost, updateCurrentTv, updateCurrentTvCost, updateCurrentMobile, updateCurrentMobileCost, updateCurrentNotes }
 }
 
 export default useCurrentActions;

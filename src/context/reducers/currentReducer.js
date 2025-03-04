@@ -15,6 +15,12 @@ const currentReducer = (state = initialState, action) => {
     console.log(state)
     console.log('DISPATCHING ' + action.type)
     switch(action.type){
+        case 'UPDATE_CURRENT':{
+            
+            const { key, value } = action.payload;
+
+            return {...state, [key]:value}
+        }
         case 'UPDATE_CURRENT_INTERNET':
             return {...state, internet: action.payload}
         case 'UPDATE_CURRENT_INTERNET_COST':
