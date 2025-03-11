@@ -9,8 +9,9 @@ const getNewMobileLineCostById = (state) => (id) => {
 
     switch (line.dataPlan) {
         case 'Unlimited': {
-            
-            if(hasUnlimited && state.newMobile?.lines.length > 1){
+            if(line.id === 0){
+                cost = 40
+        }else if(hasUnlimited && state.newMobile?.lines.length > 1){
                 cost = 20;
             }else{
                 cost = 40;
@@ -37,8 +38,12 @@ const getNewMobileLineCostById = (state) => (id) => {
     }
 }
 const useNewMobileSelectors = () => {
+
     const { state } = useAppContext();
-    const getNewMobileLineCost = getNewMobileLineCostById(state)
+
+    const getNewMobileLineCost = getNewMobileLineCostById(state);
+   // const getNewMobileLineDiscount = getNewMobileLineDiscountById(state);
+    
     const newMobileLines = getNewMobileLines(state);
 
     return { newMobileLines, getNewMobileLineCost }

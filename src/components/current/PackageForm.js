@@ -2,20 +2,17 @@ import React from 'react';
 import {Box, TextField} from '@mui/material';
 
 export default function PackageForm({handleChange, formValues, hasMobile}) {
-   const {
-        internet,
-        internetCost,
-        tv,
-        tvCost,
-        notes
-    } = formValues
+
+   const {internet,internetCost,tv,tvCost,notes} = formValues
 
     let mobile;
     let mobileCost;
+
     if(hasMobile){
         mobile = formValues.mobile || '';
         mobileCost = formValues.mobileCost || ''; 
     }
+
     return (
         <Box sx={{ display: 'flex', width: "100%", flexDirection: "column", height: "80vh", justifyContent: "space-around" }}>
             <Box>

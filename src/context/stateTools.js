@@ -11,7 +11,6 @@ export const lineObj = () => ({
     deviceTotalCost: 0,
     deviceDiscountDesc: '',
     deviceDiscount: 0,
-    //deviceMonthly: (deviceTotalCost - deviceDiscount /24).toFixed(2) || 0,
     payInFull: false,
     cost: 0,
     lineDiscount: 0
