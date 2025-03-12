@@ -59,7 +59,7 @@ export default function PageWrapper() {
     }, [value])
     return (
         <Box sx={{ alignItems: "center", justifyItems: "center" }}>
-            <Box sx={{ width: "600px" }}>
+            <Box className="print-hidden"  sx={{ width: "600px" }}>
                 <Tabs value={value} onChange={handleChange}>
                     <Tab label="Previous" value="/" />
                     <Tab label="New Core" value="/core" />
@@ -69,7 +69,7 @@ export default function PageWrapper() {
             </Box>
             {<Outlet />}
             <Box sx={{width: "80%", display:"flex", justifyContent:"space-around"}}>
-                <Button  disabled={isCurrent()} onClick={()=>setValue(back())}>Back</Button>
+                <Button  className="print-hidden" disabled={isCurrent()} onClick={()=>setValue(back())}>Back</Button>
                 {value !== "/finish" && <Button onClick={()=>setValue(next())}>Next</Button>}
             </Box>
         </Box>
