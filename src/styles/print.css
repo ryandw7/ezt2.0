@@ -15,4 +15,55 @@
     .page-break {
         page-break-before: always;
     }
-}
+
+}  
+
+.banner {
+    color: red
+  }
+
+  .paper {
+    min-width: 210mm;
+    min-height: 270mm;
+    max-width: 210mm;
+    max-height: 270mm;
+    margin: 10px auto;
+    border: 3px solid black;
+    box-sizing: border-box;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+    grid-template-areas: 
+    "current-view current-view"
+    "new-core-view new-mobile-view"
+    "new-core-view new-mobile-view"  
+     "additional-view additional-view";
+  }
+
+  .current-view {
+    border: 3px solid black;
+    grid-area: current-view;
+    margin: 10px;
+  }
+
+ .new-core-view {
+    border: 3px solid black;
+    grid-area: new-core-view;
+    margin: 10px;
+  }
+
+  .new-mobile-view {
+    border: 3px solid black;
+    grid-area: new-mobile-view;
+    margin: 10px;
+  }
+
+.additional-view {
+    border: 3px solid black;
+    grid-area: additional-view;
+    margin: 10px;
+  }
