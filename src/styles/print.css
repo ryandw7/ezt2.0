@@ -18,10 +18,6 @@
 
 }  
 
-.banner {
-    color: red
-  }
-
   .paper {
     min-width: 210mm;
     min-height: 270mm;
@@ -38,22 +34,23 @@
     column-gap: 10px;
     row-gap: 10px;
     grid-template-areas: 
-    "current-view current-view"
-    "new-core-view new-mobile-view"
-    "new-core-view new-mobile-view"  
+    "current-view new-view"
+    "current-view new-view"
+    "current-view new-view"  
      "additional-view additional-view";
   }
 
   .current-view {
-    border: 3px solid black;
     grid-area: current-view;
     margin: 10px;
+    padding: 0px;
   }
 
- .new-core-view {
-    border: 3px solid black;
-    grid-area: new-core-view;
+ .new-view {
+  
+    grid-area: new-view;
     margin: 10px;
+    padding: 0px;
   }
 
   .new-mobile-view {
@@ -63,7 +60,7 @@
   }
 
 .additional-view {
-    border: 3px solid black;
     grid-area: additional-view;
     margin: 10px;
+    padding: 10px;
   }
