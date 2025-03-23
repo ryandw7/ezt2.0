@@ -100,9 +100,9 @@ export const parse_mobile_cost = (mobileLines) => {
 
     
     let deviceMonthly = (deviceTotalCosts - deviceDiscounts) / 24;
-    let mobileTotal = (unlimitedQuantity * 20) + (unlimitedPlusQuantity * 10) + deviceMonthly + taxes + 20
+    let mobileTotal = (unlimitedQuantity * 20) + (unlimitedPlusQuantity * 10) + deviceMonthly + taxes + 20;
     lineDiscounts.forEach(i => mobileTotal -= i);
-
+    console.log(mobileTotal)
     return {
         taxes: taxes,
         unlimitedLines: { cost: (unlimitedQuantity * 20) + 20, quantity: unlimitedQuantity },

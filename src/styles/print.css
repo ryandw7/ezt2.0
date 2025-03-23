@@ -54,7 +54,7 @@
   }
 
   .new-mobile-view {
-    border: 3px solid black;
+
     grid-area: new-mobile-view;
     margin: 10px;
   }

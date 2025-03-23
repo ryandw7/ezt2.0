@@ -9,13 +9,15 @@ import useNewCoreSelectors from '../context/selectors/useNewCoreSelectors';
 import useCurrentSelectors from '../context/selectors/useCurrentSelectors';
 const PrintOut = React.forwardRef((props, ref) => {
 
+  const { newMobileLines } = useNewMobileSelectors();
+
   const { newCore } = useNewCoreSelectors();
   const {current} = useCurrentSelectors();
   console.log(parse_mobile_cost(test_lines))
   return (
     <div ref={ref} className="paper">
       <CurrentView currentServices={current}/>
-      <NewView newCore={newCore} mobileCost={parse_mobile_cost(test_lines)}/>
+      <NewView newCore={newCore} mobileCost={parse_mobile_cost(newMobileLines)}/>
       <AdditionalView/>
     </div>
   )
