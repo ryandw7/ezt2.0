@@ -15,7 +15,7 @@ const PrintOut = React.forwardRef((props, ref) => {
   return (
     <div ref={ref} className="paper">
       <CurrentView currentServices={current}/>
-      <NewView newCore={newCore} />
+      <NewView newCore={newCore} mobileCost={parse_mobile_cost(test_lines)}/>
       <AdditionalView/>
     </div>
   )

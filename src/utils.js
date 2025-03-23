@@ -114,6 +114,6 @@ export const parse_mobile_cost = (mobileLines) => {
         mobileTotal: mobileTotal.toFixed(2),
         lineDiscounts: lineDiscounts
 
-    }
+            }
 }
 
