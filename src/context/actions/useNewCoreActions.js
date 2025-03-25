@@ -15,7 +15,7 @@ const useNewCoreActions = () => {
 
     const updateNewInternetCost = (updatedInternetCost) => {
 
-        dispatch({type: 'UPDATE_NEW_INTERNET_COST', payload: updatedInternetCost});
+        dispatch({type: 'UPDATE_NEW_INTERNET_COST', payload: Number(updatedInternetCost)});
 
     }
 
@@ -27,7 +27,7 @@ const useNewCoreActions = () => {
 
     const updateNewTvCost = (updatedTvCost) => {
 
-        dispatch({type: 'UPDATE_NEW_TV_COST', payload: updatedTvCost});
+        dispatch({type: 'UPDATE_NEW_TV_COST', payload: Number(updatedTvCost)});
 
     }
 

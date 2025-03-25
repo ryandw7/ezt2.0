@@ -15,7 +15,7 @@ export default function CurrentForm() {
         const key = id;
         if (key.includes('Cost')) {
             if (/^\d*(\.\d{0,2})?$/.test(value) || value === "") {
-                updateCurrent(key, value)
+                updateCurrent(key, Number(value))
             }
             return;
         }

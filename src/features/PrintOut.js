@@ -12,13 +12,19 @@ const PrintOut = React.forwardRef((props, ref) => {
   const { newMobileLines } = useNewMobileSelectors();
 
   const { newCore } = useNewCoreSelectors();
-  const {current} = useCurrentSelectors();
-  console.log(parse_mobile_cost(test_lines))
+  const {current, currentTotal} = useCurrentSelectors();
+
+  const mobileCost = parse_mobile_cost(newMobileLines);
+  const mobileTotalCost = mobileCost.mobileTotal;
+
+  const newCoreTotal = newCore.internetCost + newCore.tvCost;
+  
   return (
     <div ref={ref} className="paper">
-      <CurrentView currentServices={current}/>
-      <NewView newCore={newCore} mobileCost={parse_mobile_cost(newMobileLines)}/>
+      <CurrentView currentServices={current} total={currentTotal}/>
+      <NewView newCore={newCore} newCoreTotal={newCoreTotal} mobileCost={mobileCost} mobileTotal={mobileTotalCost}/>
       <AdditionalView/>
+      
     </div>
   )
 })

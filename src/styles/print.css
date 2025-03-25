@@ -24,7 +24,6 @@
     max-width: 210mm;
     max-height: 270mm;
     margin: 10px auto;
-    border: 3px solid black;
     box-sizing: border-box;
     display: grid;
     align-content: center;
@@ -37,7 +36,7 @@
     "current-view new-view"
     "current-view new-view"
     "current-view new-view"  
-     "additional-view additional-view";
+     "additional-view additional-view"
   }
 
   .current-view {
@@ -61,6 +60,13 @@
 
 .additional-view {
     grid-area: additional-view;
+    display: grid;
     margin: 10px;
     padding: 10px;
   }
+
+#disclaimer {
+  position: relative;
+  bottom: 2%;
+}
+

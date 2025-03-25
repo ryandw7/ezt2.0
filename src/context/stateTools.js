@@ -33,6 +33,7 @@ export const createInitialState = () => ({
         tv: '',
         tvCost: 0,
         notes: ''
+        
     },
     newMobile: {
         lines: [lineObj()],

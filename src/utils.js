@@ -98,15 +98,16 @@ export const parse_mobile_cost = (mobileLines) => {
         mobileLines[i].lineDiscount !== 0 && lineDiscounts.push(mobileLines[i].lineDiscount);
     };
 
-    
+    let unlimitedCost = unlimitedQuantity !== 0 ? (unlimitedQuantity * 20) + 20 : 0;
+    let unlimitedPlusCost = unlimitedQuantity !== 0 ? unlimitedPlusQuantity * 30 : (unlimitedPlusQuantity * 30) + 20;
     let deviceMonthly = (deviceTotalCosts - deviceDiscounts) / 24;
-    let mobileTotal = (unlimitedQuantity * 20) + (unlimitedPlusQuantity * 10) + deviceMonthly + taxes + 20;
+    let mobileTotal = unlimitedCost + unlimitedPlusCost + deviceMonthly + taxes;
     lineDiscounts.forEach(i => mobileTotal -= i);
     console.log(mobileTotal)
     return {
         taxes: taxes,
-        unlimitedLines: { cost: (unlimitedQuantity * 20) + 20, quantity: unlimitedQuantity },
-        unlimitedPlus: { cost: unlimitedPlusQuantity * 10, quantity: unlimitedPlusQuantity },
+        unlimitedLines: { cost: unlimitedCost, quantity: unlimitedQuantity},
+        unlimitedPlus: { cost: unlimitedPlusCost, quantity: unlimitedPlusQuantity },
         watches: { cost: 0, quantity: watchesQuantity },
         tablets: { cost: 0, quantity: tabletsQuantity },
         deviceMonthly: deviceMonthly.toFixed(2),

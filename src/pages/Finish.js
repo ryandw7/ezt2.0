@@ -29,13 +29,6 @@ export default function Finish() {
     const { newMobileLines } = useNewMobileSelectors();
     return (
         <Box sx={{width:"90%"}}>
-            <FormGroup className='print-hidden'>
-                <FormControlLabel control={<Checkbox />} label="Mobile Form" />
-                <FormControlLabel control={<Checkbox />} label="Prices" />
-                <FormControlLabel control={<Checkbox />} label="Include Current" />
-                <FormControlLabel control={<Checkbox />} label="Include Core" />
-            </FormGroup>
-
             <Button onClick={printFn}>Print</Button>
             <PrintOut ref={componentRef}/>
         </Box>
