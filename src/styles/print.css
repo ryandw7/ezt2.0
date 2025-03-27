@@ -12,12 +12,17 @@
         display: none !important;
     }
 
+    
     .page-break {
         page-break-before: always;
     }
 
 }  
-
+.savings-print {
+  position: absolute;
+  color: red;
+  top: 100%;
+}
   .paper {
     min-width: 210mm;
     min-height: 270mm;
@@ -31,11 +36,11 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     column-gap: 10px;
-    row-gap: 10px;
+    row-gap: 70px;
     grid-template-areas: 
     "current-view new-view"
     "current-view new-view"
-    "current-view new-view"  
+    "current-view new-view"
      "additional-view additional-view"
   }
 
@@ -45,6 +50,12 @@
     padding: 0px;
   }
 
+  .savings {
+    position: absolute;
+    width: 210mm;
+    text-align: center;
+    top: calc(230mm - 90px);
+  }
  .new-view {
   
     grid-area: new-view;
@@ -65,8 +76,11 @@
     padding: 10px;
   }
 
-#disclaimer {
-  position: relative;
-  bottom: 2%;
+.disclaimer {
+  position: absolute;
+  width:100%;
+  height:fit-content;
+  bottom: 2px;
+  text-align: center;
 }
 

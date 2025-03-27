@@ -7,7 +7,6 @@ export default function NewCore() {
     console.log(state)
     return (
         <Box>
-            <Typography variant='h2'>New Core</Typography>
             <NewCoreForm />
         </Box>
     )
