@@ -37,8 +37,8 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
         handleUpdate(key, !line[key]);
     };
 
-    return (
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", p: 2 }}>
+    return (         
+                      
 
             <Paper elevation={3} sx={{ width: "60%", maxHeight: "70vh", overflowY: "auto", p: 3 }}>
                 <Box>
@@ -77,6 +77,5 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
                 <Button variant="contained" onClick={handleStopEdit} sx={{ mt: 2 }}>Done</Button>
             </Paper>
 
-        </Box>
     );
 }

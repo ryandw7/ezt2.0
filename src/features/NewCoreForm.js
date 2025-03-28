@@ -13,6 +13,7 @@ export default function CurrentForm() {
 
         const { id, value } = e.target;
         const key = id;
+        
         if (key.includes('Cost')) {
             if (/^\d*(\.\d{0,2})?$/.test(value) || value === "") {
                 updateNewCore(key, Number(value))

@@ -13,7 +13,12 @@ const useNewMobileActions = () => {
     const addMobileLine = () => {
         dispatch({type: 'ADD_LINE'})
     }
-
+    const addTablet = () => {
+        dispatch({type: 'ADD_TABLET'})
+    }
+    const addWatch = () => {
+        dispatch({type: 'ADD_WATCH'})
+    }
     const removeMobileLine = (id) => {
         dispatch({type: 'REMOVE_LINE', payload: id})
     }
@@ -28,7 +33,7 @@ const useNewMobileActions = () => {
     const updatePricing = () => {
         dispatch({type: 'UPDATE_PRICING'})
     }
-    return {addMobileLine, removeMobileLine, setIsEdit, updateNewMobileLine, updatePricing, quickAddMobileLine}
+    return {addMobileLine, addTablet, addWatch, removeMobileLine, setIsEdit, updateNewMobileLine, updatePricing, quickAddMobileLine}
 };
 
 export default useNewMobileActions;

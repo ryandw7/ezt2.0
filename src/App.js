@@ -4,19 +4,20 @@ import PageWrapper from './pages/PageWrapper';
 import Current from "./pages/Current";
 import NewCore from "./pages/NewCore";
 import NewMobile from "./pages/NewMobile";
-import Finish from "./pages/Finish"
+import Additional from "./pages/Additional";
+import Finish from "./pages/Finish";
+
 export default function App() {
 
     return (
-        <>
-            <Routes>
-                <Route element={<PageWrapper />}>
-                    <Route path="/" element={<Current next={"/core"}/>} />
-                    <Route path="/core" element={<NewCore />} />
-                    <Route path="/mobile" element={<NewMobile />} />
-                    <Route path="/finish" element={<Finish />} />
-                </Route>
-            </Routes>
-        </>
+        <Routes>
+            <Route element={<PageWrapper />}>
+                <Route path="/" element={<Current next={"/core"} />} />
+                <Route path="/core" element={<NewCore />} />
+                <Route path="/mobile" element={<NewMobile />} />
+                <Route path="/additional" element={<Additional />} />
+                <Route path="/finish" element={<Finish />} />
+            </Route>
+        </Routes>
     )
 }

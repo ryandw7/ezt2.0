@@ -13,7 +13,8 @@ export const lineObj = () => ({
     deviceDiscount: 0,
     payInFull: false,
     cost: 0,
-    lineDiscount: 0
+    lineDiscount: 0,
+    xmc: 0,
 });
 
 export const createInitialState = () => ({
@@ -33,7 +34,7 @@ export const createInitialState = () => ({
         tv: '',
         tvCost: 0,
         notes: ''
-        
+
     },
     newMobile: {
         lines: [lineObj()],
@@ -43,15 +44,16 @@ export const createInitialState = () => ({
         total: 0
 
     },
-    rep: {
-        name: '',
-        contact: ''
+    additional: {
+        rep: '',
+        contact: '',
+        additionalNotes: ''
     }
 })
 
 export const updateDataFlags = (lines) => {
     console.log(lines)
-    
+
     const hasUnlimited = lines.some(line => line.dataPlan === "Unlimited");
     const hasBTG = lines.some(line => line.dataPlan === "BTG");
     console.log(`hasUnlimited: ${hasUnlimited}\nhasBTG: ${hasBTG}`)

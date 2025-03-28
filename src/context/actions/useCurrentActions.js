@@ -2,7 +2,7 @@ import useAppContext from "../context.js";
 
 
 const useCurrentActions = () => {
-    const { state, dispatch } = useAppContext();
+    const { dispatch } = useAppContext();
 
     const updateCurrent = (key, value) => {
         dispatch({type: 'UPDATE_CURRENT', payload: {key, value}})

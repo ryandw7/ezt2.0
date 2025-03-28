@@ -35,6 +35,14 @@ const getNewMobileLineCostById = (state) => (id) => {
             }
             return cost;
         }
+        case 'Tablet': {
+            cost = 20;
+            return cost;
+        }
+        case 'Watch': {
+            cost = 10;
+            return cost;
+        }
     }
 }
 const useNewMobileSelectors = () => {

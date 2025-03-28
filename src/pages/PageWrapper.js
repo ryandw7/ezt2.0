@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Tab, Tabs, Box, Button } from "@mui/material";
+import { Tab, Tabs, Box, Button, Typography } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 export default function PageWrapper() {
 
@@ -24,8 +24,11 @@ export default function PageWrapper() {
             case '/mobile': {
                 return "/core"
             }
+            case '/additional': {
+                return '/mobile'
+            }
             case '/finish': {
-                return "/mobile"
+                return "/additional"
             }
             default: {
                 return null;
@@ -43,6 +46,9 @@ export default function PageWrapper() {
                 return "/mobile"
             }
             case '/mobile': {
+                return "/additional"
+            }
+            case '/additional': {
                 return "/finish"
             }
             default: {
@@ -64,6 +70,7 @@ export default function PageWrapper() {
     return (
         <Box sx={{ alignItems: "center", justifyItems: "center" }}>
             <Box className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0 }}>
+                <Typography variant="h3" sx={{position:"absolute", height:"fit-content", m:"7px"}}>EZ-T</Typography>
                 <Tabs centered sx={{
                     '.MuiTabs-indicator': {
                         height: '3px',
@@ -73,11 +80,12 @@ export default function PageWrapper() {
                     <Tab label="Previous" value="/" />
                     <Tab label="New Core" value="/core" />
                     <Tab label="New Mobile" value="/mobile" />
+                    <Tab label="Additional" value="/additional" />
                     <Tab label="Finish" value="/finish" />
                 </Tabs>
             </Box>
             {<Outlet />}
-            <Box sx={{ width: "80%", display: "flex", justifyContent: "space-around" }}>
+            <Box sx={{ width: "80%", display: "flex", justifyContent: "space-around", margin:"20px auto" }}>
                 <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())}>Back</Button>
                 {value !== "/finish" && <Button onClick={() => setValue(next())}>Next</Button>}
             </Box>

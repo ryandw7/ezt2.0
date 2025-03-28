@@ -1,6 +1,7 @@
 import currentReducer from './currentReducer.js';
 import newMobileReducer from './newMobileReducer.js';
-import newCoreReducer from './newCoreReducer.js'
+import newCoreReducer from './newCoreReducer.js';
+import additionalReducer from './additionalReducer.js';
 
 const combineReducers = (reducers) => (state, action) => {
     return Object.keys(reducers).reduce((acc, key) => {
@@ -10,9 +11,10 @@ const combineReducers = (reducers) => (state, action) => {
 };
 
 const reducers = {
-currentServices: currentReducer,
-newMobile: newMobileReducer,
-newCore: newCoreReducer
+    currentServices: currentReducer,
+    newMobile: newMobileReducer,
+    newCore: newCoreReducer,
+    additional: additionalReducer
 }
 
 const rootReducer = combineReducers(reducers);

@@ -66,7 +66,7 @@ export const parse_mobile_cost = (mobileLines) => {
 
     const len = mobileLines.length;
 
-    let taxes = 1.8 * len
+    let taxes = 1.8 * len;
     let unlimitedQuantity = 0;
     let unlimitedPlusQuantity = 0;
     let watchesQuantity = 0;
@@ -75,10 +75,12 @@ export const parse_mobile_cost = (mobileLines) => {
     let deviceTotalCosts = 0;
     let deviceDiscounts = 0;
     let lineDiscounts = [];
-
+    let xmcTotal = 0;
     for (let i = 0; i < len; i++) {
         deviceTotalCosts += mobileLines[i].deviceTotalCost;
         deviceDiscounts += mobileLines[i].deviceDiscount;
+        xmcTotal += mobileLines[i].xmc;
+
         console.log(mobileLines[i])
         switch (mobileLines[i].dataPlan) {
             case 'Unlimited':
@@ -100,19 +102,22 @@ export const parse_mobile_cost = (mobileLines) => {
 
     let unlimitedCost = unlimitedQuantity !== 0 ? (unlimitedQuantity * 20) + 20 : 0;
     let unlimitedPlusCost = unlimitedQuantity !== 0 ? unlimitedPlusQuantity * 30 : (unlimitedPlusQuantity * 30) + 20;
+    let tabletsCost = tabletsQuantity * 20;
+    let watchesCost = watchesQuantity * 10;
     let deviceMonthly = (deviceTotalCosts - deviceDiscounts) / 24;
-    let mobileTotal = unlimitedCost + unlimitedPlusCost + deviceMonthly + taxes;
+    let mobileTotal = unlimitedCost + unlimitedPlusCost + tabletsCost + watchesCost + deviceMonthly + xmcTotal + taxes;
     lineDiscounts.forEach(i => mobileTotal -= i);
     console.log(mobileTotal)
     return {
         taxes: taxes,
         unlimitedLines: { cost: unlimitedCost, quantity: unlimitedQuantity},
         unlimitedPlus: { cost: unlimitedPlusCost, quantity: unlimitedPlusQuantity },
-        watches: { cost: 0, quantity: watchesQuantity },
-        tablets: { cost: 0, quantity: tabletsQuantity },
+        watches: { cost: watchesCost, quantity: watchesQuantity },
+        tablets: { cost: tabletsCost, quantity: tabletsQuantity },
         deviceMonthly: deviceMonthly.toFixed(2),
         lineQuantity: lineQuantity,
         mobileTotal: mobileTotal.toFixed(2),
+        xmcTotal:xmcTotal,
         lineDiscounts: lineDiscounts
 
             }
