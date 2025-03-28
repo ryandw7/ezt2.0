@@ -17,7 +17,7 @@ const NewView = ({ newCore, mobileCost, newCoreTotal, newTotal }) => {
                         </RowBox>
                         <RowBox>
                             <Typography>{internet}</Typography>
-                            <Typography>${internetCost.toFixed(2)}</Typography>
+                            <Typography>${internetCost.toFixed(2)} est.</Typography>
                         </RowBox>
                     </Box>
                 </>
@@ -30,7 +30,7 @@ const NewView = ({ newCore, mobileCost, newCoreTotal, newTotal }) => {
                         </RowBox>
                         <RowBox>
                             <Typography>{tv}</Typography>
-                            <Typography>${tvCost.toFixed(2)}</Typography>
+                            <Typography>${tvCost.toFixed(2)} est.</Typography>
                         </RowBox>
                     </Box>
                 </> : null}
