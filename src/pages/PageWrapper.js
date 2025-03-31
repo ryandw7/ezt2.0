@@ -75,7 +75,7 @@ export default function PageWrapper() {
                     '.MuiTabs-indicator': {
                         height: '3px',
                         backgroundColor: theme.palette.primary.light,
-                    }, display: "flex", flexDirection: "row", justifyContent: "center", width: "100%", m: "0px auto", borderBottom: `1px solid ${theme.palette.secondary.light}`, boxShadow:{theme},padding: 0
+                    }, display: "flex", flexDirection: "row", justifyContent: "center", width: "100%", m: "0px auto", boxShadow:{theme},padding: 0
                 }} value={value} onChange={handleChange}>
                     <Tab label="Previous" value="/" />
                     <Tab label="New Core" value="/core" />
