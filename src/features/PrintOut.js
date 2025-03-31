@@ -38,7 +38,7 @@ const PrintOut = React.forwardRef((props, ref) => {
         </Box >
       </> : null}
       <AdditionalView additional={additional} />
-      <Typography className='disclaimer'>DISCLAIMER: This is not a legal confirmation, and all offers are finalized at point of sale.</Typography>
+      <Typography fontWeight={"bold"} sx={{borderTop:"2px solid #673AB7", width:"90%", left:`5%`}}className='disclaimer'>DISCLAIMER: This is not a legal confirmation, and all offers are finalized at point of sale.</Typography>
     </div>
   )
 })

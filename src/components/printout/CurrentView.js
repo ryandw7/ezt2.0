@@ -14,8 +14,8 @@ const CurrentView = ({ currentServices, total }) => {
                             <Typography variant="h3">Internet</Typography>
                         </RowBox>
                         <RowBox>
-                            <Typography sx={{ width: "100%", textAlign: "left", p: "5px 20px 5px 20px" }}>{internet}</Typography>
-                            <Typography>${internetCost.toFixed(2)} est.</Typography>
+                            <Typography sx={{textWrap:"nowrap"}}>{internet}</Typography>
+                            <Typography sx={{textWrap:"nowrap"}}>${internetCost.toFixed(2)} est.</Typography>
                         </RowBox>
                     </Box>
                 </> : null}
@@ -27,7 +27,7 @@ const CurrentView = ({ currentServices, total }) => {
                         </RowBox>
                         <RowBox>
                             <Typography>{tv}</Typography>
-                            <Typography>${tvCost.toFixed(2)} est.</Typography>
+                            <Typography sx={{textWrap:"nowrap"}}>${tvCost.toFixed(2)} est.</Typography>
 
                         </RowBox>
                     </Box>
@@ -38,8 +38,8 @@ const CurrentView = ({ currentServices, total }) => {
 
                     </RowBox>
                     <RowBox>
-                        <Typography sx={{ width: "100%", textAlign: "left", p: "5px 20px 5px 20px" }}>{mobile}</Typography>
-                        <Typography>${mobileCost.toFixed(2)} est.</Typography>
+                        <Typography sx={{textWrap:"nowrap"}}>{mobile}</Typography>
+                        <Typography sx={{textWrap:"nowrap"}}>${mobileCost.toFixed(2)} est.</Typography>
                     </RowBox>
                 </Box> : null}
                 {total !== 0 ?

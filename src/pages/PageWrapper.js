@@ -69,13 +69,13 @@ export default function PageWrapper() {
     }, [value])
     return (
         <Box sx={{ alignItems: "center", justifyItems: "center" }}>
-            <Box className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0 }}>
+            <Box className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0, backgroundColor: theme.palette.background.paper }}>
                 <Typography variant="h3" sx={{position:"absolute", height:"fit-content", m:"7px"}}>EZ-T</Typography>
                 <Tabs centered sx={{
                     '.MuiTabs-indicator': {
                         height: '3px',
                         backgroundColor: theme.palette.primary.light,
-                    }, display: "flex", flexDirection: "row", justifyContent: "center", width: "100%", m: "0px auto", borderBottom: `1px solid ${theme.palette.secondary.dark}`, boxShadow:{theme},padding: 0
+                    }, display: "flex", flexDirection: "row", justifyContent: "center", width: "100%", m: "0px auto", borderBottom: `1px solid ${theme.palette.secondary.light}`, boxShadow:{theme},padding: 0
                 }} value={value} onChange={handleChange}>
                     <Tab label="Previous" value="/" />
                     <Tab label="New Core" value="/core" />
