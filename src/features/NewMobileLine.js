@@ -42,8 +42,12 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
 
             <Paper elevation={3} sx={{ width: "60%", maxHeight: "70vh", overflowY: "auto", p: 3 }}>
                 <Box>
-                    {/*NAME | BYOD*/}
-                    <TextField fullWidth id="name" label="Name" variant='outlined' value={name} onChange={handleChange} sx={{ mb: 2 }} />
+                <Select fullWidth name="dataPlan" labelId="dataPlan" id="dataPlan" value={dataPlan} label="Data Plan" onChange={handleChange}>
+                        <MenuItem value="Unlimited">Unlimited</MenuItem>
+                        <MenuItem value="Unlimited Plus">Unlimited Plus</MenuItem>
+                        <MenuItem value="By the Gig">By the Gig</MenuItem>
+                    </Select>
+                    
                     <FormControlLabel control={<Switch checked={isBYOD} id="isBYOD" onChange={handleToggle} />} label="BYOD" />
                 </Box>
                 <Box>
@@ -51,11 +55,7 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
                     <TextField fullWidth id="phoneNumber" label="Phone Number" variant='outlined' value={phoneNumber !== 0 ? phoneNumber : ''} onChange={handleChange} sx={{ mb: 2 }} />
                     <FormControlLabel control={<Switch checked={port} id="port" onChange={handleToggle} />} label="Port Number" />
                     <InputLabel id="dataPlan">Data Plan</InputLabel>
-                    <Select fullWidth name="dataPlan" labelId="dataPlan" id="dataPlan" value={dataPlan} label="Data Plan" onChange={handleChange}>
-                        <MenuItem value="Unlimited">Unlimited</MenuItem>
-                        <MenuItem value="Unlimited Plus">Unlimited Plus</MenuItem>
-                        <MenuItem value="By the Gig">By the Gig</MenuItem>
-                    </Select>
+                    
                 </Box>
                 {!isBYOD && (
                     <Box>

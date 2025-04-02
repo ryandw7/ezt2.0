@@ -102,6 +102,7 @@ export const parse_mobile_cost = (mobileLines) => {
 
     let unlimitedCost = unlimitedQuantity !== 0 ? (unlimitedQuantity * 20) + 20 : 0;
     let unlimitedPlusCost = unlimitedQuantity !== 0 ? unlimitedPlusQuantity * 30 : (unlimitedPlusQuantity * 30) + 20;
+    unlimitedPlusCost = unlimitedPlusQuantity !== 0 ? unlimitedPlusCost : 0;
     let tabletsCost = tabletsQuantity * 20;
     let watchesCost = watchesQuantity * 10;
     let deviceMonthly = (deviceTotalCosts - deviceDiscounts) / 24;

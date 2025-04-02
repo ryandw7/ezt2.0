@@ -21,7 +21,7 @@ export default function MobileLineView({ line, lineCost, config, handleStartEdit
         )
     }
 
-    const handleEditBorder = () => isEdit ? '3px solid purple' : 'none';
+    const handleEditBorder = () => isEdit ? '3px solid #673AB7' : 'none';
 
     let totalLineCost = lineCost - line.lineDiscount;
     let tax = 1.8;
@@ -46,7 +46,7 @@ export default function MobileLineView({ line, lineCost, config, handleStartEdit
                     <Typography>IMEI: {line.imei ? line.imei : '________________________________'}</Typography>
                 </RowGroup>}</>}
 
-            {!line.isBYOD && <RowGroup>
+            {(!line.isBYOD && line.deviceTotalCost != 0)&& <RowGroup>
                 <Typography sx={{ width: '100px' }}>{line.deviceModel}</Typography>
                 <Typography sx={{ width: '100px', textAlign: 'right' }}>${line.deviceTotalCost.toFixed(2)}</Typography>
                 <Typography sx={{ width: '100px', textAlign: 'right' }}>${(line.deviceTotalCost / 24).toFixed(2)}</Typography>
