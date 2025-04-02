@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Tab, Tabs, Box, Button, Typography } from "@mui/material";
+import { Tab, Tabs, Box, Button, Typography, Paper } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 export default function PageWrapper() {
 
@@ -69,7 +69,7 @@ export default function PageWrapper() {
     }, [value])
     return (
         <Box sx={{ alignItems: "center", justifyItems: "center" }}>
-            <Box className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0, backgroundColor: theme.palette.background.paper }}>
+            <Paper className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0}}>
                 <Typography variant="h3" sx={{position:"absolute", height:"fit-content", m:"7px"}}>EZ-T</Typography>
                 <Tabs centered sx={{
                     '.MuiTabs-indicator': {
@@ -83,10 +83,10 @@ export default function PageWrapper() {
                     <Tab label="Additional" value="/additional" />
                     <Tab label="Finish" value="/finish" />
                 </Tabs>
-            </Box>
+            </Paper>
             {<Outlet />}
-            <Box sx={{ width: "80%", display: "flex", justifyContent: "space-around", margin:"20px auto" }}>
-                <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())}>Back</Button>
+            <Box sx={{ width: "100%", display: "flex", justifyContent: "space-around", margin:"20px auto", position:"absolute", bottom:"0px" }}>
+                <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())} >Back</Button>
                 {value !== "/finish" && <Button onClick={() => setValue(next())}>Next</Button>}
             </Box>
         </Box>

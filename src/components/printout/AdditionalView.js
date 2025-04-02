@@ -1,7 +1,7 @@
 import React from 'react';
 import { Paper, Box, Typography } from "@mui/material"
 const AdditionalView = ({ additional }) => {
-
+    const isPrint = window.matchMedia('print').matches;
     const { rep, contact, additionalNotes } = additional;
     return (
         <Paper elevation={3} sx={{ p: "0px", borderTopRightRadius: "20px", borderTopLeftRadius: "20px", backgroundColor: "#F5F5F5", position: "relative" }} className="additional-view">

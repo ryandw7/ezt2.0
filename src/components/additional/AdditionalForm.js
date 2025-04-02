@@ -6,7 +6,7 @@ const AdditionalForm = ({ handleChange, formData }) => {
     const { rep, contact, additionalNotes } = formData;
     console.log(contact)
     return (
-        <Paper sx={{ height: '80vh', margin: "20px auto", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems:"center", width:"40vw" }}>
+        <Paper sx={{ height: '80vh', margin: "20px auto", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems:"center", minWidth:"500px" }}>
             <Box>
                 <TextField id="rep" value={rep} onChange={handleChange} label="Representative Name" />
             </Box>
