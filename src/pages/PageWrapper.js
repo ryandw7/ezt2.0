@@ -3,7 +3,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Tab, Tabs, Box, Button, Typography, Paper } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 export default function PageWrapper() {
-
+    const href = window.location.href;
+    const isFinish = href.includes('finish')
     const theme = useTheme();
 
     const [value, setValue] = useState('/');
@@ -85,10 +86,10 @@ export default function PageWrapper() {
                 </Tabs>
             </Paper>
             {<Outlet />}
-            <Box sx={{ width: "100%", display: "flex", justifyContent: "space-around", margin:"20px auto", position:"absolute", bottom:"0px" }}>
+            {value !== "/finish" ? <Box sx={{ width: "100%", display: "flex", justifyContent: "space-around", margin:"20px auto", position:"absolute", bottom:"0px" }}>
                 <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())} >Back</Button>
                 {value !== "/finish" && <Button onClick={() => setValue(next())}>Next</Button>}
-            </Box>
+            </Box> : null } 
         </Box>
     )
 }
