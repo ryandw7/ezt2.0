@@ -86,7 +86,7 @@ export default function PageWrapper() {
                 </Tabs>
             </Paper>
             {<Outlet />}
-            {value !== "/finish" ? <Paper sx={{ width: "100%", display: "flex", justifyContent: "space-around", position:"absolute", bottom:"0px", height:"50px", m:0, borderRadius:"0px" }}>
+            {value !== "/finish" ? <Paper sx={{ width: "100%", display: "flex", justifyContent: "space-around", height:"50px", m:0, borderRadius:"0px", position:"fixed", bottom:"0px", zIndex:1 }}>
                 <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())} >Back</Button>
                 {value !== "/finish" && <Button onClick={() => setValue(next())}>Next</Button>}
             </Paper> : null } 
