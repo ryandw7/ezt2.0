@@ -59,7 +59,7 @@ export default function NewMobileLines() {
         <Box sx={{ height: "80%", width: "100vw", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "nowrap", m: "0 a" }}>
             {/* Scrollable List lines*/}
             <Box sx={{ width: () => handleResize(), height: "100%", p: 2, transition: 'width 0.3s ease-in-out', gap: 10, minWidth: "400px" }}>
-                <List elevation={3} sx={{ height: "85%", width: "100%", overflowY: "auto", overflowX: "hidden" }}>
+                <List elevation={3} sx={{ height: "80%", width: "100%", overflowY: "auto", overflowX: "hidden" }}>
 
                     {newMobileLines
                         .map((item) => (
@@ -70,11 +70,11 @@ export default function NewMobileLines() {
                     }
 
                 </List>
-                <Typography textAlign={"center"}>Add Lines</Typography>
-                <Box sx={{ m: "0", justifySelf: "flex-end", alignSelf: "flex-end", height: "15%", width: "100%", margin: "10px auto", display: "flex", flexDirection: "row", justifyContent: "space-around", position: "relative" }}>
-                    <Button variant="contained" onClick={handleAdd} sx={{ mt: 2 }}><PhoneIcon /></Button>
-                    <Button variant="contained" onClick={handleTabletAdd} sx={{ mt: 2 }}><TabletMacIcon /></Button>
-                    <Button variant="contained" onClick={handleWatchAdd} sx={{ mt: 2 }}><WatchIcon /></Button>
+                <Typography textAlign={"center"} sx={{m:"5px"}}>Add Lines</Typography>
+                <Box sx={{ p:0, m: "0", justifySelf: "flex-end", alignSelf: "flex-end", height: "10%", width: "100%", margin: "10px auto", display: "flex", flexDirection: "row", justifyContent: "space-around", position: "relative" }}>
+                    <Button variant="contained" onClick={handleAdd} sx={{ mt: 2, margin: 0 }}><PhoneIcon /></Button>
+                    <Button variant="contained" onClick={handleTabletAdd} sx={{ mt: 2, margin: 0 }}><TabletMacIcon /></Button>
+                    <Button variant="contained" onClick={handleWatchAdd} sx={{ mt: 2, margin: 0 }}><WatchIcon /></Button>
                 </Box>
             </Box >
             {/* Main Editing Section */}
