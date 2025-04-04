@@ -70,7 +70,7 @@ export default function PageWrapper() {
     }, [value])
     return (
         <Box sx={{ alignItems: "center", justifyItems: "center", width:"100%", height:"100vh", overflow: "-moz-hidden-unscrollable"}}>
-            <Paper className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0, height:"50px", zIndex:1}}>
+            <Paper className="print-hidden" sx={{ width: "100%", m: "0px auto", padding: 0, height:"50px", zIndex:1, borderRadius:"0px"}}>
                 <Typography variant="h3" sx={{position:"absolute", height:"fit-content", m:"7px"}}>EZ-T</Typography>
                 <Tabs centered sx={{
                     '.MuiTabs-indicator': {
@@ -86,7 +86,7 @@ export default function PageWrapper() {
                 </Tabs>
             </Paper>
             {<Outlet />}
-            {value !== "/finish" ? <Paper sx={{ width: "100%", display: "flex", justifyContent: "space-around", position:"absolute", bottom:"0px", height:"50px", m:0 }}>
+            {value !== "/finish" ? <Paper sx={{ width: "100%", display: "flex", justifyContent: "space-around", position:"absolute", bottom:"0px", height:"50px", m:0, borderRadius:"0px" }}>
                 <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())} >Back</Button>
                 {value !== "/finish" && <Button onClick={() => setValue(next())}>Next</Button>}
             </Paper> : null } 

@@ -45,7 +45,7 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
             <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center", m: "5px", flexWrap: "nowrap" }}>
                 {/*NAME | BYOD*/}
 
-                {dataPlan !== "Tablet" ? <>
+                {(dataPlan !== "Tablet" && dataPlan !== "Watch") ? <>
 
                     <FormControlLabel label="Data Plan" labelPlacement="top" control={<Select name="dataPlan" labelId="dataPlan" id="dataPlan" value={dataPlan} onChange={handleChange} sx={{ height: '25px', margin: "8px auto" }}>
                         <MenuItem value="Unlimited">Unlimited</MenuItem>
