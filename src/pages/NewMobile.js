@@ -1,11 +1,11 @@
 import React from 'react';
-import {Box, Typography} from '@mui/material';
+import PageBox from './PageBox';
 import NewMobileLines from '../features/NewMobileLines';
 export default function NewMobile() {
 
     return (
-        <Box>
+        <PageBox>
             <NewMobileLines/>
-        </Box>
+        </PageBox>
     )
 }

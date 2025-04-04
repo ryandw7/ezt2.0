@@ -56,10 +56,10 @@ export default function NewMobileLines() {
     }
 
     return (
-        <Box sx={{ height: "80vh", width: "100vw", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "nowrap", m: "0 a" }}>
+        <Box sx={{ height: "80%", width: "100vw", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "nowrap", m: "0 a" }}>
             {/* Scrollable List lines*/}
-            <Box sx={{ width: () => handleResize(), height: "80%", p: 2, transition: 'width 0.3s ease-in-out', gap: 10, minWidth: "400px" }}>
-                <List elevation={3} sx={{ height: "100%", width: "100%", overflowY: "auto", overflowX: "hidden" }}>
+            <Box sx={{ width: () => handleResize(), height: "100%", p: 2, transition: 'width 0.3s ease-in-out', gap: 10, minWidth: "400px" }}>
+                <List elevation={3} sx={{ height: "85%", width: "100%", overflowY: "auto", overflowX: "hidden" }}>
 
                     {newMobileLines
                         .map((item) => (

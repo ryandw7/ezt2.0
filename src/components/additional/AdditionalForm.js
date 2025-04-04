@@ -6,7 +6,7 @@ const AdditionalForm = ({ handleChange, formData }) => {
     const { rep, contact, additionalNotes } = formData;
     console.log(contact)
     return (
-        <Paper sx={{ height: '80vh', margin: "30px", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems:"center", minWidth:"500px" }}>
+        <Paper sx={{ height: '80%', minHeight:"300px", margin: "30px", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems:"center", minWidth:"500px", width: "70%", maxWidth:"800px"}}>
             <Box>
                 <TextField id="rep" value={rep} onChange={handleChange} label="Representative Name" fullWidth sx={{margin:"20px auto"}}/>
             </Box>
@@ -16,7 +16,7 @@ const AdditionalForm = ({ handleChange, formData }) => {
             <Box sx={{ width: "100%" }}>
                 <TextField
                     multiline
-                    rows={6}
+                    rows={3}
                     fullWidth
                     sx={{ margin: "0 auto" }}
                     id="additionalNotes"

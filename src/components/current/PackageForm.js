@@ -14,7 +14,7 @@ export default function PackageForm({ handleChange, formValues, hasMobile }) {
     }
 
     return (
-        <Paper elevation={5} sx={{ display: 'flex', width: "100%", flexDirection: "column", height: "80vh", justifyContent: "space-around", margin: "20px auto" }}>
+        <Paper elevation={5} sx={{ minWidth:"500px", width: "70%", maxWidth:"800px", minHeight:"400px", display: 'flex', flexDirection: "column", height: "70%", justifyContent: "space-around" }}>
             <RowBox>
                 <TextField id="internet" label="Internet" variant="outlined" value={internet} onChange={handleChange} sx={{ width: "60%" }} />
                 <TextField id="internetCost" label="Internet Cost" variant="outlined" value={internetCost || ''} onChange={handleChange} sx={{ width: "30%" }} />

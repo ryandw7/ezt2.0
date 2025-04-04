@@ -41,7 +41,7 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
 
     return (
 
-        <Paper elevation={3} gap={2} sx={{ justifyContent: "center", display: "flex", flexDirection: "column", minWidth: "300px", maxHeight: "70vh", overflow: "-moz-hidden-unscrollable", p: 3, }}>
+        <Paper elevation={3} gap={2} sx={{ justifyContent: "center", display: "flex", flexDirection: "column", minWidth: "300px", width: "35%", maxHeight: "70vh", overflow: "-moz-hidden-unscrollable", p: 3}}>
             <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", m: "5px", flexWrap: "nowrap" }}>
                 {/*NAME | BYOD*/}
 

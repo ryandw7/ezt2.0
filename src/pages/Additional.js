@@ -3,31 +3,31 @@ import { Box, breadcrumbsClasses, Paper } from '@mui/material';
 import AdditionalForm from '../components/additional/AdditionalForm';
 import useAdditionalActions from '../context/actions/useAdditionalActions';
 import useAdditionalSelectors from '../context/selectors/useAdditionalSelectors';
-
+import PageBox from './PageBox';
 export default function Additional() {
 
     const { updateRep, updateContact, updateAdditionalNotes } = useAdditionalActions();
 
     const { rep, contact, additionalNotes } = useAdditionalSelectors();
-    
+
     const handleChange = (e) => {
         const { value, id } = e.target;
         console.log(value, id)
-        switch(id){
+        switch (id) {
             case 'rep': updateRep(value);
-            break;
+                break;
             case 'contact': updateContact(value);
-            break;
+                break;
             case 'additionalNotes': updateAdditionalNotes(value);
         }
     }
 
-    const formData = {rep, contact, additionalNotes };
-  
+    const formData = { rep, contact, additionalNotes };
+
     return (
-        <Box>
-          <AdditionalForm handleChange={handleChange} formData={formData} />
-        </Box>
+        <PageBox>
+            <AdditionalForm handleChange={handleChange} formData={formData} />
+        </PageBox>
 
     )
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import PageBox from './PageBox';
 import CurrentForm from '../features/CurrentForm';
 export default function Current() {
 
     return (
-        <Box>
+        <PageBox>
             <CurrentForm />
-        </Box>
+        </PageBox>
     )
 }
