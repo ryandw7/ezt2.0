@@ -1,12 +1,9 @@
 import React from 'react';
-import { FormControlLabel, FormGroup, Checkbox, Box, Button } from '@mui/material';
-import CurrentDetails from '../components/finish/CurrentDetails';
-import FinishMobileDetails from '../features/FinishMobileDetails';
-import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
-import PrintOut from '../features/PrintOut';
+import { Box, Button } from '@mui/material';
 import { useReactToPrint } from 'react-to-print';
+import FinishFeature from '../features/FinshFeature';
 
-export default function Finish() {
+const FinishPage = () => {
 
   const componentRef = React.useRef(null);
 
@@ -33,12 +30,13 @@ export default function Finish() {
     }, 500);
   };
   
-
-  const { newMobileLines } = useNewMobileSelectors();
   return (
     <Box sx={{ width: "90%" }}>
       <Button onClick={handlePrint}>Print</Button>
-      <PrintOut ref={componentRef} />
+      <FinishFeature ref={componentRef} />
     </Box>
   )
-}
+
+};
+
+export default FinishPage;

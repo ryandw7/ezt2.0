@@ -1,22 +1,22 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PageWrapper from './pages/PageWrapper';
-import Current from "./pages/Current";
-import NewCore from "./pages/NewCore";
-import NewMobile from "./pages/NewMobile";
-import Additional from "./pages/Additional";
-import Finish from "./pages/Finish";
+import CurrentServicesPage from "./pages/CurrentServicesPage";
+import NewCoreServicesPage from "./pages/NewCoreServicesPage";
+import NewMobilePage from "./pages/NewMobilePage";
+import AdditionalInfoPage from './pages/AdditionalInfoPage';
+import FinishPage from "./pages/FinishPage";
 
 export default function App() {
 
     return (
         <Routes>
             <Route element={<PageWrapper />}>
-                <Route path="/" element={<Current next={"/core"} />} />
-                <Route path="/core" element={<NewCore />} />
-                <Route path="/mobile" element={<NewMobile />} />
-                <Route path="/additional" element={<Additional />} />
-                <Route path="/finish" element={<Finish />} />
+                <Route path="/" element={<CurrentServicesPage next={"/core"} />} />
+                <Route path="/core" element={<NewCoreServicesPage />} />
+                <Route path="/mobile" element={<NewMobilePage />} />
+                <Route path="/additional" element={<AdditionalInfoPage />} />
+                <Route path="/finish" element={<FinishPage />} />
             </Route>
         </Routes>
     )

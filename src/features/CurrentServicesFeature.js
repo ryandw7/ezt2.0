@@ -1,10 +1,10 @@
 import React from "react";
-
 import useCurrentActions from '../context/actions/useCurrentActions.js';
 import useCurrentSelectors from "../context/selectors/useCurrentSelectors.js";
-import PackageForm from "../components/current/PackageForm.js";
 
-export default function CurrentForm() {
+import PackageForm from "../components/PackageForm.js";
+
+const CurrentServicesFeature = () => {
 
     const { current } = useCurrentSelectors();
     const { updateCurrent } = useCurrentActions();
@@ -27,4 +27,6 @@ export default function CurrentForm() {
    
     return <PackageForm handleChange={handleChange} formValues={current} hasMobile={true} />
 
-}
+};
+
+export default CurrentServicesFeature;

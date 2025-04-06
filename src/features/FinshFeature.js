@@ -1,17 +1,16 @@
 import * as React from 'react';
-import styles from '../styles/Printout.module.css'
-import CurrentView from '../components/printout/CurrentView';
-import { test_lines, parse_mobile_cost } from '../utils.js';
-import { Typography, Box, isMuiElement } from '@mui/material';
-import NewView from '../components/printout/NewView';
-import AdditionalView from '../components/printout/AdditionalView';
-import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
-import useNewCoreSelectors from '../context/selectors/useNewCoreSelectors';
-import useCurrentSelectors from '../context/selectors/useCurrentSelectors';
+import CurrentView from '../components/printout/CurrentView.js';
+import { parse_mobile_cost } from '../utils.js';
+import { Typography, Box } from '@mui/material';
+import NewView from '../components/printout/NewView.js';
+import AdditionalView from '../components/printout/AdditionalView.js';
+import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors.js';
+import useNewCoreSelectors from '../context/selectors/useNewCoreSelectors.js';
+import useCurrentSelectors from '../context/selectors/useCurrentSelectors.js';
 import useAdditionalSelectors from '../context/selectors/useAdditionalSelectors.js';
 
-import { PointOfSale } from '@mui/icons-material';
-const PrintOut = React.forwardRef((props, ref) => {
+const FinishFeature = React.forwardRef((props, ref) => {
+
   const isPrintMedia = window.matchMedia('print').matches;
 
   const { newMobileLines } = useNewMobileSelectors();
@@ -43,4 +42,4 @@ const PrintOut = React.forwardRef((props, ref) => {
   )
 })
 
-export default PrintOut;
+export default FinishFeature;

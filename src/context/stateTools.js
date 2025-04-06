@@ -58,4 +58,5 @@ export const updateDataFlags = (lines) => {
     const hasBTG = lines.some(line => line.dataPlan === "BTG");
     console.log(`hasUnlimited: ${hasUnlimited}\nhasBTG: ${hasBTG}`)
     return { hasUnlimited, hasBTG };
+    
 }

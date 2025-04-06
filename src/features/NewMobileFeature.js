@@ -7,19 +7,15 @@ import MobileLineView from '../components/mobile/MobileLineView';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
 import WatchIcon from '@mui/icons-material/Watch';
-export default function NewMobileLines() {
+
+const NewMobileFeature = () => {
 
     const { newMobileLines, getNewMobileLineCost } = useNewMobileSelectors();
-
-    const { addMobileLine, quickAddMobileLine, updateNewMobileLine, addTablet, addWatch, removeMobileLine } = useNewMobileActions();
+    const { addMobileLine, updateNewMobileLine, addTablet, addWatch, removeMobileLine } = useNewMobileActions();
 
     const handleAdd = () => {
         addMobileLine();
     };
-
-    const handleQuickAdd = () => {
-        quickAddMobileLine();
-    }
 
     const handleTabletAdd = () => {
         addTablet()
@@ -89,4 +85,6 @@ export default function NewMobileLines() {
 
         </Box >
     );
-}
+};
+
+export default NewMobileFeature;

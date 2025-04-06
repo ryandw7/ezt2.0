@@ -108,19 +108,20 @@ export const parse_mobile_cost = (mobileLines) => {
     let deviceMonthly = (deviceTotalCosts - deviceDiscounts) / 24;
     let mobileTotal = unlimitedCost + unlimitedPlusCost + tabletsCost + watchesCost + deviceMonthly + xmcTotal + taxes;
     lineDiscounts.forEach(i => mobileTotal -= i);
-    console.log(mobileTotal)
+
     return {
+        
         taxes: taxes,
-        unlimitedLines: { cost: unlimitedCost, quantity: unlimitedQuantity},
+        unlimitedLines: { cost: unlimitedCost, quantity: unlimitedQuantity },
         unlimitedPlus: { cost: unlimitedPlusCost, quantity: unlimitedPlusQuantity },
         watches: { cost: watchesCost, quantity: watchesQuantity },
         tablets: { cost: tabletsCost, quantity: tabletsQuantity },
         deviceMonthly: deviceMonthly.toFixed(2),
         lineQuantity: lineQuantity,
         mobileTotal: mobileTotal.toFixed(2),
-        xmcTotal:xmcTotal,
+        xmcTotal: xmcTotal,
         lineDiscounts: lineDiscounts
 
-            }
+    }
 }
 

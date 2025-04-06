@@ -2,9 +2,6 @@ import React, { createContext, useContext, useReducer } from "react";
 import { createInitialState } from "./stateTools";
 import rootReducer from "./reducers/rootReducer";
 
-
-
-console.log(createInitialState)
 const initialState = createInitialState();
 
 const Context = createContext(initialState);

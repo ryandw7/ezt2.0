@@ -14,7 +14,7 @@ export default function PackageForm({ handleChange, formValues, hasMobile }) {
     }
 
     return (
-        <Paper elevation={5} sx={{ minWidth:"500px", width: "70%", maxWidth:"800px", minHeight:"400px", display: 'flex', flexDirection: "column", height: "70%", justifyContent: "space-around" }}>
+        <Paper elevation={5} sx={{ minWidth: "500px", width: "70%", maxWidth: "800px", minHeight: "400px", display: 'flex', flexDirection: "column", height: "70%", justifyContent: "space-around" }}>
             <RowBox>
                 <TextField id="internet" label="Internet" variant="outlined" value={internet} onChange={handleChange} sx={{ width: "60%" }} />
                 <TextField id="internetCost" label="Internet Cost" variant="outlined" value={internetCost || ''} onChange={handleChange} sx={{ width: "30%" }} />
@@ -24,8 +24,8 @@ export default function PackageForm({ handleChange, formValues, hasMobile }) {
                 <TextField id="tvCost" label="Extras cost" variant="outlined" value={tvCost || ''} onChange={handleChange} sx={{ width: "30%" }} />
             </RowBox>
             {hasMobile && <RowBox>
-                <TextField id="mobile" label="Mobile" variant="outlined" value={mobile} onChange={handleChange} sx={{ width: "60%" }}/>
-                <TextField id="mobileCost" label="Mobile Cost" variant="outlined" value={mobileCost || ''} onChange={handleChange} sx={{ width: "30%" }}/>
+                <TextField id="mobile" label="Mobile" variant="outlined" value={mobile} onChange={handleChange} sx={{ width: "60%" }} />
+                <TextField id="mobileCost" label="Mobile Cost" variant="outlined" value={mobileCost || ''} onChange={handleChange} sx={{ width: "30%" }} />
             </RowBox>}
             <Box>
                 <TextField id="notes" label="Additional Notes" variant="outlined" multiline

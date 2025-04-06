@@ -1,14 +1,13 @@
 import React from "react";
-
 import useNewCoreActions from '../context/actions/useNewCoreActions.js';
 import useNewCoreSelectors from "../context/selectors/useNewCoreSelectors.js";
-import PackageForm from "../components/current/PackageForm.js";
+import PackageForm from "../components/PackageForm.js";
 
-export default function CurrentForm() {
+const NewCoreServicesFeature = () => {
 
     const { newCore } = useNewCoreSelectors();
     const { updateNewCore } = useNewCoreActions();
-
+    
     const handleChange = (e) => {
 
         const { id, value } = e.target;
@@ -24,5 +23,9 @@ export default function CurrentForm() {
 
 
     }
+
     return <PackageForm handleChange={handleChange} formValues={newCore} hasMobile={false} />
-}
+
+};
+
+export default NewCoreServicesFeature;
