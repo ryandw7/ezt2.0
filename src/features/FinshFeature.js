@@ -28,16 +28,14 @@ const FinishFeature = React.forwardRef((props, ref) => {
   const savings = currentTotal - newTotal;
   return (
     <div ref={ref} className="paper" sx={{ position: "relative" }}>
+
       <CurrentView currentServices={current} total={currentTotal} />
       <NewView newCore={newCore} newCoreTotal={newCoreTotal} mobileCost={mobileCost} mobileTotal={mobileTotalCost} newTotal={newTotal} />
-      {savings > 0 ? <>
-        <Box className="savings">
-          <Box height={"90px"}></Box>
-          <Typography variant="h3">Save ${savings.toFixed(2)} a month!</Typography>
-        </Box >
-      </> : null}
+      <div className="savings">
+        <Typography variant="h3">Save ${savings.toFixed(2)} a month!</Typography>
+      </div>
       <AdditionalView additional={additional} />
-      <Typography fontWeight={"bold"} sx={{borderTop:"2px solid #673AB7", width:"90%", left:`5%`}}className='disclaimer'>DISCLAIMER: This is not a legal confirmation, and all offers are finalized at point of sale.</Typography>
+      <Typography fontWeight={"bold"} sx={{ borderTop: "2px solid #673AB7" }} className='disclaimer'>DISCLAIMER: This is not a legal confirmation, and all offers are finalized at point of sale.</Typography>
     </div>
   )
 })

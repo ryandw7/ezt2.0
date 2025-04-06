@@ -78,7 +78,7 @@ const NewView = ({ newCore, mobileCost, newTotal }) => {
                         </RowBox>
                         {lineDiscounts.map(item => <RowBox><Typography>Line Discount</Typography><Typography>-${item.toFixed(2)} est.</Typography></RowBox>)}
                         <RowBox><Typography fontWeight={"bold"}>Total</Typography><Typography fontWeight={"bold"}>${mobileTotal} est.</Typography></RowBox>
-                        <RowBox sx={{ position: "absolute", bottom: "5px", padding: "3px" }}>
+                        <RowBox sx={{ marginTop: "auto", padding: "3px" }}>
                             <Typography variant="h4" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>New Total</Typography>
                             <Typography variant="h4" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${newTotal.toFixed(2)} est.</Typography>
                         </RowBox>
