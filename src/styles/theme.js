@@ -26,7 +26,7 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     h1: { fontSize: "2.5rem", fontWeight: 600 },
-    h2: { fontSize: "2rem", fontWeight: 600, color: 'white', backgroundColor: "#673AB7"},
+    h2: { fontSize: "2rem", fontWeight: 600, color: 'white', backgroundColor: "#673AB7", padding: "16px", boxSizing:"border-box"},
     h3: { fontSize: "1.75rem", fontWeight: 500, color: "#673AB7"},
     h4: { fontSize: "1.5rem", fontWeight: 500 },
     h5: { fontSize: "1.25rem", fontWeight: 400 },
@@ -54,7 +54,6 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          padding: "16px",
           borderRadius: 8,
           boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
         },

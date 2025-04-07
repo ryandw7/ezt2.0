@@ -19,28 +19,19 @@
 
 }
 
-.savings-print {
-  position: absolute;
-  color: red;
-  top: 100%;
-}
-
 .paper {
-  position: relative;
-  min-width: 210mm;
+  background-color: white;
+  padding: 10px;
   min-height: 270mm;
-  max-width: 210mm;
   max-height: 270mm;
+  aspect-ratio: 1 / 1.4142;
   margin: 10px auto;
   box-sizing: border-box;
-
+  row-gap: 10px;
+  column-gap: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows:
-    55%     /* current & new services (top half-ish) */
-    10%      /* savings message */
-    30%     /* additional info */
-    5%;    /* disclaimer */
+  grid-template-rows: 11fr 2fr 6fr 1fr;
   grid-template-areas:
     "current-view new-view"
     "savings savings"
@@ -56,6 +47,7 @@
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .current-view {
@@ -65,16 +57,10 @@
 }
 
 .savings {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.2em;
-  color: #6a1b9a;
+  grid-area: savings;
 }
-.new-view {
 
+.new-view {
   grid-area: new-view;
   margin: 0 auto;
   padding: 0px;
@@ -82,9 +68,8 @@
 
 .additional-view {
   grid-area: additional-view;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  margin: 0 auto;
+  padding: 0px;
 }
 
 .disclaimer {
@@ -92,12 +77,9 @@
   text-align: center;
   font-size: 0.75em;
   border-top: 2px solid black;
-  padding-top: 5px;
 }
 
 .current-view,
 .new-view {
-  display: flex;
-  flex-direction: column;
   height: 100%;
 }
