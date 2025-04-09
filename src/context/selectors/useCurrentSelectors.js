@@ -9,7 +9,7 @@ export const getCurrentMobileCost = (state) => state.currentServices?.mobileCost
 export const getCurrentNotes = (state) => state.currentServices?.notes || '';
 export const getCurrent = (state) => state.currentServices;
 
-export const getCurrentTotalCost = (state) => {
+export const getCurrentServicesTotalCost = (state) => {
     return [getCurrentInternetCost(state), getCurrentTvCost(state), getCurrentMobileCost(state)].reduce((p, c)=> p + c, 0);
 }
 
@@ -28,9 +28,9 @@ const useCurrentSelectors = () => {
     const currentMobileCost = getCurrentMobileCost(state);
     const currentNotes = getCurrentNotes(state) || '';
     const current = getCurrent(state) || '';
-    const currentTotal = getCurrentTotalCost(state) || 0;
+    const currentServicesTotalCost = getCurrentServicesTotalCost(state) || 0;
     
-    return { current, currentTotal, currentInternet, currentInternetCost, currentTv, currentTvCost, currentMobile, currentMobileCost, currentNotes }
+    return { current, currentServicesTotalCost, currentInternet, currentInternetCost, currentTv, currentTvCost, currentMobile, currentMobileCost, currentNotes }
 }
 
 export default useCurrentSelectors;

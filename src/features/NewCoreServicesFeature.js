@@ -7,7 +7,7 @@ const NewCoreServicesFeature = () => {
 
     const { newCore } = useNewCoreSelectors();
     const { updateNewCore } = useNewCoreActions();
-    
+   
     const handleChange = (e) => {
 
         const { id, value } = e.target;

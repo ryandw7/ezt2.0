@@ -5,9 +5,9 @@ import RowBox from '../boxes/RowBox';
 import { data } from 'react-router-dom';
 
 const NewView = ({ className, data}) => {
-    const {newCore, mobileCost, newTotal} = data;
+    const {newCore, newMobilePlanCost, newServicesTotalCost} = data;
     const { internet, internetCost, tv, tvCost } = newCore;
-    const { taxes, xmcTotal, unlimitedLines, unlimitedPlus, watches, tablets, deviceMonthly, lineQuantity, mobileTotal, lineDiscounts } = mobileCost;
+    const { taxes, xmcTotal, unlimitedLines, unlimitedPlus, watches, tablets, deviceMonthly, lineQuantity, mobileTotal, lineDiscounts } = newMobilePlanCost;
 
     return (
         <PrintBox header={"New Services"} className={className}>
@@ -86,8 +86,8 @@ const NewView = ({ className, data}) => {
                     <Typography fontWeight={"bold"}>${mobileTotal} est.</Typography>
                 </RowBox>
                 <RowBox sx={{ marginTop: "auto", justifySelf: "flex-end" }}>
-                    <Typography variant="h4" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>New Total</Typography>
-                    <Typography variant="h4" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${newTotal.toFixed(2)} est.</Typography>
+                    <Typography variant="h5" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>New Total</Typography>
+                    <Typography variant="h5" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${newServicesTotalCost.toFixed(2)} est.</Typography>
                 </RowBox>
 
             </> : null}

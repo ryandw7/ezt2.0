@@ -1,8 +1,34 @@
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .MuiPaper-root {
+    box-shadow: none !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .paper {
+    min-height: 270mm !important;
+    max-height: 270mm !important;
+    font-size: 13pt !important;
+  }
+}
+
+
+
 .paper {
   background-color: white;
   padding: 10px;
-  min-height: 270mm;
-  max-height: 270mm;
   aspect-ratio: 1 / 1.4142;
   margin: 10px auto;
   box-sizing: border-box;
@@ -12,8 +38,62 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 11fr 2fr 6fr 1fr;
   grid-template-areas:
-    "current-view new-view"
+    "currentView newView"
     "savings savings"
-    "additional-view additional-view"
+    "additionalView additionalView"
     "disclaimer disclaimer";
+}
+
+h2 {
+  font-size: 2.3em;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+.currentView,
+.newView,
+.additionalView,
+.savings,
+.disclaimer {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.currentView {
+  grid-area: currentView;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+.savings {
+  grid-area: savings;
+}
+
+.newView {
+  grid-area: newView;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+.additionalView {
+  grid-area: additionalView;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+.disclaimer {
+  grid-area: disclaimer;
+  text-align: center;
+  font-size: 0.75em;
+  border-top: 2px solid black;
+}
+
+.currentView,
+.newView {
+  height: 100%;
 }

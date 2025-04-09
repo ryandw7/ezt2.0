@@ -9,7 +9,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // ✅ JS/JSX loader
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -17,7 +16,6 @@ module.exports = {
           loader: 'babel-loader'
         }
       },
-      // ✅ CSS Modules rule — only for *.module.css
       {
         test: /\.module\.css$/,
         use: [
@@ -25,17 +23,16 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]' // Optional: useful for debugging
-              }
+              esModule: false,
+              importLoaders: 1,
+              modules: true
             }
           }
         ]
       },
-      // ✅ Global CSS rule — exclude *.module.css
       {
         test: /\.css$/,
-        exclude: /\.module\.css$/, // ← this is key
+        exclude: /\.module\.css$/,
         use: ['style-loader', 'css-loader']
       }
     ]

@@ -6,6 +6,7 @@ import NewCoreServicesPage from "./pages/NewCoreServicesPage";
 import NewMobilePage from "./pages/NewMobilePage";
 import AdditionalInfoPage from './pages/AdditionalInfoPage';
 import FinishPage from "./pages/FinishPage";
+import FinishFullViewPage from './pages/FinishFullViewPage';
 
 export default function App() {
 
@@ -18,6 +19,7 @@ export default function App() {
                 <Route path="/additional" element={<AdditionalInfoPage />} />
                 <Route path="/finish" element={<FinishPage />} />
             </Route>
+            <Route path="/finish-full-view" element={<FinishFullViewPage/>} />
         </Routes>
     )
 }

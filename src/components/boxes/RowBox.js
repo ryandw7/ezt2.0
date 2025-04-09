@@ -8,7 +8,7 @@ const RowBox = ({ children, sx = {} }) => {
             textWrap: "no-wrap",
             justifyContent: "space-between",
             width: "100%",
-            p: "5px 20px 5px 20px",
+            p: "1% 2% 1% 2%",
             ...sx
         }}>
             {children}

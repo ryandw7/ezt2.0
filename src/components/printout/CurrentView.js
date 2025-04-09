@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 
 
 const CurrentView = ({ className, data }) => {
-    const { current, currentTotal } = data;
+    const { current, currentServicesTotalCost } = data;
     const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
 
     return (
@@ -38,10 +38,10 @@ const CurrentView = ({ className, data }) => {
                         <Typography sx={{ textWrap: "nowrap" }}>${mobileCost.toFixed(2)} est.</Typography>
                     </RowBox>
                 </> : null}
-                {currentTotal !== 0 ?
+                {currentServicesTotalCost !== 0 ?
                     <RowBox sx={{ marginTop: "auto", padding: "3px", justifySelf:"flex-end" }}>
-                        <Typography variant="h4" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>Current Total</Typography>
-                        <Typography variant="h4" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${currentTotal.toFixed(2)} est.</Typography>
+                        <Typography variant="h6" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>Current Total</Typography>
+                        <Typography variant="h6" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${currentServicesTotalCost.toFixed(2)} est.</Typography>
                     </RowBox>
                     : null}
                 {notes ? <>

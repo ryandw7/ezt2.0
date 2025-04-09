@@ -3,11 +3,11 @@ import { Box, Typography } from '@mui/material';
 
 const SavingsView = ({className, data}) => {
     
-    const { savings } = data;
+    const { totalSavings } = data;
 
     return (
         <Box className="savings" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Typography variant="h3">Save ${savings.toFixed(2)} a month!</Typography>
+            <Typography variant="h3">Save ${totalSavings.toFixed(2)} a month!</Typography>
         </Box>
     )
 };

@@ -6,7 +6,7 @@ const AdditionalView = ({className, data }) => {
     const { rep, contact, additionalNotes } = data;
 
     return (
-        <PrintBox header={"Additional"} className={className}>
+        <PrintBox header={"Additional"} boxSx={{height:"25%"}} className={className}>
             {(rep || contact) ? <>
 
                 {rep ? <>

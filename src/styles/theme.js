@@ -25,15 +25,15 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
-    h1: { fontSize: "2.5rem", fontWeight: 600 },
-    h2: { fontSize: "2rem", fontWeight: 600, color: 'white', backgroundColor: "#673AB7", padding: "16px", boxSizing:"border-box"},
-    h3: { fontSize: "1.75rem", fontWeight: 500, color: "#673AB7"},
-    h4: { fontSize: "1.5rem", fontWeight: 500 },
-    h5: { fontSize: "1.25rem", fontWeight: 400 },
+    h1: { fontSize: "2.5em", fontWeight: 600 },
+    h2: { fontSize: "1.75em", fontWeight: 600, color: 'white', backgroundColor: "#673AB7", padding: "16px", boxSizing:"border-box"},
+    h3: { fontSize: "1.5em", fontWeight: 500, color: "#673AB7"},
+    h4: { fontSize: "1.5em", fontWeight: 500 },
+    h5: { fontSize: "1.25em", fontWeight: 400 },
     h6: { fontSize: "1rem", fontWeight: 400 },
-    body1: { fontSize: "1rem", fontWeight: 400 },
-    body2: { fontSize: "0.875rem", fontWeight: 400 },
-    button: { fontSize: "1rem", textTransform: "none", fontWeight: 500 },
+    body1: { fontSize: "1em", fontWeight: 400 },
+    body2: { fontSize: "0.7em", fontWeight: 400 },
+    button: { fontSize: "1em", textTransform: "none", fontWeight: 500 },
   },
   shape: {
     borderRadius: 8, // Soft rounding for a modern feel
@@ -56,6 +56,7 @@ const theme = createTheme({
         root: {
           borderRadius: 8,
           boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
+          padding: "16px"
         },
       },
     },
