@@ -7,7 +7,7 @@ const FinishFullView = () => {
     
     return (
      
-        <FinishFeature isFullView={true} paperHeight="100vh" fontSize="14pt"/>
+        <FinishFeature isFullView={true} paperHeight="90vh" fontSize="11pt"/>
        
     )
 }

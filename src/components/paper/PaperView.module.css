@@ -1,34 +1,9 @@
-@media print {
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  .MuiPaper-root {
-    box-shadow: none !important;
-  }
-
-  .print-hidden {
-    display: none !important;
-  }
-
-
-  .page-break {
-    page-break-before: always;
-  }
-
-  .paper {
-    min-height: 270mm !important;
-    max-height: 270mm !important;
-    font-size: 13pt !important;
-  }
-}
-
-
+/* ===================== Screen Styles ===================== */
 
 .paper {
   background-color: white;
   padding: 10px;
+  max-height: 10.5in;
   aspect-ratio: 1 / 1.4142;
   margin: 10px auto;
   box-sizing: border-box;
@@ -36,12 +11,13 @@
   column-gap: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 11fr 2fr 6fr 1fr;
+  grid-template-rows: 12fr 1fr 6fr 1fr;
   grid-template-areas:
     "currentView newView"
     "savings savings"
     "additionalView additionalView"
     "disclaimer disclaimer";
+  visibility: visible;
 }
 
 h2 {
@@ -66,24 +42,21 @@ h3 {
 
 .currentView {
   grid-area: currentView;
-  margin: 0 auto;
-  padding: 0px;
+  padding: 0;
+}
+
+.newView {
+  grid-area: newView;
+  padding: 0;
 }
 
 .savings {
   grid-area: savings;
 }
 
-.newView {
-  grid-area: newView;
-  margin: 0 auto;
-  padding: 0px;
-}
-
 .additionalView {
   grid-area: additionalView;
-  margin: 0 auto;
-  padding: 0px;
+  padding: 0;
 }
 
 .disclaimer {
@@ -93,7 +66,60 @@ h3 {
   border-top: 2px solid black;
 }
 
-.currentView,
-.newView {
-  height: 100%;
+
+/* ===================== Print Styles ===================== */
+
+@media print and (max-device-width: 1024px) {
+  .paper {
+    transform: scale(0.90);
+    transform-origin: top center;
+    zoom: 0.8; /* fallback for Safari/WebKit */
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0.25in;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-sizing: border-box;
+  }
+
+  * {
+    overflow: visible !important;
+    position: static;
+    margin: 0;
+  }
+
+  .MuiPaper-root {
+    box-shadow: none !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .paper {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin: 0 auto !important;
+    max-height: 10in !important;
+    min-height: 270mm !important;
+    font-size: 11pt !important;
+    transform: none !important;
+    transform-origin: top center;
+    position: relative;
+    box-sizing: border-box;
+    visibility: visible;
+  }
 }

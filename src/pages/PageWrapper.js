@@ -13,7 +13,7 @@ export default function PageWrapper() {
 
     const values = ["/", "/core", "/mobile", "/additional", "/finish"];
 
-    const [value, setValue] = useState(location.pathname); // ✅ Init with current path
+    const [value, setValue] = useState(location.pathname);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -41,14 +41,13 @@ export default function PageWrapper() {
 
     const isCurrent = () => value === "/";
 
-    // ✅ Only navigate when value and current path are different
+ 
     useEffect(() => {
         if (value !== location.pathname && values.includes(value)) {
             navigate(value);
         }
     }, [value, location.pathname]);
 
-    // ✅ Sync value to current path on load
     useEffect(() => {
         if (values.includes(location.pathname) && value !== location.pathname) {
             setValue(location.pathname);
@@ -57,7 +56,8 @@ export default function PageWrapper() {
 
     return (
         <Box sx={{
-            position: value !== "/finish" ? "fixed" : "relative",
+            position: value !== "/finish" ? "fixed" : "static",
+            margin: "0 auto",
             alignItems: "center",
             justifyItems: "center",
             width: "100%",
@@ -65,6 +65,8 @@ export default function PageWrapper() {
             overflow: "-moz-hidden-unscrollable"
         }}>
             <Paper className="print-hidden" sx={{
+                top: "0px",
+                position:"fixed",
                 width: "100%",
                 m: "0px auto",
                 padding: 0,
@@ -101,8 +103,8 @@ export default function PageWrapper() {
 
             {<Outlet />}
 
-            {value !== "/finish" ? (
-                <Paper sx={{
+          
+                <Paper className="print-hidden" sx={{
                     width: "100%",
                     display: "flex",
                     justifyContent: "space-around",
@@ -113,10 +115,10 @@ export default function PageWrapper() {
                     bottom: "0px",
                     zIndex: 1
                 }}>
-                    <Button className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())}>Back</Button>
-                    {value !== "/finish" && <Button onClick={() => setValue(next())}>Next</Button>}
+                    <Button sx={{value}}className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())}>Back</Button>
+                    <Button disabled={value === "/finish" && true}onClick={() => setValue(next())}>Next</Button>
                 </Paper>
-            ) : null}
+        
         </Box>
     );
 }

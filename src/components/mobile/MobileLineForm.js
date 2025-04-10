@@ -47,21 +47,21 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
 
                 {(dataPlan !== "Tablet" && dataPlan !== "Watch") ? <>
 
-                    <FormControlLabel label="Data Plan" labelPlacement="top" control={<Select name="dataPlan" labelId="dataPlan" id="dataPlan" value={dataPlan} onChange={handleChange} sx={{ height: '25px', margin: "8px auto" }}>
+                    <FormControlLabel label="Data Plan" labelPlacement="top" control={<Select name="dataPlan" labelId="dataPlan" id="dataPlan" value={dataPlan} onChange={handleChange} sx={{ height: '25px', margin: "8px auto", fontSize:".7em" }}>
                         <MenuItem value="Unlimited">Unlimited</MenuItem>
-                        <MenuItem value="Unlimited Plus">Unlimited Plus</MenuItem>
+                        <MenuItem value="Unlimited Plus">Unlimited +</MenuItem>
                     </Select>} />
 
                 </> : null}
 
                 <FormControlLabel labelPlacement="top" label="BYOD" control={<Switch checked={isBYOD} id="isBYOD" onChange={handleToggle} />} />
 
-                <FormControlLabel label="XMC" labelPlacement="top" control={<Select name="xmc" labelId="xmc" id="xmc" value={xmc} onChange={handleChange} sx={{ height: "25px", margin: "8px auto" }}>
-                    <MenuItem value={9}>9</MenuItem>
-                    <MenuItem value={12}>12</MenuItem>
-                    <MenuItem value={15}>15</MenuItem>
-                    <MenuItem value={17}>17</MenuItem>
-                    <MenuItem value={19}>19</MenuItem>
+                <FormControlLabel label="XMC" labelPlacement="top" control={<Select name="xmc" labelId="xmc" id="xmc" value={xmc} onChange={handleChange} sx={{ height: "25px", margin: "8px auto", fontSize:".7em" }}>
+                    <MenuItem value={9}>$9</MenuItem>
+                    <MenuItem value={12}>$12</MenuItem>
+                    <MenuItem value={15}>$15</MenuItem>
+                    <MenuItem value={17}>$17</MenuItem>
+                    <MenuItem value={19}>$19</MenuItem>
                 </Select>} />
 
 

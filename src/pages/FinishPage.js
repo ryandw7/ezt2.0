@@ -14,32 +14,50 @@ const FinishPage = () => {
   }, []);
 
   const handleBeforePrint = React.useCallback(() => {
-   
-      return Promise.resolve();
-  
+
+    return Promise.resolve();
+
 
   }, [])
 
+ 
   const printFn = useReactToPrint({
     contentRef: componentRef,
     documentTitle: "Xfinity Plan",
     onAfterPrint: handleAfterPrint,
     onBeforePrint: handleBeforePrint,
+    removeAfterPrint: false,
   })
 
   const handlePrint = () => {
-    console.log("Waiting 500ms before printing...");
-    setIsPrint(true)
+    setIsPrint(true);
+    componentRef.current.scrollIntoView({
+      behavior: "auto",
+      block: "center",
+    });
+    
     setTimeout(() => {
-      printFn();
-    }, 500);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const el = componentRef.current;
+          if (el) {
+            el.scrollIntoView({ behavior: "auto", block: "center" });
+            setTimeout(() => {
+              printFn();
+            }, 150);
+          } else {
+            console.error("No ref found.");
+          }
+        });
+      });
+    }, 300);
   };
 
-  return (
-    <Box sx={{ width: "90%" }}>
-      <Button onClick={handlePrint}>Print</Button>
-      <FinishFeature ref={componentRef} isPrint={isPrint} paperHeight="80vh" isFullView={false} fontSize={"1vh"}/>
-    </Box>
+  return (<>
+    <Box className="print-hidden" sx={{ height: "50px" }} />
+    <Button variant="contained" className="print-hidden" onClick={handlePrint} sx={{ position: "fixed", zIndex: "1", top: "60px", right: "10%" }}>Print</Button>
+    <FinishFeature ref={componentRef} isPrint={isPrint} paperHeight="270mm" isFullView={false} fontSize={"11pt"} />
+  </>
   )
 
 };

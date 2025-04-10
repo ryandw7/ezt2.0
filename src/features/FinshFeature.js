@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router';
 
 const FinishFeature = React.forwardRef((props, ref) => {
 
-  const { paperHeight, fontSize} = props;
+  const { paperHeight, fontSize } = props;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,7 +33,7 @@ const FinishFeature = React.forwardRef((props, ref) => {
   const viewData = { currentServicesData, newServicesData, savingsData, additionalData };
 
   return (
-    <PaperView ref={ref} className="paper" data={viewData} handleClick={handleClick} paperHeight={paperHeight} fontSize={fontSize}/>
+<PaperView ref={ref} className="paper" data={viewData} handleClick={handleClick} paperHeight={paperHeight} fontSize={fontSize} isFullView={isFullView}/>
 
   )
 })
