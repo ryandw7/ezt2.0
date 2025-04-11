@@ -4,9 +4,9 @@ React Web Application designed for Sales Representatives to provide a simple and
 
 ## Folder Structure
 
-ezt2.0/
+ezt2.0/ <br>
 ├── dist/               → Production build output  <br>
-├── src/                 <br>
+├── src/ <br>
 │   ├── index.js        → Entry point of the app  <br>
 │   ├── app.js          → Main App component + route definitions  <br>
 │   ├── pages/          → Top-level route views (e.g., /core, /mobile, /finish)  <br>
