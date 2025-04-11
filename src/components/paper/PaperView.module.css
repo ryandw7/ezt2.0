@@ -1,0 +1,125 @@
+/* ===================== Screen Styles ===================== */
+
+.paper {
+  background-color: white;
+  padding: 10px;
+  max-height: 10.5in;
+  aspect-ratio: 1 / 1.4142;
+  margin: 10px auto;
+  box-sizing: border-box;
+  row-gap: 10px;
+  column-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 12fr 1fr 6fr 1fr;
+  grid-template-areas:
+    "currentView newView"
+    "savings savings"
+    "additionalView additionalView"
+    "disclaimer disclaimer";
+  visibility: visible;
+}
+
+h2 {
+  font-size: 2.3em;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+.currentView,
+.newView,
+.additionalView,
+.savings,
+.disclaimer {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.currentView {
+  grid-area: currentView;
+  padding: 0;
+}
+
+.newView {
+  grid-area: newView;
+  padding: 0;
+}
+
+.savings {
+  grid-area: savings;
+}
+
+.additionalView {
+  grid-area: additionalView;
+  padding: 0;
+}
+
+.disclaimer {
+  grid-area: disclaimer;
+  text-align: center;
+  font-size: 0.75em;
+  border-top: 2px solid black;
+}
+
+
+/* ===================== Print Styles ===================== */
+
+@media print and (max-device-width: 1024px) {
+  .paper {
+    transform: scale(0.90);
+    transform-origin: top center;
+    zoom: 0.8; /* fallback for Safari/WebKit */
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0.25in;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-sizing: border-box;
+  }
+
+  * {
+    overflow: visible !important;
+    position: static;
+    margin: 0;
+  }
+
+  .MuiPaper-root {
+    box-shadow: none !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .paper {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin: 0 auto !important;
+    max-height: 10in !important;
+    min-height: 270mm !important;
+    font-size: 11pt !important;
+    transform: none !important;
+    transform-origin: top center;
+    position: relative;
+    box-sizing: border-box;
+    visibility: visible;
+  }
+}

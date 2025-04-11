@@ -1,44 +1,40 @@
 import * as React from 'react';
-import CurrentView from '../components/printout/CurrentView.js';
-import { parse_mobile_cost } from '../utils.js';
-import { Typography, Box } from '@mui/material';
-import NewView from '../components/printout/NewView.js';
-import AdditionalView from '../components/printout/AdditionalView.js';
-import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors.js';
-import useNewCoreSelectors from '../context/selectors/useNewCoreSelectors.js';
-import useCurrentSelectors from '../context/selectors/useCurrentSelectors.js';
-import useAdditionalSelectors from '../context/selectors/useAdditionalSelectors.js';
+import { useNewMobileSelectors, useNewCoreSelectors, useCurrentSelectors, useAdditionalSelectors, useDerivedSelectors } from '../context/selectors'
+import PaperView from '../components/paper/PaperView.js';
+import { useNavigate, useLocation } from 'react-router';
 
 const FinishFeature = React.forwardRef((props, ref) => {
 
-  const isPrintMedia = window.matchMedia('print').matches;
+  const { paperHeight, fontSize } = props;
 
-  const { newMobileLines } = useNewMobileSelectors();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isFullView = location.pathname === "/finish-full-view";
+
+  const handleClick = () => {
+    navigate(isFullView ? "/finish" : "/finish-full-view");
+  };
+
+   
+  const { newServicesTotalCost, totalSavings } = useDerivedSelectors();
+  const { newMobilePlanCost } = useNewMobileSelectors();
   const { newCore } = useNewCoreSelectors();
-  const { current, currentTotal } = useCurrentSelectors();
-  const additional = { ...useAdditionalSelectors() };
+  const { current, currentServicesTotalCost } = useCurrentSelectors();
+  const { rep, contact, additionalNotes } = useAdditionalSelectors()
+
+  const mobileTotalCost = Number(newMobilePlanCost.mobileTotal);
 
 
-  const mobileCost = parse_mobile_cost(newMobileLines);
-  const mobileTotalCost = Number(mobileCost.mobileTotal);
+  const currentServicesData = { current, currentServicesTotalCost };
+  const newServicesData = { newCore, newMobilePlanCost, mobileTotalCost, newServicesTotalCost };
+  const savingsData = { totalSavings };
+  const additionalData = { rep, contact, additionalNotes };
+  const viewData = { currentServicesData, newServicesData, savingsData, additionalData };
 
-  const newCoreTotal = newCore.internetCost + newCore.tvCost;
-  const newTotal = mobileTotalCost + newCoreTotal || 0;
-  console.log(mobileTotalCost, newCoreTotal, newTotal)
-  const savings = currentTotal - newTotal;
   return (
-    <div ref={ref} className="paper" sx={{ position: "relative" }}>
-      <CurrentView currentServices={current} total={currentTotal} />
-      <NewView newCore={newCore} newCoreTotal={newCoreTotal} mobileCost={mobileCost} mobileTotal={mobileTotalCost} newTotal={newTotal} />
-      {savings > 0 ? <>
-        <Box className="savings">
-          <Box height={"90px"}></Box>
-          <Typography variant="h3">Save ${savings.toFixed(2)} a month!</Typography>
-        </Box >
-      </> : null}
-      <AdditionalView additional={additional} />
-      <Typography fontWeight={"bold"} sx={{borderTop:"2px solid #673AB7", width:"90%", left:`5%`}}className='disclaimer'>DISCLAIMER: This is not a legal confirmation, and all offers are finalized at point of sale.</Typography>
-    </div>
+<PaperView ref={ref} className="paper" data={viewData} handleClick={handleClick} paperHeight={paperHeight} fontSize={fontSize} isFullView={isFullView}/>
+
   )
 })
 

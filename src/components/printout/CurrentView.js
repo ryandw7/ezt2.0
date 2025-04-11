@@ -1,51 +1,47 @@
-import React from 'react'
-import { Box, Typography, Paper } from "@mui/material"
-const CurrentView = ({ currentServices, total }) => {
-    const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = currentServices;
+import React from 'react';
+import PrintBox from "../boxes/PrintBox";
+import RowBox from '../boxes/RowBox';
+import { Typography } from '@mui/material';
+
+
+const CurrentView = ({ className, data }) => {
+    const { current, currentServicesTotalCost } = data;
+    const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
 
     return (
-        <Paper elevation={3} sx={{ p: "0px", width: "100%", borderTopRightRadius: "20px", borderTopLeftRadius: "20px", backgroundColor: "#F5F5F5" }} className="current-view">
-            <Typography variant='h2' sx={{ height: "60px", width: "100%", borderTopRightRadius: "20px", borderTopLeftRadius: "20px", m: "0 auto", p: "10px" }}>Current Services</Typography>
-            <Box sx={{ display: "flex", position: "relative", flexDirection: "column", alignItems: "space-between", justifyContent: "flex-start", justifyItems: "center", width: "100%", height: "calc(100% - 60px)" }}>
-
-                {(internet || internetCost) ? <>
-                    <Box sx={{ textAlign: "center" }}>
+        <PrintBox header={"Current"} className={className}>
+             {(internet || internetCost) ? <>
                         <RowBox>
                             <Typography variant="h3">Internet</Typography>
                         </RowBox>
                         <RowBox>
-                            <Typography sx={{textWrap:"nowrap"}}>{internet}</Typography>
-                            <Typography sx={{textWrap:"nowrap"}}>${internetCost.toFixed(2)} est.</Typography>
+                            <Typography sx={{ textWrap: "nowrap" }}>{internet}</Typography>
+                            <Typography sx={{ textWrap: "nowrap" }}>${data.current.internetCost.toFixed(2)} est.</Typography>
                         </RowBox>
-                    </Box>
+            
                 </> : null}
                 {(tv || tvCost) ? <>
-
-                    <Box sx={{ textAlign: "center" }}>
                         <RowBox>
                             <Typography variant="h3">Tv and Extras</Typography>
                         </RowBox>
                         <RowBox>
                             <Typography>{tv}</Typography>
-                            <Typography sx={{textWrap:"nowrap"}}>${tvCost.toFixed(2)} est.</Typography>
-
+                            <Typography sx={{ textWrap: "nowrap" }}>${tvCost.toFixed(2)} est.</Typography>
                         </RowBox>
-                    </Box>
                 </> : null}
-                {(mobile || mobileCost) ? <Box sx={{ textAlign: "center" }}>
+                {(mobile || mobileCost) ? <>
                     <RowBox>
                         <Typography variant="h3">Mobile</Typography>
-
                     </RowBox>
                     <RowBox>
-                        <Typography sx={{textWrap:"nowrap"}}>{mobile}</Typography>
-                        <Typography sx={{textWrap:"nowrap"}}>${mobileCost.toFixed(2)} est.</Typography>
+                        <Typography sx={{ textWrap: "nowrap" }}>{mobile}</Typography>
+                        <Typography sx={{ textWrap: "nowrap" }}>${mobileCost.toFixed(2)} est.</Typography>
                     </RowBox>
-                </Box> : null}
-                {total !== 0 ?
-                    <RowBox sx={{position:"absolute", bottom: "5px", padding:"3px"}}>
-                        <Typography variant="h4" fontWeight="bold" sx={{  p: 0, m: 0, height: "fit-content" }}>Current Total</Typography>
-                        <Typography variant="h4" fontWeight="bold" sx={{  p: 0, m: 0, height: "fit-content" }}>${total.toFixed(2)} est.</Typography>
+                </> : null}
+                {currentServicesTotalCost !== 0 ?
+                    <RowBox sx={{ marginTop: "auto", padding: "3px", justifySelf:"flex-end" }}>
+                        <Typography variant="h6" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>Current Total</Typography>
+                        <Typography variant="h6" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${currentServicesTotalCost.toFixed(2)} est.</Typography>
                     </RowBox>
                     : null}
                 {notes ? <>
@@ -53,10 +49,8 @@ const CurrentView = ({ currentServices, total }) => {
                         <Typography>{notes}</Typography>
                     </RowBox>
                 </> : null}
-
-            </Box>
-        </Paper>
+        </PrintBox>
     )
-}
-const RowBox = ({ children, sx ={} }) => <Box sx={{display: "flex", flexDirection: "row", textWrap: "no-wrap", justifyContent: "space-between", width: "100%", p: "5px 20px 5px 20px", ...sx}}>{children}</Box>
+};
+
 export default CurrentView;
