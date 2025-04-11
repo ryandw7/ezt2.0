@@ -75,24 +75,24 @@ export default function NewMobileLine({ line, handleUpdate, lineCost }) {
                     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", m: "5px", width: "100%", overflowX: "-moz-hidden-unscrollable" }}>
                         <FormControlLabel control={<Switch checked={payInFull} id="payInFull" onChange={handleToggle} />} label="Pay in Full" />
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", m: "5px" }}>
-                        <TextField id="deviceModel" label="Device Model" variant='outlined' value={deviceModel} onChange={handleChange} sx={{ width: "200px" }} />
+                    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", m: "5px" }}>
+                        <TextField id="deviceModel" label="Device Model" variant='outlined' value={deviceModel} onChange={handleChange} sx={{ width: "200px", m:"5px"}} />
 
-                        <TextField id="deviceTotalCost" label="Total Cost" variant='outlined' value={deviceTotalCost !== 0 ? deviceTotalCost : ''} onChange={handleChange} sx={{ width: "100px" }} />
+                        <TextField id="deviceTotalCost" label="Total Cost" variant='outlined' value={deviceTotalCost !== 0 ? deviceTotalCost : ''} onChange={handleChange} sx={{ width: "100px", m:"5px" }} />
 
 
                     </Box>
                     {!payInFull && (
-                        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", m: "5px" }}>
-                            <TextField id="deviceDiscountDesc" label="Device Discount" variant='outlined' value={deviceDiscountDesc} onChange={handleChange} sx={{ width: "200px" }} />
-                            <TextField id="deviceDiscount" label="Amount" variant='outlined' value={deviceDiscount !== 0 ? deviceDiscount : ''} onChange={handleChange} sx={{ width: "100px" }} />
+                        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", m: "5px" }}>
+                            <TextField id="deviceDiscountDesc" label="Device Discount" variant='outlined' value={deviceDiscountDesc} onChange={handleChange} sx={{ width: "200px", m:"5px" }} />
+                            <TextField id="deviceDiscount" label="Amount" variant='outlined' value={deviceDiscount !== 0 ? deviceDiscount : ''} onChange={handleChange} sx={{ width: "100px" , m:"5px"}} />
                         </Box>
                     )}
                 </>
             )}
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", m: "5px" }}>
-                <TextField id="lineDiscountDesc" label="Line Discount" variant='outlined' value={lineDiscountDesc} onChange={handleChange} sx={{ width: "200px" }} />
-                <TextField id="lineDiscount" label="Amount" variant='outlined' value={lineDiscount !== 0 ? lineDiscount : ''} onChange={handleChange} sx={{ width: "100px"  }} />
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", m: "5px" }}>
+                <TextField id="lineDiscountDesc" label="Line Discount" variant='outlined' value={lineDiscountDesc} onChange={handleChange} sx={{ width: "200px" , m:"5px"}} />
+                <TextField id="lineDiscount" label="Amount" variant='outlined' value={lineDiscount !== 0 ? lineDiscount : ''} onChange={handleChange} sx={{ width: "100px" , m:"5px" }} />
             </Box>
             <Button variant="contained" onClick={handleStopEdit} sx={{ mt: 2 }}>Done</Button>
         </Paper>
