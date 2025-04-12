@@ -9,7 +9,7 @@ const CurrentView = ({ className, data }) => {
     const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
 
     return (
-        <PrintBox header={"Current"} className={className}>
+        <PrintBox header={"Current Services"} className={className}>
              {(internet || internetCost) ? <>
                         <RowBox>
                             <Typography variant="h3">Internet</Typography>
@@ -22,7 +22,7 @@ const CurrentView = ({ className, data }) => {
                 </> : null}
                 {(tv || tvCost) ? <>
                         <RowBox>
-                            <Typography variant="h3">Tv and Extras</Typography>
+                            <Typography variant="h3">TV and Extras</Typography>
                         </RowBox>
                         <RowBox>
                             <Typography>{tv}</Typography>
