@@ -41,7 +41,7 @@ export default function PageWrapper() {
 
     const isCurrent = () => value === "/";
 
- 
+
     useEffect(() => {
         if (value !== location.pathname && values.includes(value)) {
             navigate(value);
@@ -56,23 +56,24 @@ export default function PageWrapper() {
 
     return (
         <Box sx={{
-            position: value !== "/finish" ? "fixed" : "static",
+
             margin: "0 auto",
             alignItems: "center",
             justifyItems: "center",
             width: "100%",
             height: "100vh",
-            overflow: "-moz-hidden-unscrollable"
+            maxHeight:"100vh",
+            overflow: "hidden"
         }}>
             <Paper className="print-hidden" sx={{
                 top: "0px",
-                position:"fixed",
                 width: "100%",
                 m: "0px auto",
                 padding: 0,
                 height: "50px",
-                zIndex: 1,
-                borderRadius: "0px"
+                borderRadius: "0px",
+                opacity: 1,
+                zIndex:1
             }}>
                 <Typography variant="h3" sx={{ position: "absolute", height: "fit-content", m: "7px" }}>EZ-T</Typography>
                 <Tabs
@@ -100,25 +101,24 @@ export default function PageWrapper() {
                     <Tab label="Finish" value="/finish" />
                 </Tabs>
             </Paper>
+            <Box sx={{ height: `calc(100% - 100px)`, width: "100%", maxHeight: `calc(100vh - 100px)`, boxSizing:"border-box"}}>
+                {<Outlet />}
+            </Box>
+            <Paper className="print-hidden" sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+                height: "50px",
+                m: 0,
+                borderRadius: "0px",
+                bottom: "0px",
+                zIndex: 1,
+                position:"fixed"
+            }}>
+                <Button sx={{ value }} className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())}>Back</Button>
+                <Button disabled={value === "/finish" && true} onClick={() => setValue(next())}>Next</Button>
+            </Paper>
 
-            {<Outlet />}
-
-          
-                <Paper className="print-hidden" sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-around",
-                    height: "50px",
-                    m: 0,
-                    borderRadius: "0px",
-                    position: "fixed",
-                    bottom: "0px",
-                    zIndex: 1
-                }}>
-                    <Button sx={{value}}className="print-hidden" disabled={isCurrent()} onClick={() => setValue(back())}>Back</Button>
-                    <Button disabled={value === "/finish" && true}onClick={() => setValue(next())}>Next</Button>
-                </Paper>
-        
         </Box>
     );
 }

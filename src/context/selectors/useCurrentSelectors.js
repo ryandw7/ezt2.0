@@ -1,5 +1,5 @@
 import useAppContext from "../context"
-
+import createSelector from "./createSelector";
 export const getCurrentInternet = (state) => state.currentServices?.internet || '';
 export const getCurrentInternetCost = (state) => state.currentServices?.internetCost || 0;
 export const getCurrentTv = (state) => state.currentServices?.tv || '';
@@ -8,10 +8,13 @@ export const getCurrentMobile = (state) => state.currentServices?.mobile || '';
 export const getCurrentMobileCost = (state) => state.currentServices?.mobileCost || 0;
 export const getCurrentNotes = (state) => state.currentServices?.notes || '';
 export const getCurrent = (state) => state.currentServices;
+export const getCurrentServices = (state) => state.currentServices?.items || [];
 
-export const getCurrentServicesTotalCost = (state) => {
-    return [getCurrentInternetCost(state), getCurrentTvCost(state), getCurrentMobileCost(state)].reduce((p, c)=> p + c, 0);
-}
+export const getCurrentServicesTotalCost = createSelector([getCurrentServices], (currentServices)=>{
+    return currentServices.reduce((accumulator, item)=>{
+        return accumulator + item.cost
+    }, 0)
+})
 
 const useCurrentSelectors = () => {
     const { state } = useAppContext();
@@ -29,8 +32,8 @@ const useCurrentSelectors = () => {
     const currentNotes = getCurrentNotes(state) || '';
     const current = getCurrent(state) || '';
     const currentServicesTotalCost = getCurrentServicesTotalCost(state) || 0;
-    
-    return { current, currentServicesTotalCost, currentInternet, currentInternetCost, currentTv, currentTvCost, currentMobile, currentMobileCost, currentNotes }
+    const currentServices = getCurrentServices(state)
+    return { currentServices, current, currentServicesTotalCost, currentInternet, currentInternetCost, currentTv, currentTvCost, currentMobile, currentMobileCost, currentNotes }
 }
 
 export default useCurrentSelectors;

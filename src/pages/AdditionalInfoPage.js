@@ -5,7 +5,7 @@ import AdditionalInfoFeature from '../features/AdditionalInfoFeature';
 const AdditionalInfoPage = () => {
 
     return (
-        <PageBox>
+        <PageBox header="Additional Info">
             <AdditionalInfoFeature />
         </PageBox>
     )

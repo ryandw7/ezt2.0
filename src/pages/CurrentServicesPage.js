@@ -5,7 +5,7 @@ import CurrentServicesFeature from '../features/CurrentServicesFeature';
 const CurrentServicesPage = () => {
 
     return (
-        <PageBox>
+        <PageBox header="Current Services">
             <CurrentServicesFeature />
         </PageBox>
     )

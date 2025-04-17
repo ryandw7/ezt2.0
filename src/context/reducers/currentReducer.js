@@ -1,4 +1,5 @@
 
+import { currentServicesObj } from "../stateTools";
 
 const initialState = {
     internet: '',
@@ -14,31 +15,50 @@ const initialState = {
 const currentReducer = (state = initialState, action) => {
     console.log(state)
     console.log('DISPATCHING ' + action.type)
-    switch(action.type){
-        case 'UPDATE_CURRENT':{
-            
+    switch (action.type) {
+        case 'ADD_ITEM': {
+            const newArr = state.items;
+            newArr.push(currentServicesObj());
+            return { ...state, items: newArr }
+        }
+        case 'DELETE_CURRENT_ITEM': {
+            const newArr = state.items.filter((item) => item.id !== action.payload);
+            return { ...state, items: newArr }
+
+        }
+        case 'UPDATE_CURRENT_ITEM': {
+
+            const { id, key, value } = action.payload;
+            console.log(id)
+            const newArr = state.items.map((item) => item.id === id ? { ...item, [key]: value } : item);
+
+            return { ...state, items: newArr }
+        }
+        
+        case 'UPDATE_CURRENT': {
+
             const { key, value } = action.payload;
 
-            return {...state, [key]:value}
+            return { ...state, [key]: value }
         }
         case 'UPDATE_CURRENT_INTERNET':
-            return {...state, internet: action.payload}
+            return { ...state, internet: action.payload }
         case 'UPDATE_CURRENT_INTERNET_COST':
-            return {...state, internetCost: action.payload}
+            return { ...state, internetCost: action.payload }
         case 'UPDATE_CURRENT_TV':
-            return {...state, tv: action.payload}
+            return { ...state, tv: action.payload }
         case 'UPDATE_CURRENT_TV_COST':
-            return {...state, tvCost: action.payload}
+            return { ...state, tvCost: action.payload }
         case 'UPDATE_CURRENT_MOBILE':
-            return {...state, mobile: action.payload}
+            return { ...state, mobile: action.payload }
         case 'UPDATE_CURRENT_MOBILE_COST':
-            return {...state, mobileCost: action.payload}
+            return { ...state, mobileCost: action.payload }
         case 'UPDATE_CURRENT_NOTES':
-            return {...state, notes: action.payload}
+            return { ...state, notes: action.payload }
         default:
             return state;
     }
-    
+
 }
 
 export default currentReducer;

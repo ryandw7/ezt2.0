@@ -5,7 +5,7 @@ import NewMobileFeature from '../features/NewMobileFeature';
 const NewMobilePage = () => {
 
     return (
-        <PageBox>
+        <PageBox header="New Mobile Service">
             <NewMobileFeature/>
         </PageBox>
     )

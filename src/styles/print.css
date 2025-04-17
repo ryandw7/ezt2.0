@@ -2,6 +2,8 @@
   body {
     margin: 0;
     padding: 0;
+    
+    overflow:hidden;
   }
 
   .MuiPaper-root {
@@ -19,6 +21,12 @@
  
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
 
 
 .page-wrapper {
@@ -29,6 +37,7 @@
   justify-content: center;   /* Horizontal center */
   align-items: center;       /* Vertical center */            /* Full viewport width */
   page-break-inside: avoid;
+  overflow: hidden;
 }
 
 .current-view,

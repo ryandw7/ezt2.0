@@ -4,8 +4,8 @@ import PrintBox from '../boxes/PrintBox';
 import RowBox from '../boxes/RowBox';
 import { data } from 'react-router-dom';
 
-const NewView = ({ className, data}) => {
-    const {newCore, newMobilePlanCost, newServicesTotalCost} = data;
+const NewView = ({ className, data }) => {
+    const { newCore, newMobilePlanCost, newServicesTotalCost } = data;
     const { internet, internetCost, tv, tvCost } = newCore;
     const { taxes, xmcTotal, unlimitedLines, unlimitedPlus, watches, tablets, deviceMonthly, lineQuantity, mobileTotal, lineDiscounts } = newMobilePlanCost;
 
@@ -13,22 +13,13 @@ const NewView = ({ className, data}) => {
         <PrintBox header={"New Services"} className={className}>
 
             {(internet && internetCost != 0) ? <>
-
-                <RowBox>
-                    <Typography variant="h3">Internet</Typography>
-                </RowBox>
                 <RowBox>
                     <Typography>{internet}</Typography>
                     <Typography>${internetCost.toFixed(2)} est.</Typography>
                 </RowBox>
 
             </> : null}
-
             {(tv && tvCost != 0) ? <>
-
-                <RowBox>
-                    <Typography variant="h3">TV and Extras</Typography>
-                </RowBox>
                 <RowBox>
                     <Typography>{tv}</Typography>
                     <Typography>${tvCost.toFixed(2)} est.</Typography>
@@ -37,18 +28,18 @@ const NewView = ({ className, data}) => {
             </> : null}
 
             {mobileTotal != 0 ? <>
-
-
                 <RowBox>
-                    <Typography variant="h3">Mobile</Typography>
+                    <Typography variant="h4">Xfinity Mobile</Typography>
                 </RowBox>
-
                 {unlimitedLines.quantity !== 0 &&
                     <RowBox>
                         <Typography>{unlimitedLines.quantity} Unlimited Line{unlimitedLines.quantity > 1 && 's'}</Typography>
                         <Typography>${unlimitedLines.cost.toFixed(2)} est.</Typography>
                     </RowBox>}
-
+                {unlimitedPlus.quantity !== 0 && <RowBox>
+                    <Typography>{unlimitedPlus.quantity} Unlimited Plus Line{unlimitedPlus.quantity > 1 && 's'}</Typography>
+                    <Typography>${unlimitedPlus.cost.toFixed(2)} est.</Typography>
+                </RowBox>}
                 {tablets.quantity !== 0 && <RowBox>
                     <Typography>{tablets.quantity} Tablet{tablets.quantity > 1 && 's'}</Typography>
                     <Typography>${tablets.cost.toFixed(2)} est.</Typography>
@@ -64,10 +55,7 @@ const NewView = ({ className, data}) => {
                     <Typography>${xmcTotal.toFixed(2)} est.</Typography>
                 </RowBox>}
 
-                {unlimitedPlus.quantity !== 0 && <RowBox>
-                    <Typography>{unlimitedPlus.quantity} Unlimited Plus Line{unlimitedPlus.quantity > 1 && 's'}</Typography>
-                    <Typography>${unlimitedPlus.cost.toFixed(2)} est.</Typography>
-                </RowBox>}
+
 
                 {deviceMonthly != 0 && <RowBox>
                     <Typography>New Devices</Typography>

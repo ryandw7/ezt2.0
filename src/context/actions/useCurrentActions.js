@@ -4,6 +4,23 @@ import useAppContext from "../context.js";
 const useCurrentActions = () => {
     const { dispatch } = useAppContext();
 
+    const addCurrentItem = () => {
+        dispatch({type:"ADD_ITEM"})
+    }
+
+    const deleteCurrentItem = (id) => {
+        dispatch({type:"DELETE_CURRENT_ITEM", payload: id})
+    }
+
+    const updateCurrentItem = (id, key, value) => {
+        
+       
+            dispatch({type:"UPDATE_CURRENT_ITEM", payload:{id, key, value}})
+        
+        
+        
+    }
+    
     const updateCurrent = (key, value) => {
         dispatch({type: 'UPDATE_CURRENT', payload: {key, value}})
     }
@@ -42,7 +59,7 @@ const useCurrentActions = () => {
     const updateCurrentNotes = (updatedNotes) => {
         dispatch({type: 'UPDATE_CURRENT_NOTES', payload: updatedNotes})
     }
-    return { updateCurrent, updateCurrentInternet, updateCurrentInternetCost, updateCurrentTv, updateCurrentTvCost, updateCurrentMobile, updateCurrentMobileCost, updateCurrentNotes }
+    return { deleteCurrentItem, addCurrentItem, updateCurrentItem, updateCurrent, updateCurrentInternet, updateCurrentInternetCost, updateCurrentTv, updateCurrentTvCost, updateCurrentMobile, updateCurrentMobileCost, updateCurrentNotes }
 }
 
 export default useCurrentActions;

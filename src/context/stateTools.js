@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 
 export const lineObj = () => ({
     isEdit: true,
@@ -17,6 +18,12 @@ export const lineObj = () => ({
     xmc: 0,
 });
 
+export const currentServicesObj = () => ({
+    id: uuidv4(),
+    description: '',
+    cost: 0,
+    additionalNotes: ''
+})
 export const createInitialState = () => ({
 
     currentServices: {
@@ -26,7 +33,8 @@ export const createInitialState = () => ({
         tvCost: 0,
         mobile: '',
         mobileCost: 0,
-        notes: ''
+        notes: '',
+        items: [currentServicesObj()]
     },
     newCore: {
         internet: '',
@@ -58,5 +66,5 @@ export const updateDataFlags = (lines) => {
     const hasBTG = lines.some(line => line.dataPlan === "BTG");
     console.log(`hasUnlimited: ${hasUnlimited}\nhasBTG: ${hasBTG}`)
     return { hasUnlimited, hasBTG };
-    
+
 }
