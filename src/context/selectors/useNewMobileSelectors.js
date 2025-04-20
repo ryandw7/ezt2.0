@@ -1,8 +1,49 @@
 import useAppContext from "../context";
+import createSelector from "./createSelector";
 
-const getNewMobileLines = (state) => state.newMobile?.lines || [];
+export const getNewMobileLines = (state) => state.newMobile?.lines || [];
+
+export const getNewMobileLines2 = (state) => state.newMobile?.linesById;
+
+export const getUnlimitedLines = createSelector([getNewMobileLines2], (newMobileLines) => {
+    return Object.values(newMobileLines).filter((line) => line.dataPlan === "Unlimited")
+})
+
+export const getUnlimitedPremiumLines = createSelector([getNewMobileLines2], (newMobileLines) => {
+    return Object.values(newMobileLines).filter((line) => line.dataPlan === "Unlimited Premium")
+})
+
+export const getWatchLines = createSelector([getNewMobileLines2], (newMobileLines) => {
+    return Object.values(newMobileLines).filter((line) => line.dataPlan === "Watch")
+})
+
+export const getTabletLines = createSelector([getNewMobileLines2], (newMobileLines) => {
+    return Object.values(newMobileLines).filter((line) => line.dataPlan === "Tablet")
+})
+
+export const getPhoneLineCostById = createSelector(
+    [getUnlimitedLines, getUnlimitedPremiumLines],
+    (unlimitedLines, unlimitedPremiumLines) => {
+        return (id) => {
+            // Check if the line is in unlimited
+            const isInUnlimited = unlimitedLines.find(line => line.id === id);
+            if (isInUnlimited) {
+                return unlimitedLines[0]?.id === id ? 40 : 20;
+            }
+
+            // Check if it's in unlimited premium
+            const isInPremium = unlimitedPremiumLines.find(line => line.id === id);
+            if (isInPremium) {
+                return unlimitedPremiumLines[0]?.id === id ? 50 : 30;
+            }
+
+            return 0;
+        };
+    }
+);
 
 const getNewMobileLineCostById = (state) => (id) => {
+
     const line = state.newMobile?.lines.find(item => item.id === id);
     //const { hasUnlimited, hasBTG } = state.newMobile || {};
     let cost;
@@ -34,6 +75,20 @@ const getNewMobileLineCostById = (state) => (id) => {
         }
     }
 }
+
+export const getAllLinesAndCost = createSelector(
+    [getUnlimitedLines, getUnlimitedPremiumLines, getWatchLines, getTabletLines, getPhoneLineCostById],
+    (unlimitedLines, unlimitedPremiumLines, watchLines, tabletLines, phoneLineCostById) => {
+                unlimitedLines.forEach(line => line.cost = phoneLineCostById(line.id));
+                unlimitedPremiumLines.forEach(line => line.cost = phoneLineCostById(line.id));
+                watchLines.forEach(line => line.cost = 10);
+                tabletLines.forEach(line => line.cost = 20);
+
+                return {
+                    unlimitedLines: unlimitedLines.map(), unlimitedPremiumLines, watchLines, tabletLines}
+    })
+
+
 
 export const getNewMobilePlanCost = (state) => {
 

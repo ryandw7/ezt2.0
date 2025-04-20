@@ -1,5 +1,5 @@
-import useAppContext from "../context"
-import createSelector from "./createSelector";
+import useAppContext from "../context.js"
+import createSelector from "./createSelector.js";
 export const getCurrentInternet = (state) => state.currentServices?.internet || '';
 export const getCurrentInternetCost = (state) => state.currentServices?.internetCost || 0;
 export const getCurrentTv = (state) => state.currentServices?.tv || '';

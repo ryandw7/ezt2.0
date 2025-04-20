@@ -5,14 +5,27 @@ import RowBox from '../boxes/RowBox';
 import { data } from 'react-router-dom';
 
 const NewView = ({ className, data }) => {
-    const { newCore, newMobilePlanCost, newServicesTotalCost } = data;
-    const { internet, internetCost, tv, tvCost } = newCore;
+    const { newCoreServices, newMobilePlanCost, newCoreServicesTotalCost, newServicesTotalCost } = data;
+
     const { taxes, xmcTotal, unlimitedLines, unlimitedPlus, watches, tablets, deviceMonthly, lineQuantity, mobileTotal, lineDiscounts } = newMobilePlanCost;
 
     return (
         <PrintBox header={"New Services"} className={className}>
 
-            {(internet && internetCost != 0) ? <>
+            {newCoreServices.map((item) => {
+                return item.cost !== 0 ? <>
+                    <RowBox>
+                        <Typography>{item.description}</Typography>
+                        <Typography>${item.cost.toFixed(2)} est.</Typography>
+                    </RowBox>
+                    <RowBox sx={{ justifyContent: "center" }}>
+                        <Typography fontStyle="italic">{item.additionalNotes}</Typography>
+                    </RowBox>
+                </> : null
+            })
+            }
+
+            {/* {(internet && internetCost != 0) ? <>
                 <RowBox>
                     <Typography>{internet}</Typography>
                     <Typography>${internetCost.toFixed(2)} est.</Typography>
@@ -25,7 +38,7 @@ const NewView = ({ className, data }) => {
                     <Typography>${tvCost.toFixed(2)} est.</Typography>
                 </RowBox>
 
-            </> : null}
+            </> : null} */}
 
             {mobileTotal != 0 ? <>
                 <RowBox>

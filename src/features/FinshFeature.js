@@ -19,7 +19,7 @@ const FinishFeature = React.forwardRef((props, ref) => {
    
   const { newServicesTotalCost, totalSavings } = useDerivedSelectors();
   const { newMobilePlanCost } = useNewMobileSelectors();
-  const { newCore } = useNewCoreSelectors();
+  const { newCore, newCoreServices, newCoreServicesTotalCost } = useNewCoreSelectors();
   const { current, currentServicesTotalCost, currentServices } = useCurrentSelectors();
   const { rep, contact, additionalNotes } = useAdditionalSelectors()
 
@@ -27,7 +27,7 @@ const FinishFeature = React.forwardRef((props, ref) => {
 
 
   const currentServicesData = { current, currentServicesTotalCost, currentServices };
-  const newServicesData = { newCore, newMobilePlanCost, mobileTotalCost, newServicesTotalCost };
+  const newServicesData = { newCoreServices, newCoreServicesTotalCost, newMobilePlanCost, mobileTotalCost, newServicesTotalCost };
   const savingsData = { totalSavings };
   const additionalData = { rep, contact, additionalNotes };
   const viewData = { currentServicesData, newServicesData, savingsData, additionalData };

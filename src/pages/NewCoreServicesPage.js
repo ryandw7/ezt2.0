@@ -5,7 +5,7 @@ import NewCoreServicesFeature from '../features/NewCoreServicesFeature';
 const NewCoreServicesPage = () => {
   
     return (
-        <PageBox header="New Core Services">
+        <PageBox header="New Core Services" subHeader="(Exclude Mobile Service)">
             <NewCoreServicesFeature />
         </PageBox>
     )

@@ -1,5 +1,5 @@
 
-import { currentServicesObj } from "../stateTools";
+import { serviceItemObj } from "../stateTools";
 
 const initialState = {
     internet: '',
@@ -18,7 +18,7 @@ const currentReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_ITEM': {
             const newArr = state.items;
-            newArr.push(currentServicesObj());
+            newArr.push(serviceItemObj());
             return { ...state, items: newArr }
         }
         case 'DELETE_CURRENT_ITEM': {

@@ -1,30 +1,51 @@
-import { createInitialState, lineObj, updateDataFlags } from "../stateTools.js";
+import { createInitialState, lineObj, phoneLineObj, watchLineObj, tabletLineObj, updateDataFlags } from "../stateTools.js";
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = createInitialState().newMobile;
 
 const newMobileReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case 'QUICK_ADD_LINE': {
-            const newLine = lineObj();
-            newLine.id = state.lines.length;
-            newLine.isEdit = false;
-            const newLinesArr = state.lines.map((line) => {
-                if (line.id !== newLine.id) {
-                    return {
-                        ...line,
-                        isEdit: false
-                    }
-                } else {
-                    return line
+
+        case 'ADD_PHONE_LINE2': {
+            const id = uuidv4();
+            const line = phoneLineObj();
+            line.id = id;
+            return {
+                ...state,
+                linesById: {
+                    ...state.linesById,
+                    [id]: line
                 }
-            })
-            const { hasBTG, hasUnlimited } = updateDataFlags([...newLinesArr, newLine]);
-            return { ...state, hasBTG, hasUnlimited, lines: [...newLinesArr, newLine] }
+            }
+        }
+
+        case 'ADD_WATCH_LINE2': {
+            const id = uuidv4();
+            const line = watchLineObj();
+            line.id = id;
+            return {
+                ...state,
+                linesById: {
+                    ...state.linesById,
+                    [id]: line
+                }
+            }
+        }
+        case 'ADD_TABLET_LINE2': {
+            const id = uuidv4();
+            const line = tabletLineObj();
+            line.id = id;
+            return {
+                ...state,
+                linesById: {
+                    ...state.linesById,
+                    [id]: line
+                }
+            }
         }
         case 'ADD_LINE': {
             const newLine = lineObj();
-            newLine.id = state.lines.length;
             newLine.isEdit = true;
             const newLinesArr = state.lines.map((line) => {
                 if (line.id !== newLine.id) {
@@ -58,7 +79,7 @@ const newMobileReducer = (state = initialState, action) => {
             const { hasBTG, hasUnlimited } = updateDataFlags(newLinesArr);
             return { ...state, hasBTG, hasUnlimited, lines: [...newLinesArr, newTablet] }
         }
-        case 'ADD_WATCH' : {
+        case 'ADD_WATCH': {
             const newWatch = lineObj();
             newWatch.id = state.lines.length;
             newWatch.isEdit = true;
@@ -85,8 +106,6 @@ const newMobileReducer = (state = initialState, action) => {
         }
         case 'UPDATE_LINE': {
             const { id, key, value } = action.payload;
-
-            let dataFlag = false;
 
             const updatedLines = state.lines.map((line) => {
                 if (line.id === id) {

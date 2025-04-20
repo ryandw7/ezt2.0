@@ -2,8 +2,22 @@ import useAppContext from "../context.js";
 
 
 const useNewCoreActions = () => {
-    const { state, dispatch } = useAppContext();
+    const { dispatch } = useAppContext();
 
+    const addNewCoreItem = () => {
+        dispatch({type:"ADD_NEW_CORE_ITEM"})
+    }
+
+    const deleteNewCoreItem = (id) => {
+        dispatch({type:"DELETE_NEW_CORE_ITEM", payload: id})
+    }
+
+    const updateNewCoreItem = (id, key, value) => {
+        
+       
+            dispatch({type:"UPDATE_NEW_CORE_ITEM", payload:{id, key, value}})
+    }
+    
     const updateNewCore = (key, value) => {
         dispatch({type: 'UPDATE_NEW_CORE', payload: {key, value}})
     }
@@ -34,7 +48,7 @@ const useNewCoreActions = () => {
     const updateNewCoreNotes = (updatedNotes) => {
         dispatch({type: 'UPDATE_NEW_CORE_NOTES', payload: updatedNotes})
     }
-    return { updateNewCore, updateNewInternet, updateNewInternetCost, updateNewTv, updateNewTvCost, updateNewCoreNotes }
+    return { addNewCoreItem, updateNewCoreItem, deleteNewCoreItem, updateNewCore, updateNewInternet, updateNewInternetCost, updateNewTv, updateNewTvCost, updateNewCoreNotes }
 }
 
 export default useNewCoreActions;

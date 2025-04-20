@@ -15,7 +15,7 @@ const CurrentView = ({ className, data }) => {
                     <>
                         <RowBox>
                             <Typography>{item.description}</Typography>
-                            <Typography>${item.cost.toFixed(2)}</Typography>
+                            <Typography>${item.cost.toFixed(2)} est.</Typography>
                         </RowBox>
                         <RowBox sx={{justifyContent:"center"}}>
                             <Typography sx={{fontStyle:"italic"}}>{item.additionalNotes}</Typography>

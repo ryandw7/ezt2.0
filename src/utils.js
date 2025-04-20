@@ -125,3 +125,14 @@ export const parse_mobile_cost = (mobileLines) => {
     }
 }
 
+export const benchmark = (fn, label = 'Test', iterations = 1000) => {
+    const start = performance.now();
+  
+    for (let i = 0; i < iterations; i++) {
+      fn();
+    }
+  
+    const end = performance.now();
+    console.log(`${label}: ${(end - start).toFixed(2)}ms`);
+  };
+
