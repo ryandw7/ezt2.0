@@ -42,6 +42,15 @@ export const getPhoneLineCostById = createSelector(
     }
 );
 
+const get unlimitedLinesTotalCost = createSelector([getUnlimitedLines, getPhoneLineCostById], (unlimitedLines, phoneLineCostById) => {
+
+	return unlimitedLines.reduce((accumulator, line)=> phoneLineCostById(line.id) + accumulator, 0); 
+
+}
+
+const get unlimitedPremiumLinesTotalCost = createSelector([getUnlimitedPremiumLines, getPhoneLineCostById], (unlimitedPremiumLines, phoneLineCostById) => {
+	return unlimitedPremiumLines.reduce(accumulator
+}
 const getNewMobileLineCostById = (state) => (id) => {
 
     const line = state.newMobile?.lines.find(item => item.id === id);
