@@ -13,10 +13,10 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 12fr 1fr 6fr 1fr;
   grid-template-areas:
-    "currentView newView"
-    "savings savings"
-    "additionalView additionalView"
-    "disclaimer disclaimer";
+    'currentView newView'
+    'savings savings'
+    'additionalView additionalView'
+    'disclaimer disclaimer';
   visibility: visible;
 }
 
@@ -66,12 +66,11 @@ h3 {
   border-top: 2px solid black;
 }
 
-
 /* ===================== Print Styles ===================== */
 
 @media print and (max-device-width: 1024px) {
   .paper {
-    transform: scale(0.90);
+    transform: scale(0.9);
     transform-origin: top center;
     zoom: 0.8; /* fallback for Safari/WebKit */
   }

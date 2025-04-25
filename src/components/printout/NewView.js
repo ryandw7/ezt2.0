@@ -5,96 +5,136 @@ import RowBox from '../boxes/RowBox';
 import { data } from 'react-router-dom';
 
 const NewView = ({ className, data }) => {
-    const { newCoreServices, newMobilePlanCost, newCoreServicesTotalCost, newServicesTotalCost } = data;
+  const {
+    newCoreServices,
+    newMobilePlanCost,
+    newCoreServicesTotalCost,
+    newServicesTotalCost,
+    allMobileTotals,
+  } = data;
 
-    const { taxes, xmcTotal, unlimitedLines, unlimitedPlus, watches, tablets, deviceMonthly, lineQuantity, mobileTotal, lineDiscounts } = newMobilePlanCost;
+  const {
+    unlimitedCount,
+    unlimitedTotalCost,
+    premiumCount,
+    premiumTotalCost,
+    tabletCount,
+    tabletTotalCost,
+    watchCount,
+    watchTotalCost,
+    devicePaymentsTotalCost,
+    xmcTotalCost,
+    taxesTotalCost,
+    lineDiscountsTotalOff,
+    mobilePlanTotalCost,
+  } = allMobileTotals;
 
-    return (
-        <PrintBox header={"New Services"} className={className}>
+  return (
+    <PrintBox header={'New Services'} className={className}>
+      {newCoreServices.map((item) => {
+        return item.cost !== 0 ? (
+          <>
+            <RowBox>
+              <Typography>{item.description}</Typography>
+              <Typography>${item.cost.toFixed(2)} est.</Typography>
+            </RowBox>
+            <RowBox sx={{ justifyContent: 'center' }}>
+              <Typography fontStyle="italic">{item.additionalNotes}</Typography>
+            </RowBox>
+          </>
+        ) : null;
+      })}
+      {mobilePlanTotalCost != 0 ? (
+        <>
+          <RowBox>
+            <Typography variant="h4">Xfinity Mobile</Typography>
+          </RowBox>
+          {unlimitedCount !== 0 && (
+            <RowBox>
+              <Typography>
+                {unlimitedCount} Unlimited Line{unlimitedCount > 1 && 's'}
+              </Typography>
+              <Typography>${unlimitedTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          )}
+          {premiumCount !== 0 && (
+            <RowBox>
+              <Typography>
+                {premiumCount} Unlimited Plus Line{premiumCount > 1 && 's'}
+              </Typography>
+              <Typography>${premiumTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          )}
+          {tabletCount !== 0 && (
+            <RowBox>
+              <Typography>
+                {tabletCount} Tablet{tabletCount > 1 && 's'}
+              </Typography>
+              <Typography>${tabletTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          )}
 
-            {newCoreServices.map((item) => {
-                return item.cost !== 0 ? <>
-                    <RowBox>
-                        <Typography>{item.description}</Typography>
-                        <Typography>${item.cost.toFixed(2)} est.</Typography>
-                    </RowBox>
-                    <RowBox sx={{ justifyContent: "center" }}>
-                        <Typography fontStyle="italic">{item.additionalNotes}</Typography>
-                    </RowBox>
-                </> : null
-            })
-            }
+          {watchCount !== 0 && (
+            <RowBox>
+              <Typography>
+                {watchCount} Watch{watchCount > 1 && 'es'}
+              </Typography>
+              <Typography>${watchTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          )}
 
-            {/* {(internet && internetCost != 0) ? <>
-                <RowBox>
-                    <Typography>{internet}</Typography>
-                    <Typography>${internetCost.toFixed(2)} est.</Typography>
-                </RowBox>
+          {xmcTotalCost != 0 && (
+            <RowBox>
+              <Typography>Xfinity Mobile Care</Typography>
+              <Typography>${xmcTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          )}
 
-            </> : null}
-            {(tv && tvCost != 0) ? <>
-                <RowBox>
-                    <Typography>{tv}</Typography>
-                    <Typography>${tvCost.toFixed(2)} est.</Typography>
-                </RowBox>
+          {devicePaymentsTotalCost != 0 && (
+            <RowBox>
+              <Typography>New Devices</Typography>
+              <Typography>
+                ${devicePaymentsTotalCost.toFixed(2)} est.
+              </Typography>
+            </RowBox>
+          )}
+          {lineDiscountsTotalOff != 0 && (
+            <RowBox>
+              <Typography>Line Discounts</Typography>
+              <Typography>-${lineDiscountsTotalOff.toFixed(2)} est.</Typography>
+            </RowBox>
+          )}
+          <RowBox>
+            <Typography>Taxes</Typography>
+            <Typography>${taxesTotalCost.toFixed(2)} est.</Typography>
+          </RowBox>
 
-            </> : null} */}
-
-            {mobileTotal != 0 ? <>
-                <RowBox>
-                    <Typography variant="h4">Xfinity Mobile</Typography>
-                </RowBox>
-                {unlimitedLines.quantity !== 0 &&
-                    <RowBox>
-                        <Typography>{unlimitedLines.quantity} Unlimited Line{unlimitedLines.quantity > 1 && 's'}</Typography>
-                        <Typography>${unlimitedLines.cost.toFixed(2)} est.</Typography>
-                    </RowBox>}
-                {unlimitedPlus.quantity !== 0 && <RowBox>
-                    <Typography>{unlimitedPlus.quantity} Unlimited Plus Line{unlimitedPlus.quantity > 1 && 's'}</Typography>
-                    <Typography>${unlimitedPlus.cost.toFixed(2)} est.</Typography>
-                </RowBox>}
-                {tablets.quantity !== 0 && <RowBox>
-                    <Typography>{tablets.quantity} Tablet{tablets.quantity > 1 && 's'}</Typography>
-                    <Typography>${tablets.cost.toFixed(2)} est.</Typography>
-                </RowBox>}
-
-                {watches.quantity !== 0 && <RowBox>
-                    <Typography>{watches.quantity} Watch{watches.quantity > 1 && 'es'}</Typography>
-                    <Typography>${watches.cost.toFixed(2)} est.</Typography>
-                </RowBox>}
-
-                {xmcTotal !== 0 && <RowBox>
-                    <Typography>Xfinity Mobile Care</Typography>
-                    <Typography>${xmcTotal.toFixed(2)} est.</Typography>
-                </RowBox>}
-
-
-
-                {deviceMonthly != 0 && <RowBox>
-                    <Typography>New Devices</Typography>
-                    <Typography>${deviceMonthly} est.</Typography>
-                </RowBox>}
-
-                <RowBox>
-                    <Typography>Taxes</Typography>
-                    <Typography>${taxes.toFixed(2)} est.</Typography>
-                </RowBox>
-
-                {lineDiscounts.map(item => <RowBox><Typography>Line Discount</Typography><Typography>-${item.toFixed(2)} est.</Typography></RowBox>)}
-
-                <RowBox>
-                    <Typography fontWeight={"bold"}>Total</Typography>
-                    <Typography fontWeight={"bold"}>${mobileTotal} est.</Typography>
-                </RowBox>
-                <RowBox sx={{ marginTop: "auto", justifySelf: "flex-end" }}>
-                    <Typography variant="h5" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>New Total</Typography>
-                    <Typography variant="h5" fontWeight="bold" sx={{ p: 0, m: 0, height: "fit-content" }}>${newServicesTotalCost.toFixed(2)} est.</Typography>
-                </RowBox>
-
-            </> : null}
-        </PrintBox>
-    )
+          <RowBox>
+            <Typography fontWeight={'bold'}>Total</Typography>
+            <Typography fontWeight={'bold'}>
+              ${mobilePlanTotalCost.toFixed(2)} est.
+            </Typography>
+          </RowBox>
+          <RowBox sx={{ marginTop: 'auto', justifySelf: 'flex-end' }}>
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              sx={{ p: 0, m: 0, height: 'fit-content' }}
+            >
+              New Total
+            </Typography>
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              sx={{ p: 0, m: 0, height: 'fit-content' }}
+            >
+              ${newServicesTotalCost.toFixed(2)} est.
+            </Typography>
+          </RowBox>
+        </>
+      ) : null}
+    </PrintBox>
+  );
 };
 
 export default NewView;
-

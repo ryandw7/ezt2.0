@@ -3,13 +3,11 @@ import PageBox from './PageBox';
 import NewMobileFeature from '../features/NewMobileFeature';
 
 const NewMobilePage = () => {
-
-    return (
-        <PageBox header="New Mobile Service">
-            <NewMobileFeature/>
-        </PageBox>
-    )
-
+  return (
+    <PageBox header="New Mobile Service">
+      <NewMobileFeature />
+    </PageBox>
+  );
 };
 
 export default NewMobilePage;

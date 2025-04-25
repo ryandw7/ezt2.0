@@ -4,32 +4,29 @@ import useAdditionalSelectors from '../context/selectors/useAdditionalSelectors.
 import useAdditionalActions from '../context/actions/useAdditionalActions.js';
 
 const AdditionalInfoFeature = () => {
+  const { updateRep, updateContact, updateAdditionalNotes } =
+    useAdditionalActions();
 
-    const { updateRep, updateContact, updateAdditionalNotes } = useAdditionalActions();
+  const { rep, contact, additionalNotes } = useAdditionalSelectors();
 
-    const { rep, contact, additionalNotes } = useAdditionalSelectors();
+  const handleChange = (e) => {
+    const { value, id } = e.target;
 
-    const handleChange = (e) => {
-
-        const { value, id } = e.target;
-
-        switch (id) {
-            case 'rep': updateRep(value);
-                break;
-            case 'contact': updateContact(value);
-                break;
-            case 'additionalNotes': updateAdditionalNotes(value);
-        }
+    switch (id) {
+      case 'rep':
+        updateRep(value);
+        break;
+      case 'contact':
+        updateContact(value);
+        break;
+      case 'additionalNotes':
+        updateAdditionalNotes(value);
     }
+  };
 
-    const formData = { rep, contact, additionalNotes };
+  const formData = { rep, contact, additionalNotes };
 
-    return (
-
-        <AdditionalForm handleChange={handleChange} formData={formData} />
-
-    )
-
+  return <AdditionalForm handleChange={handleChange} formData={formData} />;
 };
 
 export default AdditionalInfoFeature;

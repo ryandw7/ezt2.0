@@ -1,90 +1,298 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Typography, Paper, List } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
-import NewMobileLine from '../components/mobile/MobileLineForm';
+import MobileLineForm from '../components/mobile/MobileLineForm';
+import MobileLineForm2 from '../components/mobile/MobileLineForm2';
 import MobileLineView from '../components/mobile/MobileLineView';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
 import WatchIcon from '@mui/icons-material/Watch';
 
 const NewMobileFeature = () => {
+  const {
+    unlimitedLines,
+    phoneLineCostById,
+    unlimitedPremiumLines,
+    tabletLines,
+    watchLines,
+    editingLineId,
+    editingLine,
+  } = useNewMobileSelectors();
+  const {
+    addPhoneLine,
+    updateNewMobileLine,
+    addTabletLine,
+    addWatchLine,
+    removeMobileLine,
+    setEditingLineId,
+  } = useNewMobileActions();
 
-    const { newMobileLines, getNewMobileLineCost } = useNewMobileSelectors();
-    const { addMobileLine, updateNewMobileLine, addTablet, addWatch, removeMobileLine } = useNewMobileActions();
+  const handleAdd = () => {
+    addPhoneLine();
+  };
 
-    const handleAdd = () => {
-        addMobileLine();
-    };
+  const handleTabletAdd = () => {
+    addTabletLine();
+  };
 
-    const handleTabletAdd = () => {
-        addTablet()
+  const handleWatchAdd = () => {
+    addWatchLine();
+  };
+  const handleUpdate = (id) => (key, value) => {
+    updateNewMobileLine(id, key, value);
+  };
+
+  const handleStartEdit = (id) => {
+    setEditingLineId(id);
+  };
+
+  const handleDelete = (id) => {
+    removeMobileLine(id);
+  };
+  const handleStopEdit = () => {
+    setEditingLineId('');
+  };
+
+  const handleViewResize = () => {
+    if (editingLineId) {
+      return '50%';
+    } else {
+      return '70%';
     }
+  };
 
-    const handleWatchAdd = () => {
-        addWatch()
+  const handleFlexJust = () => {
+    if (editingLineId) {
+      console.log(editingLine);
+      return 'flex-start';
+    } else {
+      return 'center';
     }
-    const handleUpdate = (id) => (key, value) => {
-        updateNewMobileLine(id, key, value)
-    }
+  };
+  const isEditingLine = (id) => (id === editingLineId ? true : false);
 
-    const handleStartEdit = (id) => {
-        updateNewMobileLine(id, 'isEdit', true)
-    }
+  return (
+    <Box
+      sx={{
+        boxSizing: 'border-box',
+        height: '100%',
+        width: '100vw',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: () => handleFlexJust(),
+        flexWrap: 'nowrap',
+        m: '0',
+        p: '0',
+      }}
+    >
+      {/* Scrollable List lines*/}
+      <Box
+        sx={{
+          width: () => handleViewResize(),
+          height: '100%',
+          transition: 'width 0.3s ease-in-out',
+          m: 0,
+          p: 0,
+          minWidth: '400px',
+          boxSizing: 'border-box',
+          boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
+        }}
+      >
+        <List
+          elevation={3}
+          sx={{
+            height: `calc(100% - 75px)`,
+            width: '100%',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            m: 0,
+            p: 0,
+            borderBottom: '1px solid #444',
+            '&::-webkit-scrollbar': { width: '6px' },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#666',
+              borderRadius: '4px',
+            },
+          }}
+        >
+          {unlimitedLines && unlimitedLines.length !== 0 ? (
+            <>
+              {unlimitedLines.map((item, index) => (
+                <>
+                  <MobileLineView
+                    key={item.id}
+                    line={item}
+                    handleDelete={() => handleDelete(item.id)}
+                    handleStartEdit={() => handleStartEdit(item.id)}
+                    lineCost={phoneLineCostById(item.id)}
+                    defaultName={`Line ${index + 1}`}
+                    config={{
+                      isFull: false,
+                      isForm: true,
+                      isEdit: isEditingLine(item.id),
+                    }}
+                  />
+                </>
+              ))}
+            </>
+          ) : null}
+          {unlimitedPremiumLines && unlimitedPremiumLines.length !== 0 ? (
+            <>
+              {unlimitedPremiumLines.map((item, index) => (
+                <>
+                  <MobileLineView
+                    key={item.id}
+                    line={item}
+                    handleDelete={() => handleDelete(item.id)}
+                    handleStartEdit={() => handleStartEdit(item.id)}
+                    lineCost={phoneLineCostById(item.id)}
+                    defaultName={`Premium Line ${index + 1}`}
+                    config={{
+                      isFull: false,
+                      isForm: true,
+                      isEdit: isEditingLine(item.id),
+                    }}
+                  />
+                </>
+              ))}
+            </>
+          ) : null}
+          {watchLines && watchLines.length !== 0 ? (
+            <>
+              {watchLines.map((item, index) => (
+                <>
+                  <MobileLineView
+                    key={item.id}
+                    line={item}
+                    handleDelete={() => handleDelete(item.id)}
+                    handleStartEdit={() => handleStartEdit(item.id)}
+                    lineCost={10}
+                    defaultName={`Watch ${index + 1}`}
+                    config={{
+                      isFull: false,
+                      isForm: true,
+                      isEdit: isEditingLine(item.id),
+                    }}
+                  />
+                </>
+              ))}
+            </>
+          ) : null}
+          {tabletLines && tabletLines.length !== 0 ? (
+            <>
+              {tabletLines.map((item, index) => (
+                <>
+                  <MobileLineView
+                    key={item.id}
+                    line={item}
+                    handleDelete={() => handleDelete(item.id)}
+                    handleStartEdit={() => handleStartEdit(item.id)}
+                    lineCost={20}
+                    defaultName={`Tablet ${index + 1}`}
+                    config={{
+                      isFull: false,
+                      isForm: true,
+                      isEdit: isEditingLine(item.id),
+                    }}
+                  />
+                </>
+              ))}
+            </>
+          ) : null}
+        </List>
+        <Box
+          sx={{
+            p: 0,
+            m: 0,
+            backgroundColor: '#2b2b30',
+            maxHeight: '75px',
+            height: '75px',
+            minHeight: '75px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Typography
+            textAlign="center"
+            sx={{
+              flex: 1,
+              height: 'fit-content',
+              color: 'white',
+              fontWeight: 500,
+              fontSize: { xs: '1em', sm: '1.25em' },
+              py: 1,
+              m: 0,
+              p: 0,
+            }}
+          >
+            Add Lines
+          </Typography>
 
-    const handleDelete = (id) => {
-        removeMobileLine(id)
-    }
-    const handleStopEdit = (id) => {
-        updateNewMobileLine(id, 'isEdit', false)
-    }
+          <Box
+            sx={{
+              flex: 2,
+              display: 'flex',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              gap: 2,
+              width: '100%',
+              px: 2,
+              pb: 1,
+            }}
+          >
+            {[handleAdd, handleTabletAdd, handleWatchAdd].map(
+              (handler, idx) => (
+                <Button
+                  key={idx}
+                  variant="contained"
+                  onClick={handler}
+                  sx={{
+                    flexShrink: 1,
+                    backgroundColor: '#2b2b30',
 
-    // Get the line that is currently being edited
-    const editingLine = newMobileLines.find(line => line.isEdit) || null;
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  {idx === 0 ? (
+                    <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+                  ) : idx === 1 ? (
+                    <TabletMacIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+                  ) : (
+                    <WatchIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+                  )}
+                </Button>
+              )
+            )}
+          </Box>
+        </Box>
+      </Box>
+      {/* Main Editing Section */}
 
-    const handleResize = () => {
-        if (editingLine) {
-            return "30%"
-        } else {
-            return "70%"
-        }
-
-    }
-
-    return (
-        <Box sx={{ height: "80%", width: "100vw", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "nowrap", m: "0 a" }}>
-            {/* Scrollable List lines*/}
-            <Box sx={{ width: () => handleResize(), height: "100%", p: 2, transition: 'width 0.3s ease-in-out', gap: 10, minWidth: "400px" }}>
-                <List elevation={3} sx={{ height: "80%", width: "100%", overflowY: "auto", overflowX: "hidden" }}>
-
-                    {newMobileLines
-                        .map((item) => (
-
-                            <MobileLineView key={item.id} line={item} handleDelete={() => handleDelete(item.id)} handleStartEdit={() => handleStartEdit(item.id)} lineCost={getNewMobileLineCost(item.id)} config={{ isFull: false, isForm: true, isEdit: item.isEdit }} />
-
-                        ))
-                    }
-
-                </List>
-                <Typography textAlign={"center"} sx={{m:"5px"}}>Add Lines</Typography>
-                <Box sx={{ p:0, m: "0", justifySelf: "flex-end", alignSelf: "flex-end", height: "10%", width: "100%", margin: "10px auto", display: "flex", flexDirection: "row", justifyContent: "space-around", position: "relative" }}>
-                    <Button variant="contained" onClick={handleAdd} sx={{ mt: 2, margin: 0 }}><PhoneIcon /></Button>
-                    <Button variant="contained" onClick={handleTabletAdd} sx={{ mt: 2, margin: 0 }}><TabletMacIcon /></Button>
-                    <Button variant="contained" onClick={handleWatchAdd} sx={{ mt: 2, margin: 0 }}><WatchIcon /></Button>
-                </Box>
-            </Box >
-            {/* Main Editing Section */}
-
-            {
-                editingLine && (
-
-                    <NewMobileLine key={editingLine.id} line={editingLine} handleUpdate={handleUpdate(editingLine.id)} lineCost={getNewMobileLineCost(editingLine.id)} />
-
-                )
-            }
-
-        </Box >
-    );
+      {editingLineId && (
+        <Box
+          sx={{
+            height: '100%',
+            width: '50%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <MobileLineForm2
+            key={editingLineId}
+            line={editingLine}
+            handleUpdate={handleUpdate(editingLine.id)}
+            lineCost={phoneLineCostById(editingLine.id)}
+            handleStopEdit={handleStopEdit}
+          />
+        </Box>
+      )}
+    </Box>
+  );
 };
 
 export default NewMobileFeature;

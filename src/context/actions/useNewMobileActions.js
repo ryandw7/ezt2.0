@@ -1,39 +1,37 @@
-import useAppContext from "../context";
+import useAppContext from '../context';
 
 const useNewMobileActions = () => {
-    
-    const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
 
-    
+  const addPhoneLine = () => {
+    dispatch({ type: 'ADD_PHONE_LINE' });
+  };
+  const addTabletLine = () => {
+    dispatch({ type: 'ADD_TABLET_LINE' });
+  };
+  const addWatchLine = () => {
+    dispatch({ type: 'ADD_WATCH_LINE' });
+  };
+  const removeMobileLine = (id) => {
+    dispatch({ type: 'REMOVE_MOBILE_LINE', payload: id });
+  };
 
-    const quickAddMobileLine = () => {
-        dispatch({type: 'QUICK_ADD_LINE'})
-    }
+  const updateNewMobileLine = (id, key, value) => {
+    dispatch({ type: 'UPDATE_MOBILE_LINE', payload: { id, key, value } });
+  };
 
-    const addMobileLine = () => {
-        dispatch({type: 'ADD_LINE'})
-    }
-    const addTablet = () => {
-        dispatch({type: 'ADD_TABLET'})
-    }
-    const addWatch = () => {
-        dispatch({type: 'ADD_WATCH'})
-    }
-    const removeMobileLine = (id) => {
-        dispatch({type: 'REMOVE_LINE', payload: id})
-    }
+  const setEditingLineId = (id) => {
+    dispatch({ type: 'SET_EDITING_LINE', payload: id });
+  };
 
-    const setIsEdit = (id) => {
-        dispatch({type: 'SET_NEW_EDIT', payload: id})
-    }
-    const updateNewMobileLine = (id, key, value) => {
-        dispatch({type: 'UPDATE_LINE', payload: {id, key, value}})
-    }
-
-    const updatePricing = () => {
-        dispatch({type: 'UPDATE_PRICING'})
-    }
-    return {addMobileLine, addTablet, addWatch, removeMobileLine, setIsEdit, updateNewMobileLine, updatePricing, quickAddMobileLine}
+  return {
+    addPhoneLine,
+    addTabletLine,
+    addWatchLine,
+    removeMobileLine,
+    updateNewMobileLine,
+    setEditingLineId,
+  };
 };
 
 export default useNewMobileActions;
