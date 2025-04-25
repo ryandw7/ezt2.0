@@ -30,6 +30,7 @@ const NewCoreServicesFeature = () => {
   return (
     <PackageForm2
       handleChange={handleChange}
+      isNew={true}
       formValues={newCore}
       hasMobile={true}
       items={newCoreServices}

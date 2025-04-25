@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Paper, TextField, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 const PackageForm2 = ({
+  isNew,
   handleChange,
   handleAddItem,
   handleDeleteItem,
@@ -30,6 +31,7 @@ const PackageForm2 = ({
                   name="description"
                   variant="outlined"
                   label="Item Description"
+                  placeholder={isNew ? 'Example Xfinity Gigabit Internet': "Example: Competitor Internet"}
                   value={item.description}
                   onChange={handleChange(item.id)}
                 />
@@ -38,6 +40,7 @@ const PackageForm2 = ({
                   name="cost"
                   variant="outlined"
                   label="Cost"
+                  placeholder='$'
                   value={item.cost !== 0 ? item.cost : ''}
                   onChange={handleChange(item.id)}
                 />
@@ -48,6 +51,7 @@ const PackageForm2 = ({
                 name="additionalNotes"
                 variant="outlined"
                 label="Additional Notes"
+                placeholder='Example: 1000mbps Download Speed'
                 value={item.additionalNotes}
                 onChange={handleChange(item.id)}
               />

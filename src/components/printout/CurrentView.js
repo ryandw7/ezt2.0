@@ -49,14 +49,14 @@ const CurrentView = ({ className, data }) => {
           sx={{ marginTop: 'auto', padding: '3px', justifySelf: 'flex-end' }}
         >
           <Typography
-            variant="h6"
+            variant="h5"
             fontWeight="bold"
             sx={{ p: 0, m: 0, height: 'fit-content' }}
           >
             Current Total
           </Typography>
           <Typography
-            variant="h6"
+            variant="h5"
             fontWeight="bold"
             sx={{ p: 0, m: 0, height: 'fit-content' }}
           >

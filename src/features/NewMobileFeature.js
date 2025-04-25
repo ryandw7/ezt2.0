@@ -217,11 +217,10 @@ const NewMobileFeature = () => {
           <Typography
             textAlign="center"
             sx={{
-              flex: 1,
               height: 'fit-content',
               color: 'white',
               fontWeight: 500,
-              fontSize: { xs: '1em', sm: '1.25em' },
+              fontSize: { xs: '1em', sm: '1em' },
               py: 1,
               m: 0,
               p: 0,
@@ -258,7 +257,7 @@ const NewMobileFeature = () => {
                   }}
                 >
                   {idx === 0 ? (
-                    <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+                    <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' }}} />
                   ) : idx === 1 ? (
                     <TabletMacIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
                   ) : (

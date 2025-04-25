@@ -1,7 +1,6 @@
 /* ===================== Screen Styles ===================== */
 
 .paper {
-  background-color: white;
   padding: 10px;
   max-height: 10.5in;
   aspect-ratio: 1 / 1.4142;
@@ -40,6 +39,11 @@ h3 {
   margin: 0 auto;
 }
 
+.currentView, .newView, .additionalView {
+  @media not print {
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  }
+}
 .currentView {
   grid-area: currentView;
   padding: 0;

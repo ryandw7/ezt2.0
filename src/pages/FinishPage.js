@@ -50,8 +50,8 @@ const FinishPage = () => {
   };
 
   return (
-    <>
-      <Box className="print-hidden" sx={{ height: '50px' }} />
+    <Box sx={{maxHeight:"100%", overflowY:"scroll"}}>
+    
       <Button
         variant="contained"
         className="print-hidden"
@@ -67,7 +67,7 @@ const FinishPage = () => {
         isFullView={false}
         fontSize={'11pt'}
       />
-    </>
+    </Box>
   );
 };
 

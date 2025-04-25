@@ -30,6 +30,7 @@ const PaperView = React.forwardRef(
           fontSize: fontSize,
           ...fullViewProps(),
           visibility: 'visible',
+          overflowY:"auto"
         }}
         onClick={handleClick}
       >

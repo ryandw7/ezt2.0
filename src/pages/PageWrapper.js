@@ -111,7 +111,7 @@ export default function PageWrapper() {
           value={value}
           onChange={handleChange}
         >
-          <Tab label="Previous" value="/" />
+          <Tab label="Current" value="/" />
           <Tab label="New Core" value="/core" />
           <Tab label="New Mobile" value="/mobile" />
           <Tab label="Additional" value="/additional" />

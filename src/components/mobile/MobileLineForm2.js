@@ -103,11 +103,11 @@ export default function MobileLineForm2({
             sx={{ flex: 2, minWidth: '150px' }}
           />
         </Box>
-        {/* Top Toggles Row */}
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
+            alignItems: "flex-end",
             gap: 2,
             flexWrap: 'nowrap',
             width: '100%',
@@ -117,13 +117,15 @@ export default function MobileLineForm2({
             <FormControlLabel
               label="Data Plan"
               labelPlacement="top"
+              sx={{ height: "25px", mb:"5px" }}
               control={
                 <Select
+               
                   name="dataPlan"
                   id="dataPlan"
                   value={dataPlan}
                   onChange={handleChange}
-                  sx={{ fontSize: 'inherit', height: '2.5em' }}
+                  sx={{ fontSize: 'inherit', height: '2em',mt:"5px" }}
                 >
                   <MenuItem value="Unlimited">Unlimited</MenuItem>
                   <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
@@ -131,15 +133,13 @@ export default function MobileLineForm2({
               }
             />
           )}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:"flex-start", width: '70px' }}>
+            <Typography sx={{ fontSize: '0.75rem', mb: '0px', p:0 }}>BYOD</Typography>
+            <Switch sx={{m:0}}checked={isBYOD} id="isBYOD" onChange={handleToggle} />
+          </Box>
           <FormControlLabel
             labelPlacement="top"
-            label="BYOD"
-            control={
-              <Switch checked={isBYOD} id="isBYOD" onChange={handleToggle} />
-            }
-          />
-          <FormControlLabel
-            labelPlacement="top"
+            sx={{ height: "25px", mb:"5px" }}            
             label="XMC"
             control={
               <Select
@@ -147,7 +147,7 @@ export default function MobileLineForm2({
                 id="xmc"
                 value={xmc}
                 onChange={handleChange}
-                sx={{ fontSize: 'inherit', height: '2.5em' }}
+                sx={{ fontSize: 'inherit', height: '2.5em',mt:"5px" }}
               >
                 {[9, 12, 15, 17, 19].map((val) => (
                   <MenuItem key={val} value={val}>
