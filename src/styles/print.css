@@ -2,6 +2,8 @@
   body {
     margin: 0;
     padding: 0;
+
+    overflow: hidden;
   }
 
   .MuiPaper-root {
@@ -12,23 +14,28 @@
     display: none !important;
   }
 
-
   .page-break {
     page-break-before: always;
   }
- 
 }
 
-
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
 
 .page-wrapper {
   height: 100vh;
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important; /* fallback for others */
   display: flex;
-  justify-content: center;   /* Horizontal center */
-  align-items: center;       /* Vertical center */            /* Full viewport width */
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */ /* Full viewport width */
   page-break-inside: avoid;
+  overflow: hidden;
 }
 
 .current-view,

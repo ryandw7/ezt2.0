@@ -4,4 +4,4 @@ import DisclaimerView from './DisclaimerView';
 import NewView from './NewView';
 import SavingsView from './SavingsView';
 
-export {AdditionalView, CurrentView, DisclaimerView, NewView, SavingsView}
+export { AdditionalView, CurrentView, DisclaimerView, NewView, SavingsView };

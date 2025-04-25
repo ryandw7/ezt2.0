@@ -5,18 +5,18 @@ React Web Application designed for Sales Representatives to provide a simple and
 ## Folder Structure
 
 ezt2.0/ <br>
-├── dist/               → Production build output  <br>
+├── dist/ → Production build output <br>
 ├── src/ <br>
-│   ├── index.js        → Entry point of the app  <br>
-│   ├── app.js          → Main App component + route definitions  <br>
-│   ├── pages/          → Top-level route views (e.g., /core, /mobile, /finish)  <br>
-│   ├── features/       → State-driven logic, selectors, form/view components  <br>
-│   ├── context/        → Custom React Context, reducers, actions, and selectors  <br>
-│   ├── styles/         → Global styles and print CSS  <br>
-│   └── utils/          → Utility/helper functions  <br>
-├── webpack.config.js   → Custom Webpack config (no CRA)  <br>
-├── package.json    <br>      
-└── README.md  <br>
+│ ├── index.js → Entry point of the app <br>
+│ ├── app.js → Main App component + route definitions <br>
+│ ├── pages/ → Top-level route views (e.g., /core, /mobile, /finish) <br>
+│ ├── features/ → State-driven logic, selectors, form/view components <br>
+│ ├── context/ → Custom React Context, reducers, actions, and selectors <br>
+│ ├── styles/ → Global styles and print CSS <br>
+│ └── utils/ → Utility/helper functions <br>
+├── webpack.config.js → Custom Webpack config (no CRA) <br>
+├── package.json <br>  
+└── README.md <br>
 
 ## Getting Started
 
@@ -32,6 +32,7 @@ npm install
 # or
 yarn install
 ```
+
 ### Start Dev Server
 
 ```bash

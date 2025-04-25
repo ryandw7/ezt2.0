@@ -1,7 +1,6 @@
 /* ===================== Screen Styles ===================== */
 
 .paper {
-  background-color: white;
   padding: 10px;
   max-height: 10.5in;
   aspect-ratio: 1 / 1.4142;
@@ -13,10 +12,10 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 12fr 1fr 6fr 1fr;
   grid-template-areas:
-    "currentView newView"
-    "savings savings"
-    "additionalView additionalView"
-    "disclaimer disclaimer";
+    'currentView newView'
+    'savings savings'
+    'additionalView additionalView'
+    'disclaimer disclaimer';
   visibility: visible;
 }
 
@@ -40,6 +39,11 @@ h3 {
   margin: 0 auto;
 }
 
+.currentView, .newView, .additionalView {
+  @media not print {
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  }
+}
 .currentView {
   grid-area: currentView;
   padding: 0;
@@ -66,12 +70,11 @@ h3 {
   border-top: 2px solid black;
 }
 
-
 /* ===================== Print Styles ===================== */
 
 @media print and (max-device-width: 1024px) {
   .paper {
-    transform: scale(0.90);
+    transform: scale(0.9);
     transform-origin: top center;
     zoom: 0.8; /* fallback for Safari/WebKit */
   }

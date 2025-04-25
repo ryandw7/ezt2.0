@@ -1,40 +1,56 @@
-import useAppContext from "../context.js";
-
+import useAppContext from '../context.js';
 
 const useNewCoreActions = () => {
-    const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
 
-    const updateNewCore = (key, value) => {
-        dispatch({type: 'UPDATE_NEW_CORE', payload: {key, value}})
-    }
-    const updateNewInternet = (updatedInternet) => {
+  const addNewCoreItem = () => {
+    dispatch({ type: 'ADD_NEW_CORE_ITEM' });
+  };
 
-        dispatch({type: 'UPDATE_NEW_INTERNET', payload: updatedInternet});
+  const deleteNewCoreItem = (id) => {
+    dispatch({ type: 'DELETE_NEW_CORE_ITEM', payload: id });
+  };
 
-    }
+  const updateNewCoreItem = (id, key, value) => {
+    dispatch({ type: 'UPDATE_NEW_CORE_ITEM', payload: { id, key, value } });
+  };
 
-    const updateNewInternetCost = (updatedInternetCost) => {
+  const updateNewCore = (key, value) => {
+    dispatch({ type: 'UPDATE_NEW_CORE', payload: { key, value } });
+  };
+  const updateNewInternet = (updatedInternet) => {
+    dispatch({ type: 'UPDATE_NEW_INTERNET', payload: updatedInternet });
+  };
 
-        dispatch({type: 'UPDATE_NEW_INTERNET_COST', payload: Number(updatedInternetCost)});
+  const updateNewInternetCost = (updatedInternetCost) => {
+    dispatch({
+      type: 'UPDATE_NEW_INTERNET_COST',
+      payload: Number(updatedInternetCost),
+    });
+  };
 
-    }
+  const updateNewTv = (updatedTv) => {
+    dispatch({ type: 'UPDATE_NEW_TV', payload: updatedTv });
+  };
 
-    const updateNewTv = (updatedTv) => {
+  const updateNewTvCost = (updatedTvCost) => {
+    dispatch({ type: 'UPDATE_NEW_TV_COST', payload: Number(updatedTvCost) });
+  };
 
-        dispatch({type: 'UPDATE_NEW_TV', payload: updatedTv});
-
-    }
-
-    const updateNewTvCost = (updatedTvCost) => {
-
-        dispatch({type: 'UPDATE_NEW_TV_COST', payload: Number(updatedTvCost)});
-
-    }
-
-    const updateNewCoreNotes = (updatedNotes) => {
-        dispatch({type: 'UPDATE_NEW_CORE_NOTES', payload: updatedNotes})
-    }
-    return { updateNewCore, updateNewInternet, updateNewInternetCost, updateNewTv, updateNewTvCost, updateNewCoreNotes }
-}
+  const updateNewCoreNotes = (updatedNotes) => {
+    dispatch({ type: 'UPDATE_NEW_CORE_NOTES', payload: updatedNotes });
+  };
+  return {
+    addNewCoreItem,
+    updateNewCoreItem,
+    deleteNewCoreItem,
+    updateNewCore,
+    updateNewInternet,
+    updateNewInternetCost,
+    updateNewTv,
+    updateNewTvCost,
+    updateNewCoreNotes,
+  };
+};
 
 export default useNewCoreActions;

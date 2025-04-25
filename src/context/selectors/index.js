@@ -4,8 +4,10 @@ import useNewCoreSelectors from './useNewCoreSelectors';
 import useNewMobileSelectors from './useNewMobileSelectors';
 import useDerivedSelectors from './useDerivedSelectors';
 
-
-
-
-
-export { useDerivedSelectors, useAdditionalSelectors, useCurrentSelectors, useNewCoreSelectors, useNewMobileSelectors };
+export {
+  useDerivedSelectors,
+  useAdditionalSelectors,
+  useCurrentSelectors,
+  useNewCoreSelectors,
+  useNewMobileSelectors,
+};
