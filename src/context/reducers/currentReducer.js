@@ -1,19 +1,42 @@
-import { serviceItemObj } from '../stateTools';
+import { serviceItemObj, createInitialState } from '../stateTools';
 
-const initialState = {
-  internet: '',
-  internetCost: 0,
-  tv: '',
-  tvCost: 0,
-  mobile: '',
-  mobileCost: 0,
-  notes: '',
-};
+
+const initialState = createInitialState().currentServices;
 
 const currentReducer = (state = initialState, action) => {
   console.log(state);
   console.log('DISPATCHING ' + action.type);
   switch (action.type) {
+
+    case 'ADD_CURRENT_SERVICES_ITEM': {
+
+      const itemObj = serviceItemObj();
+      const id = itemObj.id;
+
+      return { ...state, itemsById: { ...itemsById, [id]: itemObj } }
+
+    }
+    case "DELETE_CURRENT_SERVICES_ITEM": {
+      const id = action.payload;
+      const { [id]: _, ...newObj } = state.itemsById;
+      return { ...state, itemsById: newObj }
+
+    }
+
+    case "UPDATE_CURRENT_SERVICES_ITEM": {
+
+      const { id, key, value } = action.payload;
+      return {
+        ...state,
+        itemsById: {
+          ...state.itemsById,
+          [id]: {
+            ...state.itemsById[id],
+            [key]: value
+          }
+        }
+      }
+    }
     case 'ADD_ITEM': {
       const newArr = state.items;
       newArr.push(serviceItemObj());

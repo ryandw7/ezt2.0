@@ -1,112 +1,81 @@
 import React from 'react';
-import { Box, TextField, Paper } from '@mui/material';
-
-export default function PackageForm({ handleChange, formValues, hasMobile }) {
-  const { internet, internetCost, tv, tvCost, notes } = formValues;
-
-  let mobile;
-  let mobileCost;
-
-  if (hasMobile) {
-    mobile = formValues.mobile || '';
-    mobileCost = formValues.mobileCost || '';
-  }
-
+import { Box, Paper, TextField, Button, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+const PackageForm = ({
+  isNew,
+  handleChange,
+  handleAddItem,
+  handleDeleteItem,
+  items,
+}) => {
   return (
-    <Paper
-      elevation={5}
+    <Box
       sx={{
-        minWidth: '500px',
+        height: '100%',
         width: '70%',
-        maxWidth: '800px',
-        minHeight: '400px',
+        margin: '5px',
+        overflowY: 'auto',
         display: 'flex',
         flexDirection: 'column',
-        height: '70%',
-        justifyContent: 'space-around',
+        alignItems: 'center',
+        scrollbarGutter: 'stable',
       }}
     >
-      <RowBox>
-        <TextField
-          id="internet"
-          label="Internet"
-          variant="outlined"
-          value={internet}
-          onChange={handleChange}
-          sx={{ width: '60%' }}
-        />
-        <TextField
-          id="internetCost"
-          label="Internet Cost"
-          variant="outlined"
-          value={internetCost || ''}
-          onChange={handleChange}
-          sx={{ width: '30%' }}
-        />
-      </RowBox>
-      <RowBox>
-        <TextField
-          id="tv"
-          label="TV and Extras"
-          variant="outlined"
-          value={tv}
-          onChange={handleChange}
-          sx={{ width: '60%' }}
-        />
-        <TextField
-          id="tvCost"
-          label="Extras cost"
-          variant="outlined"
-          value={tvCost || ''}
-          onChange={handleChange}
-          sx={{ width: '30%' }}
-        />
-      </RowBox>
-      {hasMobile && (
-        <RowBox>
-          <TextField
-            id="mobile"
-            label="Mobile"
-            variant="outlined"
-            value={mobile}
-            onChange={handleChange}
-            sx={{ width: '60%' }}
-          />
-          <TextField
-            id="mobileCost"
-            label="Mobile Cost"
-            variant="outlined"
-            value={mobileCost || ''}
-            onChange={handleChange}
-            sx={{ width: '30%' }}
-          />
-        </RowBox>
+      {items.length > 0 ? (
+        items.map((item, index) => (
+          <Box sx={{ display: 'flex', width: '100%' }}>
+            <Paper sx={{ margin: '5px auto', width: '90%' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <TextField
+                  sx={{ width: '70%', margin: '5px' }}
+                  name="description"
+                  variant="outlined"
+                  label="Item Description"
+                  placeholder={isNew ? 'Example Xfinity Gigabit Internet': "Example: Competitor Internet"}
+                  value={item.description}
+                  onChange={handleChange(item.id)}
+                />
+                <TextField
+                  sx={{ width: '20%', margin: '5px' }}
+                  name="cost"
+                  variant="outlined"
+                  label="Cost"
+                  placeholder='$'
+                  value={item.cost !== 0 ? item.cost : ''}
+                  onChange={handleChange(item.id)}
+                />
+              </Box>
+              <TextField
+                fullWidth
+                minRows={3}
+                name="additionalNotes"
+                variant="outlined"
+                label="Additional Notes"
+                placeholder='Example: 1000mbps Download Speed'
+                value={item.additionalNotes}
+                onChange={handleChange(item.id)}
+              />
+            </Paper>
+            <Button
+              sx={{ width: '50px' }}
+              onClick={() => handleDeleteItem(item.id)}
+            >
+              <DeleteIcon />
+            </Button>
+          </Box>
+        ))
+      ) : (
+        <Typography>Add an item to make changes</Typography>
       )}
-      <Box>
-        <TextField
-          id="notes"
-          label="Additional Notes"
-          variant="outlined"
-          multiline
-          minRows={4}
-          value={notes}
-          fullWidth
-          onChange={handleChange}
-        />
-      </Box>
-    </Paper>
+      <Button
+        variant="outlined"
+        onClick={handleAddItem}
+        sx={{ width: '100px' }}
+      >
+        Add
+      </Button>
+    </Box>
   );
-}
+};
 
-const RowBox = ({ children }) => (
-  <Box
-    sx={{
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    }}
-  >
-    {children}
-  </Box>
-);
+export default PackageForm;

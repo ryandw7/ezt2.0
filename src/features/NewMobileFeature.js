@@ -3,7 +3,6 @@ import { Box, Button, Typography, Paper, List } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
 import MobileLineForm from '../components/mobile/MobileLineForm';
-import MobileLineForm2 from '../components/mobile/MobileLineForm2';
 import MobileLineView from '../components/mobile/MobileLineView';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
@@ -281,7 +280,7 @@ const NewMobileFeature = () => {
             alignItems: 'center',
           }}
         >
-          <MobileLineForm2
+          <MobileLineForm
             key={editingLineId}
             line={editingLine}
             handleUpdate={handleUpdate(editingLine.id)}

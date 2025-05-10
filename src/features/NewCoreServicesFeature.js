@@ -2,12 +2,11 @@ import React from 'react';
 import useNewCoreActions from '../context/actions/useNewCoreActions.js';
 import useNewCoreSelectors from '../context/selectors/useNewCoreSelectors.js';
 
-import PackageForm2 from '../components/PackageForm2.js';
+import PackageForm from '../components/PackageForm.js';
 
 const NewCoreServicesFeature = () => {
   const { newCore, newCoreServices } = useNewCoreSelectors();
   const {
-    updateNewCore,
     addNewCoreItem,
     deleteNewCoreItem,
     updateNewCoreItem,
@@ -28,7 +27,7 @@ const NewCoreServicesFeature = () => {
   const items = [{ description: '', cost: '', additionalNotes: '' }];
 
   return (
-    <PackageForm2
+    <PackageForm
       handleChange={handleChange}
       isNew={true}
       formValues={newCore}

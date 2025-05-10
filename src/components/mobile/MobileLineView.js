@@ -43,7 +43,7 @@ export default function MobileLineView({
     isEdit ? '3px solid #673AB7' : '1px solid #e6e6e6';
 
   let totalLineCost = lineCost - line.lineDiscount;
-  let tax = 1.8;
+  let tax = 1.81;
   let deviceMonthly = (line.deviceTotalCost - line.deviceDiscount) / 24;
   totalLineCost += deviceMonthly;
   totalLineCost += tax;

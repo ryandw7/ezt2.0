@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   Box,
   Typography,
@@ -10,16 +9,15 @@ import {
   FormControlLabel,
   Select,
   MenuItem,
-  InputLabel,
 } from '@mui/material';
 
-export default function MobileLineForm({ line, handleUpdate, handleStopEdit }) {
+const MobileLineForm = ({
+  line,
+  handleUpdate,
+  handleStopEdit,
+}) => {
   const {
-    name,
-    isEdit,
-    id,
     xmc,
-    phoneNumber,
     isBYOD,
     port,
     deviceModel,
@@ -30,32 +28,27 @@ export default function MobileLineForm({ line, handleUpdate, handleStopEdit }) {
     lineDiscount,
     lineDiscountDesc,
     dataPlan,
+    name,
   } = line;
-  console.log(handleUpdate);
+
   const handleChange = (e) => {
-    console.log('handling change');
     const key = e.target.id || e.target.name;
     let value = e.target.value;
+
     if (key === 'isBYOD') {
-      handleUpdate?.('isBYOD', !isBYOD);
-    } else {
-      //  if (key === 'deviceTotalCost' || key === 'deviceDiscount' || key === 'lineDiscount') {
-      if (['deviceTotalCost', 'deviceDiscount', 'lineDiscount'].includes(key)) {
-        if (/^\d*(\.\d{0,2})?$/.test(value) || value === '') {
-          if (value === '') {
-            value = 0;
-          }
-          handleUpdate(key, Number(value));
-        }
-      } else {
-        handleUpdate(key, value);
+      handleUpdate('isBYOD', !isBYOD);
+    } else if (
+      ['deviceTotalCost', 'deviceDiscount', 'lineDiscount'].includes(key)
+    ) {
+      if (/^\d*(\.\d{0,2})?$/.test(value) || value === '') {
+        if (value === '') value = 0;
+        handleUpdate(key, Number(value));
       }
+    } else {
+      handleUpdate(key, value);
     }
   };
 
-  const handleStartEdit = () => {
-    handleUpdate('isEdit', true);
-  };
   const handleToggle = (e) => {
     const key = e.target.id;
     handleUpdate(key, !line[key]);
@@ -64,98 +57,122 @@ export default function MobileLineForm({ line, handleUpdate, handleStopEdit }) {
   return (
     <Paper
       elevation={3}
-      gap={2}
       sx={{
-        justifyContent: 'space-around',
         display: 'flex',
         flexDirection: 'column',
-        minWidth: '450px',
-        width: '60%',
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
         height: '90%',
-        overflow: '-moz-hidden-unscrollable',
+        maxWidth: 600,
+        minWidth: 400,
         p: 3,
+        fontSize: { xs: '0.75rem', md: '0.85rem' },
+        '& .MuiInputBase-root': {
+          fontSize: 'inherit',
+          height: '100%',
+        },
+        '& .MuiInputLabel-root': {
+          fontSize: 'calc(inherit - 0.1rem)',
+        },
       }}
     >
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          m: '5px',
-          flexWrap: 'nowrap',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 2,
+          flexGrow: 1,
         }}
       >
-        {/*NAME | BYOD*/}
-
-        {dataPlan !== 'Tablet' && dataPlan !== 'Watch' ? (
-          <>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 2,
+            flexWrap: 'nowrap',
+            width: '100%',
+          }}
+        >
+          <TextField
+            id="name"
+            label="Name (Optional)"
+            placeholder="Example: John"
+            value={name}
+            onChange={handleChange}
+            sx={{ flex: 2, minWidth: '150px' }}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: "flex-end",
+            gap: 2,
+            flexWrap: 'nowrap',
+            width: '100%',
+          }}
+        >
+          {dataPlan !== 'Tablet' && dataPlan !== 'Watch' && (
             <FormControlLabel
               label="Data Plan"
               labelPlacement="top"
+              sx={{ height: "25px", mb:"5px" }}
               control={
                 <Select
+               
                   name="dataPlan"
-                  labelId="dataPlan"
                   id="dataPlan"
                   value={dataPlan}
                   onChange={handleChange}
-                  sx={{ height: '25px', margin: '8px auto', fontSize: '.7em' }}
+                  sx={{ fontSize: 'inherit', height: '2em',mt:"5px" }}
                 >
                   <MenuItem value="Unlimited">Unlimited</MenuItem>
                   <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
                 </Select>
               }
             />
-          </>
-        ) : null}
+          )}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:"flex-start", width: '70px' }}>
+            <Typography sx={{ fontSize: '0.75rem', mb: '0px', p:0 }}>BYOD</Typography>
+            <Switch sx={{m:0}}checked={isBYOD} id="isBYOD" onChange={handleToggle} />
+          </Box>
+          <FormControlLabel
+            labelPlacement="top"
+            sx={{ height: "25px", mb:"5px" }}            
+            label="XMC"
+            control={
+              <Select
+                name="xmc"
+                id="xmc"
+                value={xmc}
+                onChange={handleChange}
+                sx={{ fontSize: 'inherit', height: '2.5em',mt:"5px" }}
+              >
+                {[9, 12, 15, 17, 19].map((val) => (
+                  <MenuItem key={val} value={val}>
+                    ${val}
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+          />
+          <FormControlLabel
+            labelPlacement="top"
+            label="Port"
+            control={
+              <Switch checked={port} id="port" onChange={handleToggle} />
+            }
+          />
+        </Box>
 
-        <FormControlLabel
-          labelPlacement="top"
-          label="BYOD"
-          control={
-            <Switch checked={isBYOD} id="isBYOD" onChange={handleToggle} />
-          }
-        />
-
-        <FormControlLabel
-          label="XMC"
-          labelPlacement="top"
-          control={
-            <Select
-              name="xmc"
-              labelId="xmc"
-              id="xmc"
-              value={xmc}
-              onChange={handleChange}
-              sx={{ height: '25px', margin: '8px auto', fontSize: '.7em' }}
-            >
-              <MenuItem value={9}>$9</MenuItem>
-              <MenuItem value={12}>$12</MenuItem>
-              <MenuItem value={15}>$15</MenuItem>
-              <MenuItem value={17}>$17</MenuItem>
-              <MenuItem value={19}>$19</MenuItem>
-            </Select>
-          }
-        />
-
-        <FormControlLabel
-          labelPlacement="top"
-          label="Port"
-          control={<Switch checked={port} id="port" onChange={handleToggle} />}
-        />
-      </Box>
-
-      <>
+        {/* Pay In Full */}
         <Box
           sx={{
+            width: '100%',
             display: 'flex',
-            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            m: '5px',
-            width: '100%',
-            overflowX: '-moz-hidden-unscrollable',
           }}
         >
           <FormControlLabel
@@ -170,12 +187,14 @@ export default function MobileLineForm({ line, handleUpdate, handleStopEdit }) {
             label="Pay in Full"
           />
         </Box>
+        {/* Device Model + Cost */}
         <Box
           sx={{
             display: 'flex',
             gap: 2,
-            justifyContent: 'space-between',
             width: '100%',
+            alignItems: 'stretch',
+            flexWrap: 'nowrap',
           }}
         >
           <TextField
@@ -183,50 +202,28 @@ export default function MobileLineForm({ line, handleUpdate, handleStopEdit }) {
             id="deviceModel"
             label="Device Model"
             placeholder="Example: iPhone 16"
-            variant="outlined"
             value={deviceModel}
             onChange={handleChange}
-            sx={{
-              flex: 2,
-              '& .MuiInputBase-root': {
-                height: '2.5em',
-                fontSize: '0.85rem',
-                paddingY: '0.25em',
-              },
-              '& .MuiInputLabel-root': {
-                fontSize: '0.75rem',
-              },
-            }}
+            sx={{ flex: 2, minWidth: '150px' }}
           />
-
           <TextField
             disabled={isBYOD}
             id="deviceTotalCost"
             label="Total Cost"
-            variant="outlined"
             value={deviceTotalCost !== 0 ? deviceTotalCost : ''}
             onChange={handleChange}
-            sx={{
-              flex: 1,
-              '& .MuiInputBase-root': {
-                height: '2.5em',
-                fontSize: '0.85rem',
-                paddingY: '0.25em',
-              },
-              '& .MuiInputLabel-root': {
-                fontSize: '0.75rem',
-              },
-            }}
+            sx={{ flex: 1, minWidth: '100px' }}
           />
         </Box>
 
+        {/* Device Discount */}
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            m: '5px',
+            gap: 2,
+            width: '100%',
+            alignItems: 'stretch',
+            flexWrap: 'nowrap',
           }}
         >
           <TextField
@@ -234,53 +231,53 @@ export default function MobileLineForm({ line, handleUpdate, handleStopEdit }) {
             id="deviceDiscountDesc"
             label="Device Discount"
             placeholder="Example: Trade In"
-            variant="outlined"
             value={deviceDiscountDesc}
             onChange={handleChange}
-            sx={{ width: '200px', m: '5px' }}
+            sx={{ flex: 2, minWidth: '150px' }}
           />
           <TextField
             disabled={isBYOD || payInFull}
             id="deviceDiscount"
             label="Amount"
-            variant="outlined"
             value={deviceDiscount !== 0 ? deviceDiscount : ''}
             onChange={handleChange}
-            sx={{ width: '100px', m: '5px' }}
+            sx={{ flex: 1, minWidth: '100px' }}
           />
         </Box>
-      </>
 
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          m: '5px',
-        }}
-      >
-        <TextField
-          id="lineDiscountDesc"
-          label="Line Discount"
-          placeholder="Example: Free Line"
-          variant="outlined"
-          value={lineDiscountDesc}
-          onChange={handleChange}
-          sx={{ width: '200px', m: '5px' }}
-        />
-        <TextField
-          id="lineDiscount"
-          label="Amount"
-          variant="outlined"
-          value={lineDiscount !== 0 ? lineDiscount : ''}
-          onChange={handleChange}
-          sx={{ width: '100px', m: '5px' }}
-        />
+        {/* Line Discount */}
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+            width: '100%',
+            alignItems: 'stretch',
+            flexWrap: 'nowrap',
+          }}
+        >
+          <TextField
+            id="lineDiscountDesc"
+            label="Line Discount"
+            placeholder="Example: Free Line"
+            value={lineDiscountDesc}
+            onChange={handleChange}
+            sx={{ flex: 2, minWidth: '150px' }}
+          />
+          <TextField
+            id="lineDiscount"
+            label="Amount"
+            value={lineDiscount !== 0 ? lineDiscount : ''}
+            onChange={handleChange}
+            sx={{ flex: 1, minWidth: '100px' }}
+          />
+        </Box>
       </Box>
+
       <Button variant="contained" onClick={handleStopEdit} sx={{ mt: 2 }}>
         Done
       </Button>
     </Paper>
   );
-}
+};
+
+export default MobileLineForm;

@@ -67,6 +67,8 @@ export const tabletLineObj = () => ({
   lineDiscount: 0,
   xmc: 0,
 });
+
+
 export const serviceItemObj = () => ({
   id: uuidv4(),
   description: '',
@@ -78,6 +80,14 @@ const start_line_id = uuidv4();
 const start_line_obj = phoneLineObj();
 start_line_obj.id = start_line_id;
 
+const start_current_services_item_id = uuidv4();
+const start_current_services_item_obj = serviceItemObj();
+start_current_services_item_obj.id = start_current_services_item_id;
+
+const start_new_services_item_id = uuidv4();
+const start_new_services_item_obj = serviceItemObj();
+start_new_services_item_obj.id = start_new_services_item_id;
+
 export const createInitialState = () => ({
   currentServices: {
     internet: '',
@@ -87,6 +97,11 @@ export const createInitialState = () => ({
     mobile: '',
     mobileCost: 0,
     notes: '',
+
+    itemsById: {
+      [start_current_services_item_id]:start_current_services_item_obj
+    },
+
     items: [serviceItemObj()],
   },
   newCore: {
@@ -95,6 +110,9 @@ export const createInitialState = () => ({
     tv: '',
     tvCost: 0,
     items: [serviceItemObj()],
+    itemsById: {
+      [start_new_services_item_id]:start_new_services_item_obj
+    },
     notes: '',
   },
   newMobile: {

@@ -106,9 +106,9 @@ export const getMobileLineCostById = createSelector(
         newMobileLines[id].dataPlan === 'Unlimited Premium'
       ) {
         return phoneLineCostById(id);
-      } else if (dataPlan === 'Tablet') {
+      } else if (newMobileLines[id].dataPlan === 'Tablet') {
         return 20;
-      } else if (dataPlan === 'Watch') {
+      } else if (newMobileLines[id].dataPlan === 'Watch') {
         return 10;
       }
       return 0;
@@ -189,7 +189,7 @@ export const getAllMobileTotals = createSelector(
     let lineDiscountsTotalOff = 0;
     let lineDiscountList = [];
     let deviceDiscountsTotalOff = 0;
-
+  
     const lines = Object.values(newMobileLines)
       ? Object.values(newMobileLines)
       : [];
@@ -198,7 +198,7 @@ export const getAllMobileTotals = createSelector(
       return {};
     }
     const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
-    const taxesTotalCost = lines.length * 1.8;
+    const taxesTotalCost = lines.length * 1.81;
 
     let unlimitedCount = 0;
     let premiumCount = 0;
@@ -245,6 +245,7 @@ export const getAllMobileTotals = createSelector(
       tabletTotalCost +
       watchTotalCost +
       devicePaymentsTotalCost +
+      taxesTotalCost +
       xmcTotalCost -
       lineDiscountsTotalOff;
 

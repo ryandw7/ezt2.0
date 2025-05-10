@@ -2,7 +2,7 @@ import React from 'react';
 import useCurrentActions from '../context/actions/useCurrentActions.js';
 import useCurrentSelectors from '../context/selectors/useCurrentSelectors.js';
 
-import PackageForm2 from '../components/PackageForm2.js';
+import PackageForm from '../components/PackageForm.js';
 
 const CurrentServicesFeature = () => {
   const { current, currentServices } = useCurrentSelectors();
@@ -28,7 +28,7 @@ const CurrentServicesFeature = () => {
   const items = [{ description: '', cost: '', additionalNotes: '' }];
 
   return (
-    <PackageForm2
+    <PackageForm
       handleChange={handleChange}
       formValues={current}
       hasMobile={true}
