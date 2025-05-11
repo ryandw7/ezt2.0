@@ -31,7 +31,7 @@ export default function MobileLineView({
           display: 'flex',
           justifyContent: 'space-between',
           margin: '5px auto',
-          ...sx,
+          ...sx,               
         }}
       >
         {children}

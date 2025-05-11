@@ -4,12 +4,12 @@ import RowBox from '../boxes/RowBox';
 import { Typography } from '@mui/material';
 
 const CurrentView = ({ className, data }) => {
-  const { current, currentServicesTotalCost, currentServices } = data;
+  const { current, currentServicesTotalCost, currentServicesItemsList } = data;
   //const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
-  console.log(currentServices);
+ 
   return (
     <PrintBox header={'Current Services'} className={className}>
-      {currentServices.map((item) => {
+      {currentServicesItemsList.map((item) => {
         return item.cost ? (
           <>
             <RowBox>

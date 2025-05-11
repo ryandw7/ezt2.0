@@ -13,7 +13,7 @@ const currentReducer = (state = initialState, action) => {
       const itemObj = serviceItemObj();
       const id = itemObj.id;
 
-      return { ...state, itemsById: { ...itemsById, [id]: itemObj } }
+      return { ...state, itemsById: { ...state.itemsById, [id]: itemObj } }
 
     }
     case "DELETE_CURRENT_SERVICES_ITEM": {
@@ -57,10 +57,12 @@ const currentReducer = (state = initialState, action) => {
     }
 
     case 'UPDATE_CURRENT': {
-      const { key, value } = action.payload;
 
+      const { key, value } = action.payload;
       return { ...state, [key]: value };
+
     }
+
     case 'UPDATE_CURRENT_INTERNET':
       return { ...state, internet: action.payload };
     case 'UPDATE_CURRENT_INTERNET_COST':

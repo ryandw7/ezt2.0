@@ -5,17 +5,24 @@ export const getCurrentServicesItems = (state) => state.currentServices?.itemsBy
 
 export const getCurrentServicesItemById = createSelector(
   [getCurrentServicesItems],
-  (currentServicesItems)=>{
-    return (id)=>{
+  (currentServicesItems) => {
+    return (id) => {
       return currentServicesItems[id]
     }
   }
 )
 
+export const getCurrentServicesItemsList = createSelector(
+  [getCurrentServicesItems],
+  (currentServiceItems) => {
+    return Object.values(currentServiceItems)
+  }
+)
+
 export const getCurrentServicesItemValueById = createSelector(
   [getCurrentServicesItemById],
-  (currentServicesItemsById)=>{
-    return (id, key)=>{
+  (currentServicesItemsById) => {
+    return (id, key) => {
       return currentServicesItemsById(id)[key]
     }
   }
@@ -34,9 +41,9 @@ export const getCurrent = (state) => state.currentServices;
 export const getCurrentServices = (state) => state.currentServices?.items || [];
 
 export const getCurrentServicesTotalCost = createSelector(
-  [getCurrentServices],
-  (currentServices) => {
-    return currentServices.reduce((accumulator, item) => {
+  [getCurrentServicesItems],
+  (currentServicesItems) => {
+    return Object.values(currentServicesItems).reduce((accumulator, item) => {
       return accumulator + item.cost;
     }, 0);
   }
@@ -59,7 +66,9 @@ const useCurrentSelectors = () => {
   const current = getCurrent(state) || '';
   const currentServicesTotalCost = getCurrentServicesTotalCost(state) || 0;
   const currentServices = getCurrentServices(state);
+  const currentServicesItemsList = getCurrentServicesItemsList(state);
   return {
+    currentServicesItemsList,
     currentServices,
     current,
     currentServicesTotalCost,

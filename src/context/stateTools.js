@@ -97,7 +97,6 @@ export const createInitialState = () => ({
     mobile: '',
     mobileCost: 0,
     notes: '',
-
     itemsById: {
       [start_current_services_item_id]:start_current_services_item_obj
     },
