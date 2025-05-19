@@ -1,16 +1,14 @@
 import React from 'react';
 import useCurrentActions from '../context/actions/useCurrentActions.js';
 import useCurrentSelectors from '../context/selectors/useCurrentSelectors.js';
-
-import PackageForm from '../components/PackageForm.js';
+import PackageFormList from '../components/PackageFormList.js';
 
 const CurrentServicesFeature = () => {
-  const { current, currentServices, currentServicesItemsList } = useCurrentSelectors();
+  const { currentServicesItems } = useCurrentSelectors();
   const {
-    updateCurrent,
     addCurrentServicesItem,
     updateCurrentServicesItem,
-    deleteCurrentServicesItem,
+    deleteCurrentServicesItem
   } = useCurrentActions();
 
   const handleChange = (id) => (e) => {
@@ -25,16 +23,13 @@ const CurrentServicesFeature = () => {
     }
     updateCurrentServicesItem(id, key, value);
   };
-  const items = [{ description: '', cost: '', additionalNotes: '' }];
 
   return (
-   
-    
-    <PackageForm
+  
+    <PackageFormList
       handleChange={handleChange}
-      formValues={current}
       hasMobile={true}
-      items={currentServicesItemsList}
+      items={currentServicesItems}
       handleAddItem={addCurrentServicesItem}
       handleDeleteItem={deleteCurrentServicesItem}
     />

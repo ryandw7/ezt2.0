@@ -1,13 +1,24 @@
 import React from 'react';
 import { Box, Paper, TextField, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-const PackageForm = ({
+import { useCurrentSelectors, useNewCoreSelectors } from '../context/selectors';
+
+const PackageFormList = ({
   isNew,
   handleChange,
   handleAddItem,
   handleDeleteItem,
   items,
 }) => {
+
+const { currentServicesItemIds } = useCurrentSelectors();
+const { newServicesItemIds } = useNewCoreSelectors();
+let itemIds = [];
+if(!isNew){
+  itemIds = currentServicesItemIds;
+}else{
+  itemIds = newServicesItemIds;
+}
   return (
     <Box
       sx={{
@@ -78,4 +89,4 @@ const PackageForm = ({
   );
 };
 
-export default PackageForm;
+export default PackageFormList;

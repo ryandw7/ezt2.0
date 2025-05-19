@@ -25,14 +25,13 @@ const FinishFeature = React.forwardRef((props, ref) => {
   const { allMobileTotals } = useNewMobileSelectors();
   const { newCore, newCoreServices, newCoreServicesTotalCost } =
     useNewCoreSelectors();
-  const { current, currentServicesTotalCost, currentServicesItemsList } =
+  const { currentServicesTotalCost, currentServicesItems } =
     useCurrentSelectors();
   const { rep, contact, additionalNotes } = useAdditionalSelectors();
 
   const currentServicesData = {
-    current,
     currentServicesTotalCost,
-    currentServicesItemsList,
+    currentServicesItems
   };
   const newServicesData = {
     newCoreServices,

@@ -4,12 +4,11 @@ import RowBox from '../boxes/RowBox';
 import { Typography } from '@mui/material';
 
 const CurrentView = ({ className, data }) => {
-  const { current, currentServicesTotalCost, currentServicesItemsList } = data;
-  //const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
+  const {currentServicesTotalCost, currentServicesItems } = data;
  
   return (
     <PrintBox header={'Current Services'} className={className}>
-      {currentServicesItemsList.map((item) => {
+      {currentServicesItems.map((item) => {
         return item.cost ? (
           <>
             <RowBox>
@@ -24,26 +23,6 @@ const CurrentView = ({ className, data }) => {
           </>
         ) : null;
       })}
-
-      {/* {(internet || internetCost) ? <>
-                        <RowBox>
-                            <Typography sx={{ textWrap: "nowrap" }}>{internet}</Typography>
-                            <Typography sx={{ textWrap: "nowrap" }}>${data.current.internetCost.toFixed(2)} est.</Typography>
-                        </RowBox>
-            
-                </> : null}
-                {(tv || tvCost) ? <>
-                        <RowBox>
-                            <Typography>{tv}</Typography>
-                            <Typography sx={{ textWrap: "nowrap" }}>${tvCost.toFixed(2)} est.</Typography>
-                        </RowBox>
-                </> : null}
-                {(mobile || mobileCost) ? <>
-                    <RowBox>
-                        <Typography sx={{ textWrap: "nowrap" }}>{mobile}</Typography>
-                        <Typography sx={{ textWrap: "nowrap" }}>${mobileCost.toFixed(2)} est.</Typography>
-                    </RowBox>
-                </> : null}*/}
       {currentServicesTotalCost !== 0 ? (
         <RowBox
           sx={{ marginTop: 'auto', padding: '3px', justifySelf: 'flex-end' }}

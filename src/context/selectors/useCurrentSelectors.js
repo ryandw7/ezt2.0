@@ -1,10 +1,10 @@
 import useAppContext from '../context.js';
 import createSelector from './createSelector.js';
 
-export const getCurrentServicesItems = (state) => state.currentServices?.itemsById || {};
+export const getCurrentServices = (state) => state.currentServices?.itemsById || {};
 
 export const getCurrentServicesItemById = createSelector(
-  [getCurrentServicesItems],
+  [getCurrentServices],
   (currentServicesItems) => {
     return (id) => {
       return currentServicesItems[id]
@@ -12,36 +12,22 @@ export const getCurrentServicesItemById = createSelector(
   }
 )
 
-export const getCurrentServicesItemsList = createSelector(
-  [getCurrentServicesItems],
-  (currentServiceItems) => {
-    return Object.values(currentServiceItems)
+export const getCurrentServicesItems = createSelector(
+  [getCurrentServices],
+  (currentServices) => {
+    return Object.values(currentServices)
   }
 )
 
-export const getCurrentServicesItemValueById = createSelector(
-  [getCurrentServicesItemById],
-  (currentServicesItemsById) => {
-    return (id, key) => {
-      return currentServicesItemsById(id)[key]
-    }
+export const getCurrentServicesItemIds = createSelector(
+  [getCurrentServices],
+  (currentServicesItems)=>{
+    return Object.keys(currentServicesItems)
   }
 )
-export const getCurrentInternet = (state) =>
-  state.currentServices?.internet || '';
-export const getCurrentInternetCost = (state) =>
-  state.currentServices?.internetCost || 0;
-export const getCurrentTv = (state) => state.currentServices?.tv || '';
-export const getCurrentTvCost = (state) => state.currentServices?.tvCost || 0;
-export const getCurrentMobile = (state) => state.currentServices?.mobile || '';
-export const getCurrentMobileCost = (state) =>
-  state.currentServices?.mobileCost || 0;
-export const getCurrentNotes = (state) => state.currentServices?.notes || '';
-export const getCurrent = (state) => state.currentServices;
-export const getCurrentServices = (state) => state.currentServices?.items || [];
 
 export const getCurrentServicesTotalCost = createSelector(
-  [getCurrentServicesItems],
+  [getCurrentServices],
   (currentServicesItems) => {
     return Object.values(currentServicesItems).reduce((accumulator, item) => {
       return accumulator + item.cost;
@@ -56,29 +42,13 @@ const useCurrentSelectors = () => {
     return {};
   }
 
-  const currentInternet = getCurrentInternet(state);
-  const currentInternetCost = getCurrentInternetCost(state) || 0;
-  const currentTv = getCurrentTv(state) || '';
-  const currentTvCost = getCurrentTvCost(state);
-  const currentMobile = getCurrentMobile(state) || '';
-  const currentMobileCost = getCurrentMobileCost(state);
-  const currentNotes = getCurrentNotes(state) || '';
-  const current = getCurrent(state) || '';
   const currentServicesTotalCost = getCurrentServicesTotalCost(state) || 0;
-  const currentServices = getCurrentServices(state);
-  const currentServicesItemsList = getCurrentServicesItemsList(state);
+  const currentServicesItems = getCurrentServicesItems(state);
+  const currentServicesItemById = getCurrentServicesItemById(state);
   return {
-    currentServicesItemsList,
-    currentServices,
-    current,
+    currentServicesItems,
     currentServicesTotalCost,
-    currentInternet,
-    currentInternetCost,
-    currentTv,
-    currentTvCost,
-    currentMobile,
-    currentMobileCost,
-    currentNotes,
+    currentServicesItemById
   };
 };
 

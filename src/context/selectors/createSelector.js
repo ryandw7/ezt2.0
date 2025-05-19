@@ -1,5 +1,3 @@
-import { Agriculture, ArrowRight } from '@mui/icons-material';
-
 const createSelector = (inputSelectors, outputFn) => {
   let lastArgs = null;
   let lastResult = null;
