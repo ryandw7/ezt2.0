@@ -2,6 +2,7 @@ import useAppContext from '../context';
 import createSelector from './createSelector';
 
 export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
+export const getIsXfinityMobile = (state) => state.newMobile?.isXfinityMobile || false;
 
 export const getUnlimitedLines = createSelector(
   [getNewMobileLines],
@@ -269,6 +270,7 @@ export const getAllMobileTotals = createSelector(
 
 const useNewMobileSelectors = () => {
   const { state } = useAppContext();
+  const isXfinityMobile = getIsXfinityMobile(state);
   const editingLineId = getEditingLineId(state);
   const editingLine = getEditingLine(state);
   const getNewMobileLineCost = getMobileLineCostById(state);
@@ -291,6 +293,7 @@ const useNewMobileSelectors = () => {
     watchLines,
     newMobileLines,
     getNewMobileLineCost,
+    isXfinityMobile
   };
 };
 

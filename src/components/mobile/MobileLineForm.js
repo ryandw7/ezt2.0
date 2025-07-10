@@ -15,6 +15,7 @@ const MobileLineForm = ({
   line,
   handleUpdate,
   handleStopEdit,
+  isXfinityMobile
 }) => {
   const {
     xmc,

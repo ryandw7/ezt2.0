@@ -69,6 +69,9 @@ const newMobileReducer = (state = initialState, action) => {
       return { ...state, linesById: newObj, isEditId: '' };
     }
 
+    case 'TOGGLE_IS_XFINITY_MOBILE': {
+      return { ...state, isXfinityMobile: !state.isXfinityMobile }
+    }
     default: {
       return state;
     }

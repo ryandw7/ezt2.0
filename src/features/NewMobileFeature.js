@@ -10,6 +10,7 @@ import WatchIcon from '@mui/icons-material/Watch';
 
 const NewMobileFeature = () => {
   const {
+    isXfinityMobile,
     unlimitedLines,
     phoneLineCostById,
     unlimitedPremiumLines,
@@ -69,6 +70,7 @@ const NewMobileFeature = () => {
       return 'center';
     }
   };
+  
   const isEditingLine = (id) => (id === editingLineId ? true : false);
 
   return (

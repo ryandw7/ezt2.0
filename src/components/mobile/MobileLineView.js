@@ -3,6 +3,7 @@ import { Box, Typography, Button, Paper } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 export default function MobileLineView({
+  isXfinityMobile,
   line,
   lineCost,
   config,
