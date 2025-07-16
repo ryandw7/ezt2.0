@@ -14,7 +14,7 @@ export const lineObj = () => ({
   payInFull: false,
   cost: 0,
   lineDiscount: 0,
-  xmc: 0
+  xmc: 0,
 });
 
 export const nowLineObj = () => ({
@@ -23,15 +23,15 @@ export const nowLineObj = () => ({
   isBYOD: true,
   number: 0,
   port: true,
-  dataPlan: "Now Mobile",
+  dataPlan: 'Now Mobile',
   deviceModel: null,
   deviceTotalCost: 0,
   deviceDiscountDesc: '',
   deviceDiscount: 0,
   cost: 0,
   lineDiscount: 0,
-  xmc: 0
-})
+  xmc: 0,
+});
 export const phoneLineObj = () => ({
   isEdit: true,
   name: '',
@@ -63,7 +63,7 @@ export const watchLineObj = () => ({
   payInFull: false,
   cost: 0,
   lineDiscount: 0,
-  xmc: 0
+  xmc: 0,
 });
 
 export const tabletLineObj = () => ({
@@ -80,9 +80,8 @@ export const tabletLineObj = () => ({
   payInFull: false,
   cost: 0,
   lineDiscount: 0,
-  xmc: 0
+  xmc: 0,
 });
-
 
 export const serviceItemObj = () => ({
   id: uuidv4(),
@@ -117,7 +116,7 @@ export const createInitialState = () => ({
     mobileCost: 0,
     notes: '',
     itemsById: {
-      [start_current_services_item_id]: start_current_services_item_obj
+      [start_current_services_item_id]: start_current_services_item_obj,
     },
     items: [serviceItemObj()],
   },
@@ -128,14 +127,14 @@ export const createInitialState = () => ({
     tvCost: 0,
     items: [serviceItemObj()],
     itemsById: {
-      [start_new_services_item_id]: start_new_services_item_obj
+      [start_new_services_item_id]: start_new_services_item_obj,
     },
     notes: '',
   },
   newMobile: {
     linesById: {
       [start_line_id]: start_line_obj,
-      [start_now_line_id]: start_now_line_obj
+      [start_now_line_id]: start_now_line_obj,
     },
     isEditId: '',
     info: '',

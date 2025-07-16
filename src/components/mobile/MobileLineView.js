@@ -32,7 +32,7 @@ export default function MobileLineView({
           display: 'flex',
           justifyContent: 'space-between',
           margin: '5px auto',
-          ...sx,               
+          ...sx,
         }}
       >
         {children}
@@ -52,9 +52,8 @@ export default function MobileLineView({
   return (
     <Paper
       elevation={8}
-
       sx={{
-transition: 'height 0.3s ease-in-out',
+        transition: 'height 0.3s ease-in-out',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -97,8 +96,15 @@ transition: 'height 0.3s ease-in-out',
             <EditOutlinedIcon sx={{ margin: 'auto' }} />
           </Button>
           <RowGroup>
-            <Typography variant={"h5"} fontWeight={"bold"} textAlign={"center"} width={"100%"}>{line.name ? line.name : defaultName}</Typography>
-            </RowGroup>
+            <Typography
+              variant={'h5'}
+              fontWeight={'bold'}
+              textAlign={'center'}
+              width={'100%'}
+            >
+              {line.name ? line.name : defaultName}
+            </Typography>
+          </RowGroup>
         </>
       ) : null}
 

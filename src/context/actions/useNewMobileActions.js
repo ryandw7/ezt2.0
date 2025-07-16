@@ -25,8 +25,8 @@ const useNewMobileActions = () => {
   };
 
   const toggleIsXfinityMobile = () => {
-    dispatch({type:'TOGGLE_IS_XFINITY_MOBILE'})
-  }
+    dispatch({ type: 'TOGGLE_IS_XFINITY_MOBILE' });
+  };
   return {
     addPhoneLine,
     addTabletLine,
@@ -34,7 +34,7 @@ const useNewMobileActions = () => {
     removeMobileLine,
     updateNewMobileLine,
     setEditingLineId,
-    toggleIsXfinityMobile
+    toggleIsXfinityMobile,
   };
 };
 

@@ -18,9 +18,9 @@ const NewMobileFeature = () => {
     watchLines,
     editingLineId,
     editingLine,
-    nowMobileLines
+    nowMobileLines,
   } = useNewMobileSelectors();
-  console.log(nowMobileLines)
+  console.log(nowMobileLines);
   const {
     addPhoneLine,
     updateNewMobileLine,
@@ -119,113 +119,119 @@ const NewMobileFeature = () => {
               borderRadius: '4px',
             },
           }}
-        >{isXfinityMobile ? <>
-          {unlimitedLines && unlimitedLines.length !== 0 ? (
+        >
+          {isXfinityMobile ? (
             <>
-              {unlimitedLines.map((item, index) => (
+              {unlimitedLines && unlimitedLines.length !== 0 ? (
                 <>
-                  <MobileLineView
-                    key={item.id}
-                    line={item}
-                    handleDelete={() => handleDelete(item.id)}
-                    handleStartEdit={() => handleStartEdit(item.id)}
-                    lineCost={phoneLineCostById(item.id)}
-                    defaultName={`Line ${index + 1}`}
-                    config={{
-                      isFull: false,
-                      isForm: true,
-                      isEdit: isEditingLine(item.id),
-                    }}
-                  />
+                  {unlimitedLines.map((item, index) => (
+                    <>
+                      <MobileLineView
+                        key={item.id}
+                        line={item}
+                        handleDelete={() => handleDelete(item.id)}
+                        handleStartEdit={() => handleStartEdit(item.id)}
+                        lineCost={phoneLineCostById(item.id)}
+                        defaultName={`Line ${index + 1}`}
+                        config={{
+                          isFull: false,
+                          isForm: true,
+                          isEdit: isEditingLine(item.id),
+                        }}
+                      />
+                    </>
+                  ))}
                 </>
-              ))}
+              ) : null}
+              {unlimitedPremiumLines && unlimitedPremiumLines.length !== 0 ? (
+                <>
+                  {unlimitedPremiumLines.map((item, index) => (
+                    <>
+                      <MobileLineView
+                        key={item.id}
+                        line={item}
+                        handleDelete={() => handleDelete(item.id)}
+                        handleStartEdit={() => handleStartEdit(item.id)}
+                        lineCost={phoneLineCostById(item.id)}
+                        defaultName={`Premium Line ${index + 1}`}
+                        config={{
+                          isFull: false,
+                          isForm: true,
+                          isEdit: isEditingLine(item.id),
+                        }}
+                      />
+                    </>
+                  ))}
+                </>
+              ) : null}
+              {watchLines && watchLines.length !== 0 ? (
+                <>
+                  {watchLines.map((item, index) => (
+                    <>
+                      <MobileLineView
+                        key={item.id}
+                        line={item}
+                        handleDelete={() => handleDelete(item.id)}
+                        handleStartEdit={() => handleStartEdit(item.id)}
+                        lineCost={10}
+                        defaultName={`Watch ${index + 1}`}
+                        config={{
+                          isFull: false,
+                          isForm: true,
+                          isEdit: isEditingLine(item.id),
+                        }}
+                      />
+                    </>
+                  ))}
+                </>
+              ) : null}
+              {tabletLines && tabletLines.length !== 0 ? (
+                <>
+                  {tabletLines.map((item, index) => (
+                    <>
+                      <MobileLineView
+                        key={item.id}
+                        line={item}
+                        handleDelete={() => handleDelete(item.id)}
+                        handleStartEdit={() => handleStartEdit(item.id)}
+                        lineCost={20}
+                        defaultName={`Tablet ${index + 1}`}
+                        config={{
+                          isFull: false,
+                          isForm: true,
+                          isEdit: isEditingLine(item.id),
+                        }}
+                      />
+                    </>
+                  ))}
+                </>
+              ) : null}
             </>
-          ) : null}
-          {unlimitedPremiumLines && unlimitedPremiumLines.length !== 0 ? (
+          ) : (
             <>
-              {unlimitedPremiumLines.map((item, index) => (
+              {nowMobileLines && nowMobileLines.length !== 0 ? (
                 <>
-                  <MobileLineView
-                    key={item.id}
-                    line={item}
-                    handleDelete={() => handleDelete(item.id)}
-                    handleStartEdit={() => handleStartEdit(item.id)}
-                    lineCost={phoneLineCostById(item.id)}
-                    defaultName={`Premium Line ${index + 1}`}
-                    config={{
-                      isFull: false,
-                      isForm: true,
-                      isEdit: isEditingLine(item.id),
-                    }}
-                  />
+                  {nowMobileLines.map((item, index) => (
+                    <>
+                      <MobileLineView
+                        key={item.id}
+                        line={item}
+                        handleDelete={() => handleDelete(item.id)}
+                        handleStartEdit={() => handleStartEdit(item.id)}
+                        lineCost={phoneLineCostById(item.id)}
+                        defaultName={`Line ${index + 1}`}
+                        config={{
+                          isFull: false,
+                          isForm: true,
+                          isEdit: isEditingLine(item.id),
+                        }}
+                      />
+                    </>
+                  ))}
                 </>
-              ))}
+              ) : null}
             </>
-          ) : null}
-          {watchLines && watchLines.length !== 0 ? (
-            <>
-              {watchLines.map((item, index) => (
-                <>
-                  <MobileLineView
-                    key={item.id}
-                    line={item}
-                    handleDelete={() => handleDelete(item.id)}
-                    handleStartEdit={() => handleStartEdit(item.id)}
-                    lineCost={10}
-                    defaultName={`Watch ${index + 1}`}
-                    config={{
-                      isFull: false,
-                      isForm: true,
-                      isEdit: isEditingLine(item.id),
-                    }}
-                  />
-                </>
-              ))}
-            </>
-          ) : null}
-          {tabletLines && tabletLines.length !== 0 ? (
-            <>
-              {tabletLines.map((item, index) => (
-                <>
-                  <MobileLineView
-                    key={item.id}
-                    line={item}
-                    handleDelete={() => handleDelete(item.id)}
-                    handleStartEdit={() => handleStartEdit(item.id)}
-                    lineCost={20}
-                    defaultName={`Tablet ${index + 1}`}
-                    config={{
-                      isFull: false,
-                      isForm: true,
-                      isEdit: isEditingLine(item.id),
-                    }}
-                  />
-                </>
-              ))}
-            </>
-          ) : null}
-        </> : <>
-        {nowMobileLines && nowMobileLines.length !== 0 ? (
-          <>
-            {nowMobileLines.map((item, index) => (
-              <>
-                <MobileLineView
-                  key={item.id}
-                  line={item}
-                  handleDelete={() => handleDelete(item.id)}
-                  handleStartEdit={() => handleStartEdit(item.id)}
-                  lineCost={phoneLineCostById(item.id)}
-                  defaultName={`Line ${index + 1}`}
-                  config={{
-                    isFull: false,
-                    isForm: true,
-                    isEdit: isEditingLine(item.id),
-                  }}
-                />
-              </>
-            ))}
-          </>
-        ) : null}</>}
+          )}
         </List>
         <Box
           sx={{

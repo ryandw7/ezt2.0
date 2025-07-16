@@ -3,7 +3,7 @@ import {
   phoneLineObj,
   watchLineObj,
   tabletLineObj,
-  nowLineObj
+  nowLineObj,
 } from '../stateTools.js';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -52,12 +52,13 @@ const newMobileReducer = (state = initialState, action) => {
     case 'ADD_NOW_LINE': {
       const id = uuidv4();
       const line = nowLineObj();
-      return {...state,
+      return {
+        ...state,
         linesById: {
           ...state.linesById,
-          [id]: line
-        }
-      }
+          [id]: line,
+        },
+      };
     }
     case 'UPDATE_MOBILE_LINE': {
       const { id, key, value } = action.payload;
@@ -81,7 +82,7 @@ const newMobileReducer = (state = initialState, action) => {
     }
 
     case 'TOGGLE_IS_XFINITY_MOBILE': {
-      return { ...state, isXfinityMobile: !state.isXfinityMobile }
+      return { ...state, isXfinityMobile: !state.isXfinityMobile };
     }
     default: {
       return state;

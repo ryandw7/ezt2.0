@@ -2,21 +2,22 @@ import useAppContext from '../context';
 import createSelector from './createSelector';
 
 export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
-export const getIsXfinityMobile = (state) => state.newMobile?.isXfinityMobile || false;
+export const getIsXfinityMobile = (state) =>
+  state.newMobile?.isXfinityMobile || false;
 
 export const getNowMobileLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
-    if (!newMobileLines){
-      return []
+    if (!newMobileLines) {
+      return [];
     }
 
     const lines = Object.values(newMobileLines)?.filter(
-      (line) => line.dataPlan === "Now Mobile"
-    )
-    return lines
+      (line) => line.dataPlan === 'Now Mobile'
+    );
+    return lines;
   }
-)
+);
 export const getUnlimitedLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
@@ -203,7 +204,7 @@ export const getAllMobileTotals = createSelector(
     let lineDiscountsTotalOff = 0;
     let lineDiscountList = [];
     let deviceDiscountsTotalOff = 0;
-  
+
     const lines = Object.values(newMobileLines)
       ? Object.values(newMobileLines)
       : [];
@@ -294,7 +295,7 @@ const useNewMobileSelectors = () => {
   const tabletLines = getTabletLines(state);
   const watchLines = getWatchLines(state);
   const allMobileTotals = getAllMobileTotals(state);
-  const nowMobileLines = getNowMobileLines(state)
+  const nowMobileLines = getNowMobileLines(state);
   return {
     nowMobileLines,
     editingLine,
@@ -307,7 +308,7 @@ const useNewMobileSelectors = () => {
     watchLines,
     newMobileLines,
     getNewMobileLineCost,
-    isXfinityMobile
+    isXfinityMobile,
   };
 };
 

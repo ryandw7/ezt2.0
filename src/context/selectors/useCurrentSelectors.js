@@ -1,32 +1,33 @@
 import useAppContext from '../context.js';
 import createSelector from './createSelector.js';
 
-export const getCurrentServicesItems = (state) => state.currentServices?.itemsById || {};
+export const getCurrentServicesItems = (state) =>
+  state.currentServices?.itemsById || {};
 
 export const getCurrentServicesItemById = createSelector(
   [getCurrentServicesItems],
   (currentServicesItems) => {
     return (id) => {
-      return currentServicesItems[id]
-    }
+      return currentServicesItems[id];
+    };
   }
-)
+);
 
 export const getCurrentServicesItemsList = createSelector(
   [getCurrentServicesItems],
   (currentServiceItems) => {
-    return Object.values(currentServiceItems)
+    return Object.values(currentServiceItems);
   }
-)
+);
 
 export const getCurrentServicesItemValueById = createSelector(
   [getCurrentServicesItemById],
   (currentServicesItemsById) => {
     return (id, key) => {
-      return currentServicesItemsById(id)[key]
-    }
+      return currentServicesItemsById(id)[key];
+    };
   }
-)
+);
 export const getCurrentInternet = (state) =>
   state.currentServices?.internet || '';
 export const getCurrentInternetCost = (state) =>

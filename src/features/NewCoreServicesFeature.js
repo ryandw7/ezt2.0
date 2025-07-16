@@ -6,11 +6,8 @@ import PackageForm from '../components/PackageForm.js';
 
 const NewCoreServicesFeature = () => {
   const { newCore, newCoreServices } = useNewCoreSelectors();
-  const {
-    addNewCoreItem,
-    deleteNewCoreItem,
-    updateNewCoreItem,
-  } = useNewCoreActions();
+  const { addNewCoreItem, deleteNewCoreItem, updateNewCoreItem } =
+    useNewCoreActions();
 
   const handleChange = (id) => (e) => {
     const { name, value } = e.target;

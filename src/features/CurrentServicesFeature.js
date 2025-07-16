@@ -5,7 +5,8 @@ import useCurrentSelectors from '../context/selectors/useCurrentSelectors.js';
 import PackageForm from '../components/PackageForm.js';
 
 const CurrentServicesFeature = () => {
-  const { current, currentServices, currentServicesItemsList } = useCurrentSelectors();
+  const { current, currentServices, currentServicesItemsList } =
+    useCurrentSelectors();
   const {
     updateCurrent,
     addCurrentServicesItem,
@@ -28,8 +29,6 @@ const CurrentServicesFeature = () => {
   const items = [{ description: '', cost: '', additionalNotes: '' }];
 
   return (
-   
-    
     <PackageForm
       handleChange={handleChange}
       formValues={current}
@@ -38,7 +37,6 @@ const CurrentServicesFeature = () => {
       handleAddItem={addCurrentServicesItem}
       handleDeleteItem={deleteCurrentServicesItem}
     />
-    
   );
 };
 

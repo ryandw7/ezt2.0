@@ -50,8 +50,7 @@ const FinishPage = () => {
   };
 
   return (
-    <Box sx={{maxHeight:"100%", overflowY:"scroll"}}>
-    
+    <Box sx={{ maxHeight: '100%', overflowY: 'scroll' }}>
       <Button
         variant="contained"
         className="print-hidden"

@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 const CurrentView = ({ className, data }) => {
   const { current, currentServicesTotalCost, currentServicesItemsList } = data;
   //const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
- 
+
   return (
     <PrintBox header={'Current Services'} className={className}>
       {currentServicesItemsList.map((item) => {
