@@ -4,6 +4,19 @@ import createSelector from './createSelector';
 export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
 export const getIsXfinityMobile = (state) => state.newMobile?.isXfinityMobile || false;
 
+export const getNowMobileLines = createSelector(
+  [getNewMobileLines],
+  (newMobileLines) => {
+    if (!newMobileLines){
+      return []
+    }
+
+    const lines = Object.values(newMobileLines)?.filter(
+      (line) => line.dataPlan === "Now Mobile"
+    )
+    return lines
+  }
+)
 export const getUnlimitedLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
@@ -281,8 +294,9 @@ const useNewMobileSelectors = () => {
   const tabletLines = getTabletLines(state);
   const watchLines = getWatchLines(state);
   const allMobileTotals = getAllMobileTotals(state);
-
+  const nowMobileLines = getNowMobileLines(state)
   return {
+    nowMobileLines,
     editingLine,
     editingLineId,
     allMobileTotals,

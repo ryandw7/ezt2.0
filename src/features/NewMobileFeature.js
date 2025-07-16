@@ -18,7 +18,9 @@ const NewMobileFeature = () => {
     watchLines,
     editingLineId,
     editingLine,
+    nowMobileLines
   } = useNewMobileSelectors();
+  console.log(nowMobileLines)
   const {
     addPhoneLine,
     updateNewMobileLine,
@@ -70,7 +72,7 @@ const NewMobileFeature = () => {
       return 'center';
     }
   };
-  
+
   const isEditingLine = (id) => (id === editingLineId ? true : false);
 
   return (
@@ -117,7 +119,7 @@ const NewMobileFeature = () => {
               borderRadius: '4px',
             },
           }}
-        >
+        >{isXfinityMobile ? <>
           {unlimitedLines && unlimitedLines.length !== 0 ? (
             <>
               {unlimitedLines.map((item, index) => (
@@ -202,6 +204,28 @@ const NewMobileFeature = () => {
               ))}
             </>
           ) : null}
+        </> : <>
+        {nowMobileLines && nowMobileLines.length !== 0 ? (
+          <>
+            {nowMobileLines.map((item, index) => (
+              <>
+                <MobileLineView
+                  key={item.id}
+                  line={item}
+                  handleDelete={() => handleDelete(item.id)}
+                  handleStartEdit={() => handleStartEdit(item.id)}
+                  lineCost={phoneLineCostById(item.id)}
+                  defaultName={`Line ${index + 1}`}
+                  config={{
+                    isFull: false,
+                    isForm: true,
+                    isEdit: isEditingLine(item.id),
+                  }}
+                />
+              </>
+            ))}
+          </>
+        ) : null}</>}
         </List>
         <Box
           sx={{
@@ -258,7 +282,7 @@ const NewMobileFeature = () => {
                   }}
                 >
                   {idx === 0 ? (
-                    <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' }}} />
+                    <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
                   ) : idx === 1 ? (
                     <TabletMacIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
                   ) : (
@@ -288,6 +312,7 @@ const NewMobileFeature = () => {
             handleUpdate={handleUpdate(editingLine.id)}
             lineCost={phoneLineCostById(editingLine.id)}
             handleStopEdit={handleStopEdit}
+            isXfinityMobile={isXfinityMobile}
           />
         </Box>
       )}

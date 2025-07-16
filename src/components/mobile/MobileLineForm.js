@@ -10,6 +10,38 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
+import { getNowMobileLines } from '../../context/selectors/useNewMobileSelectors';
+import { BoyRounded } from '@mui/icons-material';
+
+/* 
+INPUT GROUPS
+  unlimitedLine : 1
+  unlimitedPremiumLine : 2
+  watchLine: 3
+  tabletLine: 4
+  nowMobileLine: 5
+*/
+
+const inputGroups1 = {
+  1: ['Data Plan', "BYOD", "XMC", "Port", "Pay In Full", "Device Model", "Total Cost", "Device Discount", "Device Discount Amount", "Line Discount", "Line Discount Amount"],
+  2: ['Data Plan', "BYOD", "XMC", "Port", "Pay In Full", "Device Model", "Total Cost", "Device Discount", "Device Discount Amount", "Line Discount", "Line Discount Amount"],
+  3: ["BYOD", "XMC", "Pay In Full", "Device Model", "Total Cost", "Device Discount", "Device Discount Amount", "Line Discount", "Line Discount Amount"],
+  4: ["BYOD", "XMC", "Pay In Full", "Device Model", "Total Cost", "Device Discount", "Device Discount Amount", "Line Discount", "Line Discount Amount"],
+   
+}
+
+const inputGroups = {
+  dataPlanGroup:[],
+  BYODGroup:[],
+  
+}
+const inputFilter = (lineGroup, inputName) => {
+  if (!inputGroups[lineGroup].includes(inputName)) {
+    return false
+  }
+  return true
+}
+
 
 const MobileLineForm = ({
   line,
@@ -31,6 +63,8 @@ const MobileLineForm = ({
     dataPlan,
     name,
   } = line;
+
+  //EVENT HANDLERS
 
   const handleChange = (e) => {
     const key = e.target.id || e.target.name;
@@ -54,7 +88,47 @@ const MobileLineForm = ({
     const key = e.target.id;
     handleUpdate(key, !line[key]);
   };
+  const lineGroup = 1
 
+  //INPUTS
+
+  const dataPlanInput = () => {
+    if (!inputFilter(lineGroup, "Data Plan")) {
+      return null;
+    }
+    return (
+      <FormControlLabel
+        label="Data Plan"
+        labelPlacement="top"
+        sx={{ height: "25px", mb: "5px" }}
+        control={
+          <Select
+
+            name="dataPlan"
+            id="dataPlan"
+            value={dataPlan}
+            onChange={handleChange}
+            sx={{ fontSize: 'inherit', height: '2em', mt: "5px" }}
+          >
+            <MenuItem value="Unlimited">Unlimited</MenuItem>
+            <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
+          </Select>
+        }
+      />
+    )
+
+
+  }
+
+  const BYODInput = () => {
+    if (!inputFilter(lineGroup, "BYOD")) {
+      return null
+    }
+    return (<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: "flex-start", width: '70px' }}>
+      <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>BYOD</Typography>
+      <Switch sx={{ m: 0 }} checked={isBYOD} id="isBYOD" onChange={handleToggle} />
+    </Box>)
+  }
   return (
     <Paper
       elevation={3}
@@ -77,7 +151,9 @@ const MobileLineForm = ({
         },
       }}
     >
-      <Box
+
+
+      {isXfinityMobile ? <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -104,6 +180,7 @@ const MobileLineForm = ({
             sx={{ flex: 2, minWidth: '150px' }}
           />
         </Box>
+
         <Box
           sx={{
             display: 'flex',
@@ -115,32 +192,12 @@ const MobileLineForm = ({
           }}
         >
           {dataPlan !== 'Tablet' && dataPlan !== 'Watch' && (
-            <FormControlLabel
-              label="Data Plan"
-              labelPlacement="top"
-              sx={{ height: "25px", mb:"5px" }}
-              control={
-                <Select
-               
-                  name="dataPlan"
-                  id="dataPlan"
-                  value={dataPlan}
-                  onChange={handleChange}
-                  sx={{ fontSize: 'inherit', height: '2em',mt:"5px" }}
-                >
-                  <MenuItem value="Unlimited">Unlimited</MenuItem>
-                  <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
-                </Select>
-              }
-            />
+            
           )}
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:"flex-start", width: '70px' }}>
-            <Typography sx={{ fontSize: '0.75rem', mb: '0px', p:0 }}>BYOD</Typography>
-            <Switch sx={{m:0}}checked={isBYOD} id="isBYOD" onChange={handleToggle} />
-          </Box>
+          {BYODInput()}
           <FormControlLabel
             labelPlacement="top"
-            sx={{ height: "25px", mb:"5px" }}            
+            sx={{ height: "25px", mb: "5px" }}
             label="XMC"
             control={
               <Select
@@ -148,7 +205,7 @@ const MobileLineForm = ({
                 id="xmc"
                 value={xmc}
                 onChange={handleChange}
-                sx={{ fontSize: 'inherit', height: '2.5em',mt:"5px" }}
+                sx={{ fontSize: 'inherit', height: '2.5em', mt: "5px" }}
               >
                 {[9, 12, 15, 17, 19].map((val) => (
                   <MenuItem key={val} value={val}>
@@ -273,7 +330,9 @@ const MobileLineForm = ({
           />
         </Box>
       </Box>
-
+        : <>
+          {getNowMobileLines}
+        </>}
       <Button variant="contained" onClick={handleStopEdit} sx={{ mt: 2 }}>
         Done
       </Button>

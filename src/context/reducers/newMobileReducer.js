@@ -3,6 +3,7 @@ import {
   phoneLineObj,
   watchLineObj,
   tabletLineObj,
+  nowLineObj
 } from '../stateTools.js';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -48,6 +49,16 @@ const newMobileReducer = (state = initialState, action) => {
       };
     }
 
+    case 'ADD_NOW_LINE': {
+      const id = uuidv4();
+      const line = nowLineObj();
+      return {...state,
+        linesById: {
+          ...state.linesById,
+          [id]: line
+        }
+      }
+    }
     case 'UPDATE_MOBILE_LINE': {
       const { id, key, value } = action.payload;
 

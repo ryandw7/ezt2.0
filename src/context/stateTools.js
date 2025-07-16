@@ -23,6 +23,7 @@ export const nowLineObj = () => ({
   isBYOD: true,
   number: 0,
   port: true,
+  dataPlan: "Now Mobile",
   deviceModel: null,
   deviceTotalCost: 0,
   deviceDiscountDesc: '',
@@ -96,6 +97,7 @@ start_line_obj.id = start_line_id;
 
 const start_now_line_id = uuidv4();
 const start_now_line_obj = nowLineObj();
+start_now_line_obj.id = start_now_line_id;
 
 const start_current_services_item_id = uuidv4();
 const start_current_services_item_obj = serviceItemObj();
@@ -133,14 +135,12 @@ export const createInitialState = () => ({
   newMobile: {
     linesById: {
       [start_line_id]: start_line_obj,
+      [start_now_line_id]: start_now_line_obj
     },
     isEditId: '',
     info: '',
     total: 0,
     isXfinityMobile: true,
-    NOWLinesById: {
-      [start_now_line_id]: start_now_line_obj
-    }
   },
   additional: {
     rep: '',
