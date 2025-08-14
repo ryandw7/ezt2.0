@@ -12,6 +12,11 @@ const useNewMobileActions = () => {
   const addWatchLine = () => {
     dispatch({ type: 'ADD_WATCH_LINE' });
   };
+
+  const addNowMobileLine = () => {
+    dispatch({type: "ADD_NOW_MOBILE_LINE"})
+  }
+
   const removeMobileLine = (id) => {
     dispatch({ type: 'REMOVE_MOBILE_LINE', payload: id });
   };
@@ -31,6 +36,7 @@ const useNewMobileActions = () => {
     addPhoneLine,
     addTabletLine,
     addWatchLine,
+    addNowMobileLine,
     removeMobileLine,
     updateNewMobileLine,
     setEditingLineId,

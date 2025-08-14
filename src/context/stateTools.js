@@ -31,6 +31,8 @@ export const nowLineObj = () => ({
   cost: 0,
   lineDiscount: 0,
   xmc: 0,
+  hasTravelPass: false,
+  hasHotSpot: false
 });
 export const phoneLineObj = () => ({
   isEdit: true,

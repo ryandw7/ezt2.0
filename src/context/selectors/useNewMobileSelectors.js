@@ -85,8 +85,8 @@ export const getEditingLine = createSelector(
 );
 
 export const getPhoneLineCostById = createSelector(
-  [getUnlimitedLines, getUnlimitedPremiumLines],
-  (unlimitedLines, unlimitedPremiumLines) => {
+  [getUnlimitedLines, getUnlimitedPremiumLines, getNowMobileLines],
+  (unlimitedLines, unlimitedPremiumLines, nowMobileLines) => {
     if (!unlimitedLines && !unlimitedPremiumLines) {
       return 0;
     }
@@ -106,7 +106,10 @@ export const getPhoneLineCostById = createSelector(
         }
         return unlimitedPremiumLines[0]?.id === id ? 50 : 30;
       }
-
+      const isInNow = nowMobileLines.find((line) => line.id === id);
+      if (isInNow) {
+        return 25
+      }
       return 0;
     };
   }
@@ -125,7 +128,7 @@ export const getMobileLineCostById = createSelector(
         return 20;
       } else if (newMobileLines[id].dataPlan === 'Watch') {
         return 10;
-      }
+      } 
       return 0;
     };
   }
@@ -191,7 +194,38 @@ export const getXMCTotalCost = createSelector(
     }, 0);
   }
 );
+export const getAllNowMobileTotals = createSelector(
+  [getNowMobileLines],
+  (nowMobileLines)=>{
+    let nowLinesCount = 0;
+    let travelPassCount = 0;
+    let hotSpotCount = 0;
 
+    for(line in nowMobileLines){
+      nowLinesCount += 1
+      if(line.travelPass === true){
+        travelPassCount += 1;
+      }
+      if(line.hotSpot === true){
+        hotSpotCount += 1;
+      }
+    }
+
+    let nowLinesTotalCost = nowLinesCount * 25;
+    let travelPassTotalCost = travelPassCount * 5;
+    let hotSpotTotalCost = hotSpotCount * 5;
+
+    return {
+      nowLinesCount,
+      nowLinesTotalCost,
+      travelPassCount,
+      travelPassTotalCost,
+      hotSpotCount,
+      hotSpotTotalCost
+    }
+
+  }
+)
 export const getAllMobileTotals = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {

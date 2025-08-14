@@ -49,9 +49,10 @@ const newMobileReducer = (state = initialState, action) => {
       };
     }
 
-    case 'ADD_NOW_LINE': {
+    case 'ADD_NOW_MOBILE_LINE': {
       const id = uuidv4();
       const line = nowLineObj();
+      line.id = id;
       return {
         ...state,
         linesById: {
@@ -60,6 +61,7 @@ const newMobileReducer = (state = initialState, action) => {
         },
       };
     }
+
     case 'UPDATE_MOBILE_LINE': {
       const { id, key, value } = action.payload;
 

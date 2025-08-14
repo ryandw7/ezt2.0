@@ -20,12 +20,14 @@ const NewMobileFeature = () => {
     editingLine,
     nowMobileLines,
   } = useNewMobileSelectors();
-  console.log(nowMobileLines);
+
+  
   const {
     addPhoneLine,
     updateNewMobileLine,
     addTabletLine,
     addWatchLine,
+    addNowMobileLine,
     removeMobileLine,
     setEditingLineId,
   } = useNewMobileActions();
@@ -41,6 +43,11 @@ const NewMobileFeature = () => {
   const handleWatchAdd = () => {
     addWatchLine();
   };
+
+  const handleNowMobileAdd = () => {
+    addNowMobileLine()
+  }
+
   const handleUpdate = (id) => (key, value) => {
     updateNewMobileLine(id, key, value);
   };
@@ -74,7 +81,7 @@ const NewMobileFeature = () => {
   };
 
   const isEditingLine = (id) => (id === editingLineId ? true : false);
-
+  console.log(editingLine)
   return (
     <Box
       sx={{
@@ -271,7 +278,7 @@ const NewMobileFeature = () => {
               px: 2,
               pb: 1,
             }}
-          >
+          >{isXfinityMobile ? <>
             {[handleAdd, handleTabletAdd, handleWatchAdd].map(
               (handler, idx) => (
                 <Button
@@ -297,6 +304,23 @@ const NewMobileFeature = () => {
                 </Button>
               )
             )}
+          </> : <>
+            <Button
+              
+              variant="contained"
+              onClick={handleNowMobileAdd}
+              sx={{
+                flexShrink: 1,
+                backgroundColor: '#2b2b30',
+
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+            </Button>
+          </>}
           </Box>
         </Box>
       </Box>

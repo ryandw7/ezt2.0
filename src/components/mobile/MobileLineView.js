@@ -13,7 +13,10 @@ export default function MobileLineView({
   defaultName,
 }) {
   const { isFull, isForm, isEdit } = config;
-
+  const {
+    dataPlan,
+    
+  }
   const parsePhoneNumber = (number) => {
     return (
       '(' +
