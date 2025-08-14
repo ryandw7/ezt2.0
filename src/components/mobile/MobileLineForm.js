@@ -149,9 +149,9 @@ const MobileLineForm = ({
                 onChange={handleChange}
                 sx={{ fontSize: 'inherit', height: '2.5em',mt:"5px" }}
               >
-                {[9, 12, 15, 17, 19].map((val) => (
+                {[null, 9, 12, 15, 17, 19].map((val) => (
                   <MenuItem key={val} value={val}>
-                    ${val}
+                    {typeof(val) === 'number' ? `$${val}` : "No XMC"}
                   </MenuItem>
                 ))}
               </Select>
