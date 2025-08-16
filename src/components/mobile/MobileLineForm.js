@@ -246,6 +246,7 @@ const handleChange = (e) => {
               id="payInFull"
               onChange={handleToggle}
             />
+
           }
           label="Pay in Full"
         />
