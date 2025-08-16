@@ -2,6 +2,22 @@ import useAppContext from '../context';
 import createSelector from './createSelector';
 
 export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
+export const getIsXfinityMobile = (state) =>
+  state.newMobile?.isXfinityMobile || false;
+
+export const getNowMobileLines = createSelector(
+  [getNewMobileLines],
+  (newMobileLines) => {
+    if (!newMobileLines) {
+      return [];
+    }
+
+    const lines = Object.values(newMobileLines)?.filter(
+      (line) => line.dataPlan === 'Now Mobile'
+    );
+    return lines;
+  }
+);
 
 export const getUnlimitedLines = createSelector(
   [getNewMobileLines],
@@ -70,8 +86,8 @@ export const getEditingLine = createSelector(
 );
 
 export const getPhoneLineCostById = createSelector(
-  [getUnlimitedLines, getUnlimitedPremiumLines],
-  (unlimitedLines, unlimitedPremiumLines) => {
+  [getUnlimitedLines, getUnlimitedPremiumLines, getNowMobileLines],
+  (unlimitedLines, unlimitedPremiumLines, nowMobileLines) => {
     if (!unlimitedLines && !unlimitedPremiumLines) {
       return 0;
     }
@@ -91,7 +107,10 @@ export const getPhoneLineCostById = createSelector(
         }
         return unlimitedPremiumLines[0]?.id === id ? 50 : 30;
       }
-
+      const isInNow = nowMobileLines.find((line) => line.id === id);
+      if (isInNow) {
+        return 25
+      }
       return 0;
     };
   }
@@ -176,8 +195,50 @@ export const getXMCTotalCost = createSelector(
     }, 0);
   }
 );
+export const getAllNowMobileTotals = createSelector(
+  [getNewMobileLines],
+  (newMobileLines) => {
+    let nowLinesCount = 0;
+    let travelPassCount = 0;
+    let hotSpotCount = 0;
+    const lines = Object.values(newMobileLines)
+      ? Object.values(newMobileLines).filter(item => item.dataPlan === "Now Mobile")
+      : [];
 
-export const getAllMobileTotals = createSelector(
+    if (!lines) {
+      return {};
+    }
+
+    for (const line of lines) {
+      nowLinesCount += 1
+      if (line.hasTravelPass === true) {
+        travelPassCount += 1;
+      }
+      if (line.hasHotSpot === true) {
+        hotSpotCount += 1;
+      }
+    }
+
+    let nowLinesTotalCost = nowLinesCount * 25;
+    let travelPassTotalCost = travelPassCount * 5;
+    let hotSpotTotalCost = hotSpotCount * 5;
+    let nowMobileTaxesTotalCost = nowLinesCount * 1.81;
+
+    const nowMobilePlanTotalCost = nowLinesTotalCost + travelPassTotalCost + hotSpotTotalCost + nowMobileTaxesTotalCost
+    return {
+      nowLinesCount,
+      nowLinesTotalCost,
+      travelPassCount,
+      travelPassTotalCost,
+      hotSpotCount,
+      hotSpotTotalCost,
+      nowMobilePlanTotalCost,
+      nowMobileTaxesTotalCost
+    }
+
+  }
+)
+export const getAllXfinityMobileTotals = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     let unlimitedTotalCost = 0;
@@ -189,7 +250,7 @@ export const getAllMobileTotals = createSelector(
     let lineDiscountsTotalOff = 0;
     let lineDiscountList = [];
     let deviceDiscountsTotalOff = 0;
-  
+
     const lines = Object.values(newMobileLines)
       ? Object.values(newMobileLines)
       : [];
@@ -198,7 +259,7 @@ export const getAllMobileTotals = createSelector(
       return {};
     }
     const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
-    const taxesTotalCost = lines.length * 1.81;
+    const xfinityMobileTaxesTotalCost = lines.length * 1.81;
 
     let unlimitedCount = 0;
     let premiumCount = 0;
@@ -239,13 +300,13 @@ export const getAllMobileTotals = createSelector(
       lineDiscountsTotalOff += lineDiscount;
       xmcTotalCost += xmc;
     }
-    const mobilePlanTotalCost =
+    const xfinityMobilePlanTotalCost =
       unlimitedTotalCost +
       premiumTotalCost +
       tabletTotalCost +
       watchTotalCost +
       devicePaymentsTotalCost +
-      taxesTotalCost +
+      xfinityMobileTaxesTotalCost +
       xmcTotalCost -
       lineDiscountsTotalOff;
 
@@ -261,14 +322,15 @@ export const getAllMobileTotals = createSelector(
       devicePaymentsTotalCost,
       lineDiscountsTotalOff,
       xmcTotalCost,
-      taxesTotalCost,
-      mobilePlanTotalCost,
+      xfinityMobileTaxesTotalCost,
+      xfinityMobilePlanTotalCost,
     };
   }
 );
 
 const useNewMobileSelectors = () => {
   const { state } = useAppContext();
+  const isXfinityMobile = getIsXfinityMobile(state);
   const editingLineId = getEditingLineId(state);
   const editingLine = getEditingLine(state);
   const getNewMobileLineCost = getMobileLineCostById(state);
@@ -278,12 +340,15 @@ const useNewMobileSelectors = () => {
   const phoneLineCostById = getPhoneLineCostById(state);
   const tabletLines = getTabletLines(state);
   const watchLines = getWatchLines(state);
-  const allMobileTotals = getAllMobileTotals(state);
-
+  const allXfinityMobileTotals = getAllXfinityMobileTotals(state);
+  const allNowMobileTotals = getAllNowMobileTotals(state);
+  const nowMobileLines = getNowMobileLines(state);
   return {
+    allNowMobileTotals,
+    nowMobileLines,
     editingLine,
     editingLineId,
-    allMobileTotals,
+    allXfinityMobileTotals,
     unlimitedLines,
     phoneLineCostById,
     unlimitedPremiumLines,
@@ -291,6 +356,7 @@ const useNewMobileSelectors = () => {
     watchLines,
     newMobileLines,
     getNewMobileLineCost,
+    isXfinityMobile,
   };
 };
 
@@ -298,14 +364,14 @@ export default useNewMobileSelectors;
 
 const curriedMemoizer =
   (cache = {}) =>
-  (n) => {
-    if (cache[n]) {
-      return cache[n]; //checks if result is already there to prevent recalculation
-    }
+    (n) => {
+      if (cache[n]) {
+        return cache[n]; //checks if result is already there to prevent recalculation
+      }
 
-    const result = n * 2; //lets say this is a hefty calculation
+      const result = n * 2; //lets say this is a hefty calculation
 
-    cache[n] = result;
+      cache[n] = result;
 
-    return result;
-  };
+      return result;
+    };

@@ -1,4 +1,4 @@
-import React from 'react';
+cimport React from 'react';
 import FinishFeature from '../features/FinshFeature';
 import { ContextProvider } from '../context/context';
 

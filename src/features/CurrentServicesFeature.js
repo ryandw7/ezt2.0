@@ -5,31 +5,33 @@ import useCurrentSelectors from '../context/selectors/useCurrentSelectors.js';
 import PackageForm from '../components/PackageForm.js';
 
 const CurrentServicesFeature = () => {
-  const { current, currentServices, currentServicesItemsList } = useCurrentSelectors();
+  const { current, currentServicesItemsList } =
+    useCurrentSelectors();
   const {
-    updateCurrent,
     addCurrentServicesItem,
     updateCurrentServicesItem,
     deleteCurrentServicesItem,
   } = useCurrentActions();
 
+  const moneyLive = /^(?:\d+|\d+\.\d{0,2}|\.\d{0,2})$/;
+  const complete = /^(?:\d+|\d+\.\d{1,2}|\.\d{1,2})$/;
   const handleChange = (id) => (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    const key = name;
-    if (key.includes('Cost') || key.includes('cost')) {
-      if (/^\d*(\.\d{0,2})?$/.test(value) || value === '') {
-        return updateCurrentServicesItem(id, key, Number(value));
+    const { name: key, value } = e.target;
+
+    if (key.toLowerCase().includes('cost')) {
+      if (value === '' || moneyLive.test(value)) {
+        const out = complete.test(value) ? Number(value) : value;
+        return updateCurrentServicesItem(id, key, out);
       }
       return;
     }
+
     updateCurrentServicesItem(id, key, value);
   };
+
   const items = [{ description: '', cost: '', additionalNotes: '' }];
 
   return (
-   
-    
     <PackageForm
       handleChange={handleChange}
       formValues={current}
@@ -38,7 +40,6 @@ const CurrentServicesFeature = () => {
       handleAddItem={addCurrentServicesItem}
       handleDeleteItem={deleteCurrentServicesItem}
     />
-    
   );
 };
 

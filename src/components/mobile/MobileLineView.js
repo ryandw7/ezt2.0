@@ -2,7 +2,9 @@ import React from 'react';
 import { Box, Typography, Button, Paper } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { X } from '@mui/icons-material';
 export default function MobileLineView({
+  isXfinityMobile,
   line,
   lineCost,
   config,
@@ -31,7 +33,7 @@ export default function MobileLineView({
           display: 'flex',
           justifyContent: 'space-between',
           margin: '5px auto',
-          ...sx,               
+          ...sx,
         }}
       >
         {children}
@@ -47,13 +49,19 @@ export default function MobileLineView({
   let deviceMonthly = (line.deviceTotalCost - line.deviceDiscount) / 24;
   totalLineCost += deviceMonthly;
   totalLineCost += tax;
+  if(line.hasTravelPass){
+    totalLineCost += 5
+  }
+  if(line.hasHotSpot){
+    totalLineCost += 5
+  }
+  let xmc = line.xmc;
 
   return (
     <Paper
       elevation={8}
-
       sx={{
-transition: 'height 0.3s ease-in-out',
+        transition: 'height 0.3s ease-in-out',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -96,8 +104,15 @@ transition: 'height 0.3s ease-in-out',
             <EditOutlinedIcon sx={{ margin: 'auto' }} />
           </Button>
           <RowGroup>
-            <Typography variant={"h5"} fontWeight={"bold"} textAlign={"center"} width={"100%"}>{line.name ? line.name : defaultName}</Typography>
-            </RowGroup>
+            <Typography
+              variant={'h5'}
+              fontWeight={'bold'}
+              textAlign={'center'}
+              width={'100%'}
+            >
+              {line.name ? line.name : defaultName}
+            </Typography>
+          </RowGroup>
         </>
       ) : null}
 
@@ -134,10 +149,10 @@ transition: 'height 0.3s ease-in-out',
         <RowGroup>
           <Typography sx={{ width: '100px' }}>{line.deviceModel}</Typography>
           <Typography sx={{ width: '100px', textAlign: 'right' }}>
-            ${line.deviceTotalCost.toFixed(2)}
+            ${Number(line.deviceTotalCost).toFixed(2)}
           </Typography>
           <Typography sx={{ width: '100px', textAlign: 'right' }}>
-            ${(line.deviceTotalCost / 24).toFixed(2)}
+            ${Number(line.deviceTotalCost / 24).toFixed(2)}
           </Typography>
         </RowGroup>
       )}
@@ -147,21 +162,39 @@ transition: 'height 0.3s ease-in-out',
             {line.deviceDiscountDesc}
           </Typography>
           <Typography sx={{ width: '100px', textAlign: 'right' }}>
-            -${line.deviceDiscount.toFixed(2)}
+            -${Number(line.deviceDiscount).toFixed(2)}
           </Typography>
           <Typography sx={{ width: '100px', textAlign: 'right' }}>
-            -${(line.deviceDiscount / 24).toFixed(2)}
+            -${Number((line.deviceDiscount / 24)).toFixed(2)}
           </Typography>
         </RowGroup>
       )}
       <RowGroup>
         <Typography>{line.dataPlan}</Typography>
-        <Typography>${lineCost.toFixed(2)}</Typography>
+        <Typography>${Number(lineCost).toFixed(2)}</Typography>
       </RowGroup>
       {line.lineDiscount !== 0 && (
         <RowGroup>
           <Typography>{line.lineDiscountDesc || 'discount'}</Typography>
-          <Typography>-${line.lineDiscount.toFixed(2)}</Typography>
+          <Typography>-${Number(line.lineDiscount).toFixed(2)}</Typography>
+        </RowGroup>
+      )}
+      {line.xmc ? <>
+        <RowGroup>
+          <Typography>Xfinity Mobile Care</Typography>
+          <Typography>${xmc && xmc.toFixed(2)}</Typography>
+        </RowGroup>
+      </> : null}
+      {line.hasTravelPass && (
+        <RowGroup>
+          <Typography>Travel Pass</Typography>
+          <Typography>${(5).toFixed(2)}</Typography>
+        </RowGroup>
+      )}
+      {line.hasHotSpot && (
+        <RowGroup>
+          <Typography>Hot Spot</Typography>
+          <Typography>${(5).toFixed(2)}</Typography>
         </RowGroup>
       )}
       <RowGroup>

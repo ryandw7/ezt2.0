@@ -6,14 +6,20 @@ const SavingsView = ({ className, data }) => {
 
   return (
     <>
-      {totalSavings > 0 ? <Box
-        className="savings"
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Typography variant="h3">
-          Save ${totalSavings.toFixed(2)} a month!
-        </Typography>
-      </Box> : null}
+      {totalSavings > 0 ? (
+        <Box
+          className="savings"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h3">
+            Save ${totalSavings.toFixed(2)} a month!
+          </Typography>
+        </Box>
+      ) : null}
     </>
   );
 };

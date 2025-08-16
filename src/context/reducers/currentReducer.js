@@ -1,30 +1,24 @@
 import { serviceItemObj, createInitialState } from '../stateTools';
 
-
 const initialState = createInitialState().currentServices;
 
 const currentReducer = (state = initialState, action) => {
   console.log(state);
   console.log('DISPATCHING ' + action.type);
   switch (action.type) {
-
     case 'ADD_CURRENT_SERVICES_ITEM': {
-
       const itemObj = serviceItemObj();
       const id = itemObj.id;
 
-      return { ...state, itemsById: { ...state.itemsById, [id]: itemObj } }
-
+      return { ...state, itemsById: { ...state.itemsById, [id]: itemObj } };
     }
-    case "DELETE_CURRENT_SERVICES_ITEM": {
+    case 'DELETE_CURRENT_SERVICES_ITEM': {
       const id = action.payload;
       const { [id]: _, ...newObj } = state.itemsById;
-      return { ...state, itemsById: newObj }
-
+      return { ...state, itemsById: newObj };
     }
 
-    case "UPDATE_CURRENT_SERVICES_ITEM": {
-
+    case 'UPDATE_CURRENT_SERVICES_ITEM': {
       const { id, key, value } = action.payload;
       return {
         ...state,
@@ -32,10 +26,10 @@ const currentReducer = (state = initialState, action) => {
           ...state.itemsById,
           [id]: {
             ...state.itemsById[id],
-            [key]: value
-          }
-        }
-      }
+            [key]: value,
+          },
+        },
+      };
     }
     case 'ADD_ITEM': {
       const newArr = state.items;
@@ -57,10 +51,8 @@ const currentReducer = (state = initialState, action) => {
     }
 
     case 'UPDATE_CURRENT': {
-
       const { key, value } = action.payload;
       return { ...state, [key]: value };
-
     }
 
     case 'UPDATE_CURRENT_INTERNET':

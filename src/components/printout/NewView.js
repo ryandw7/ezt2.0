@@ -10,7 +10,9 @@ const NewView = ({ className, data }) => {
     newMobilePlanCost,
     newCoreServicesTotalCost,
     newServicesTotalCost,
-    allMobileTotals,
+    allXfinityMobileTotals,
+    allNowMobileTotals,
+    isXfinityMobile
   } = data;
 
   const {
@@ -24,11 +26,24 @@ const NewView = ({ className, data }) => {
     watchTotalCost,
     devicePaymentsTotalCost,
     xmcTotalCost,
-    taxesTotalCost,
+    xfinityMobileTaxesTotalCost,
     lineDiscountsTotalOff,
-    mobilePlanTotalCost,
-  } = allMobileTotals;
+    xfinityMobilePlanTotalCost,
+  } = allXfinityMobileTotals;
 
+  console.log(allNowMobileTotals)
+  const {
+    nowLinesCount,
+    nowLinesTotalCost,
+    travelPassCount,
+    travelPassTotalCost,
+    hotSpotCount,
+    hotSpotTotalCost,
+    nowMobileTaxesTotalCost,
+    nowMobilePlanTotalCost
+  } = allNowMobileTotals || {}
+
+  console.log(nowMobilePlanTotalCost)
   return (
     <PrintBox header={'New Services'} className={className}>
       {newCoreServices.map((item) => {
@@ -44,7 +59,7 @@ const NewView = ({ className, data }) => {
           </>
         ) : null;
       })}
-      {mobilePlanTotalCost != 0 ? (
+      {isXfinityMobile && xfinityMobilePlanTotalCost != 0 ? (
         <>
           <RowBox>
             <Typography variant="h4">Xfinity Mobile</Typography>
@@ -106,33 +121,77 @@ const NewView = ({ className, data }) => {
           )}
           <RowBox>
             <Typography>Taxes</Typography>
-            <Typography>${taxesTotalCost.toFixed(2)} est.</Typography>
+            <Typography>${xfinityMobileTaxesTotalCost.toFixed(2)} est.</Typography>
           </RowBox>
 
           <RowBox>
             <Typography fontWeight={'bold'}>Total</Typography>
             <Typography fontWeight={'bold'}>
-              ${mobilePlanTotalCost.toFixed(2)} est.
-            </Typography>
-          </RowBox>
-          <RowBox sx={{ marginTop: 'auto', justifySelf: 'flex-end' }}>
-            <Typography
-              variant="h5"
-              fontWeight="bold"
-              sx={{ p: 0, m: 0, height: 'fit-content' }}
-            >
-              New Total
-            </Typography>
-            <Typography
-              variant="h5"
-              fontWeight="bold"
-              sx={{ p: 0, m: 0, height: 'fit-content' }}
-            >
-              ${newServicesTotalCost.toFixed(2)} est.
+              ${xfinityMobilePlanTotalCost.toFixed(2)} est.
             </Typography>
           </RowBox>
         </>
       ) : null}
+      {!isXfinityMobile && nowMobilePlanTotalCost != 0 ? <>
+        <RowBox>
+          <Typography variant="h4">NOW Mobile</Typography>
+        </RowBox>
+        {nowLinesCount !== 0 ? (
+          <RowBox>
+            <Typography>
+              {nowLinesCount} Now Mobile Line{nowLinesCount > 1 && 's'}
+            </Typography>
+            <Typography>${nowLinesTotalCost.toFixed(2)} est.</Typography>
+          </RowBox>
+        ) : null}
+        {hotSpotCount !== 0 ? (
+          <RowBox>
+            <Typography>
+              {hotSpotCount} Hot Spot Upgrade{hotSpotCount > 1 && 's'}
+            </Typography>
+            <Typography>${hotSpotTotalCost.toFixed(2)} est.</Typography>
+          </RowBox>
+        ) : null}
+        {travelPassCount !== 0 ? (
+          <RowBox>
+            <Typography>
+              {travelPassCount} Travel Pass{travelPassCount > 1 && 'es'}
+            </Typography>
+            <Typography>${travelPassTotalCost.toFixed(2)} est.</Typography>
+          </RowBox>
+        ) : null}
+        {nowMobilePlanTotalCost !== 0 ? <>
+          <RowBox>
+            <Typography>
+              Taxes
+            </Typography>
+            <Typography>${nowMobileTaxesTotalCost.toFixed(2)} est.</Typography>
+          </RowBox>
+          <RowBox>
+            <Typography fontWeight={'bold'}>Total</Typography>
+            <Typography fontWeight={'bold'}>
+              ${nowMobilePlanTotalCost.toFixed(2)} est.
+            </Typography>
+          </RowBox>
+        </> : null}
+      </> : null}
+      <RowBox sx={{ marginTop: 'auto', justifySelf: 'flex-end' }}>
+        <Typography
+          variant="h5"
+          fontWeight="bold"
+          sx={{ p: 0, m: 0, height: 'fit-content' }}
+        >
+          New Total
+        </Typography>
+        <Typography
+          variant="h5"
+          fontWeight="bold"
+          sx={{ p: 0, m: 0, height: 'fit-content' }}
+        >
+          ${newServicesTotalCost.toFixed(2)} est.
+        </Typography>
+      </RowBox>
+
     </PrintBox>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const PageBox = ({ children, header = {}, subHeader = '' }) => {
+const PageBox = ({ children, header = {}, subHeader = '', subContent }) => {
   return (
     <Box
       sx={{
@@ -18,6 +18,7 @@ const PageBox = ({ children, header = {}, subHeader = '' }) => {
           p: '0',
           backgroundColor: '#2b2b30',
           textWrap: 'nowrap',
+          display: 'flex',
         }}
       >
         <Typography
@@ -43,6 +44,18 @@ const PageBox = ({ children, header = {}, subHeader = '' }) => {
               {subHeader}
             </Typography>
           </>
+        ) : null}
+        {subContent ? (
+          <Box
+            sx={{
+              display: 'inline',
+              top: '0px',
+              position: 'relative',
+              maxHeight: '100%',
+            }}
+          >
+            {subContent}
+          </Box>
         ) : null}
       </Box>
       <Box
