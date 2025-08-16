@@ -5,15 +5,13 @@ import NewMobileFeature from '../features/NewMobileFeature';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
 const NewMobilePage = () => {
-  const [setIsXfinityMobile] = useState(true);
-  const { toggleIsXfinityMobile } = useNewMobileActions();
+  
+  const { toggleIsXfinityMobile, setEditingLineId } = useNewMobileActions();
   const { isXfinityMobile } = useNewMobileSelectors();
-
-  const toggleLabel = isXfinityMobile ? 'Xfinity Mobile' : 'NOW Mobile';
 
   const handleToggle = () => {
     toggleIsXfinityMobile();
-    console.log(isXfinityMobile);
+    setEditingLineId(null)
   };
   const SubContent = () => (
     <Box
@@ -36,7 +34,6 @@ const NewMobilePage = () => {
         NOW Mobile
       </Typography>
       <Switch
-        defaultChecked
         checked={isXfinityMobile}
         onChange={handleToggle}
         sx={{ alignContent: 'center' }}

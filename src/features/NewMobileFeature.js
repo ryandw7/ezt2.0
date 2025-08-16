@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Button, Typography, Paper, List } from '@mui/material';
+import React from 'react';
+import { Box, Button, Typography, List } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
 import MobileLineForm from '../components/mobile/MobileLineForm';
@@ -21,7 +21,7 @@ const NewMobileFeature = () => {
     nowMobileLines,
   } = useNewMobileSelectors();
 
-  
+
   const {
     addPhoneLine,
     updateNewMobileLine,
@@ -73,7 +73,7 @@ const NewMobileFeature = () => {
 
   const handleFlexJust = () => {
     if (editingLineId) {
-      console.log(editingLine);
+     
       return 'flex-start';
     } else {
       return 'center';
@@ -81,7 +81,7 @@ const NewMobileFeature = () => {
   };
 
   const isEditingLine = (id) => (id === editingLineId ? true : false);
-  console.log(editingLine)
+  
   return (
     <Box
       sx={{

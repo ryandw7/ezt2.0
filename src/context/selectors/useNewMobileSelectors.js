@@ -18,6 +18,7 @@ export const getNowMobileLines = createSelector(
     return lines;
   }
 );
+
 export const getUnlimitedLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
@@ -128,7 +129,7 @@ export const getMobileLineCostById = createSelector(
         return 20;
       } else if (newMobileLines[id].dataPlan === 'Watch') {
         return 10;
-      } 
+      }
       return 0;
     };
   }
@@ -195,18 +196,25 @@ export const getXMCTotalCost = createSelector(
   }
 );
 export const getAllNowMobileTotals = createSelector(
-  [getNowMobileLines],
-  (nowMobileLines)=>{
+  [getNewMobileLines],
+  (newMobileLines) => {
     let nowLinesCount = 0;
     let travelPassCount = 0;
     let hotSpotCount = 0;
+    const lines = Object.values(newMobileLines)
+      ? Object.values(newMobileLines).filter(item => item.dataPlan === "Now Mobile")
+      : [];
 
-    for(line in nowMobileLines){
+    if (!lines) {
+      return {};
+    }
+
+    for (const line of lines) {
       nowLinesCount += 1
-      if(line.travelPass === true){
+      if (line.hasTravelPass === true) {
         travelPassCount += 1;
       }
-      if(line.hotSpot === true){
+      if (line.hasHotSpot === true) {
         hotSpotCount += 1;
       }
     }
@@ -214,19 +222,23 @@ export const getAllNowMobileTotals = createSelector(
     let nowLinesTotalCost = nowLinesCount * 25;
     let travelPassTotalCost = travelPassCount * 5;
     let hotSpotTotalCost = hotSpotCount * 5;
+    let nowMobileTaxesTotalCost = nowLinesCount * 1.81;
 
+    const nowMobilePlanTotalCost = nowLinesTotalCost + travelPassTotalCost + hotSpotTotalCost + nowMobileTaxesTotalCost
     return {
       nowLinesCount,
       nowLinesTotalCost,
       travelPassCount,
       travelPassTotalCost,
       hotSpotCount,
-      hotSpotTotalCost
+      hotSpotTotalCost,
+      nowMobilePlanTotalCost,
+      nowMobileTaxesTotalCost
     }
 
   }
 )
-export const getAllMobileTotals = createSelector(
+export const getAllXfinityMobileTotals = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     let unlimitedTotalCost = 0;
@@ -247,7 +259,7 @@ export const getAllMobileTotals = createSelector(
       return {};
     }
     const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
-    const taxesTotalCost = lines.length * 1.81;
+    const xfinityMobileTaxesTotalCost = lines.length * 1.81;
 
     let unlimitedCount = 0;
     let premiumCount = 0;
@@ -288,13 +300,13 @@ export const getAllMobileTotals = createSelector(
       lineDiscountsTotalOff += lineDiscount;
       xmcTotalCost += xmc;
     }
-    const mobilePlanTotalCost =
+    const xfinityMobilePlanTotalCost =
       unlimitedTotalCost +
       premiumTotalCost +
       tabletTotalCost +
       watchTotalCost +
       devicePaymentsTotalCost +
-      taxesTotalCost +
+      xfinityMobileTaxesTotalCost +
       xmcTotalCost -
       lineDiscountsTotalOff;
 
@@ -310,8 +322,8 @@ export const getAllMobileTotals = createSelector(
       devicePaymentsTotalCost,
       lineDiscountsTotalOff,
       xmcTotalCost,
-      taxesTotalCost,
-      mobilePlanTotalCost,
+      xfinityMobileTaxesTotalCost,
+      xfinityMobilePlanTotalCost,
     };
   }
 );
@@ -328,13 +340,15 @@ const useNewMobileSelectors = () => {
   const phoneLineCostById = getPhoneLineCostById(state);
   const tabletLines = getTabletLines(state);
   const watchLines = getWatchLines(state);
-  const allMobileTotals = getAllMobileTotals(state);
+  const allXfinityMobileTotals = getAllXfinityMobileTotals(state);
+  const allNowMobileTotals = getAllNowMobileTotals(state);
   const nowMobileLines = getNowMobileLines(state);
   return {
+    allNowMobileTotals,
     nowMobileLines,
     editingLine,
     editingLineId,
-    allMobileTotals,
+    allXfinityMobileTotals,
     unlimitedLines,
     phoneLineCostById,
     unlimitedPremiumLines,
@@ -350,14 +364,14 @@ export default useNewMobileSelectors;
 
 const curriedMemoizer =
   (cache = {}) =>
-  (n) => {
-    if (cache[n]) {
-      return cache[n]; //checks if result is already there to prevent recalculation
-    }
+    (n) => {
+      if (cache[n]) {
+        return cache[n]; //checks if result is already there to prevent recalculation
+      }
 
-    const result = n * 2; //lets say this is a hefty calculation
+      const result = n * 2; //lets say this is a hefty calculation
 
-    cache[n] = result;
+      cache[n] = result;
 
-    return result;
-  };
+      return result;
+    };

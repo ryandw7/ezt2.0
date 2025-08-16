@@ -65,7 +65,7 @@ const MobileLineForm = ({
     hasTravelPass,
     hasHotSpot
   } = line;
-  
+
   console.log(line)
   let lineGroup;
   switch (dataPlan) {
@@ -86,337 +86,347 @@ const MobileLineForm = ({
   }
   //EVENT HANDLERS
 
-  const handleChange = (e) => {
-    const key = e.target.id || e.target.name;
-    let value = e.target.value;
+  const moneyLive = /^(?:\d+|\d+\.\d{0,2}|\.\d{0,2})$/; // allows "1", "1.", "1.2", "1.23", ".5"
 
-    if (key === 'isBYOD') {
-      handleUpdate('isBYOD', !isBYOD);
-    } else if (
-      ['deviceTotalCost', 'deviceDiscount', 'lineDiscount'].includes(key)
-    ) {
-      if (/^\d*(\.\d{0,2})?$/.test(value) || value === '') {
-        if (value === '') value = 0;
-        handleUpdate(key, Number(value));
-      }
-    } else {
-      handleUpdate(key, value);
+const completeNumber = /^(?:\d+|\d+\.\d{1,2}|\.\d{1,2})$/; // no dangling "."
+
+const handleChange = (e) => {
+  const key = e.target.id || e.target.name;
+  let value = e.target.value;
+
+  if (['deviceTotalCost', 'deviceDiscount', 'lineDiscount'].includes(key)) {
+    if (value === '' || moneyLive.test(value)) {
+      // Only coerce to Number if it's complete
+      const toStore = completeNumber.test(value) ? Number(value) : value;
+      handleUpdate(key, toStore);
     }
-  };
-
-  const handleToggle = (e) => {
-    const key = e.target.id;
-    handleUpdate(key, !line[key]);
-  };
-
-  //INPUTS
-
-  const nameInput = () => {
-    if (!inputFilter(lineGroup, 'nameGroup')) {
-      return null;
-    }
-    return (
-      <TextField
-        id="name"
-        label="Name (Optional)"
-        placeholder="Example: John"
-        value={name}
-        onChange={handleChange}
-        sx={{ flex: 2, minWidth: '150px' }}
-      />
-    )
+    return;
   }
 
-  const dataPlanInput = () => {
-    if (!inputFilter(lineGroup, 'dataPlanGroup')) {
-      return null;
-    }
-    return (
-      <FormControlLabel
-        label="Data Plan"
-        labelPlacement="top"
-        sx={{ height: '25px', mb: '5px' }}
-        control={
-          <Select
-            name="dataPlan"
-            id="dataPlan"
-            value={dataPlan}
-            onChange={handleChange}
-            sx={{ fontSize: 'inherit', height: '2em', mt: '5px' }}
-          >
-            <MenuItem value="Unlimited">Unlimited</MenuItem>
-            <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
-          </Select>
-        }
-      />
-    );
-  };
+  if (key === 'isBYOD') {
+    handleUpdate('isBYOD', !isBYOD);
+    return;
+  }
 
-  const BYODInput = () => {
-    if (!inputFilter(lineGroup, 'BYODGroup')) {
-      return null;
-    }
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          width: '70px',
-        }}
-      >
-        <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>
-          BYOD
-        </Typography>
-        <Switch
-          sx={{ m: 0 }}
-          checked={isBYOD}
-          id="isBYOD"
-          onChange={handleToggle}
+  handleUpdate(key, value);
+};
+
+
+
+    const handleToggle = (e) => {
+      const key = e.target.id;
+      handleUpdate(key, !line[key]);
+    };
+
+    //INPUTS
+
+    const nameInput = () => {
+      if (!inputFilter(lineGroup, 'nameGroup')) {
+        return null;
+      }
+      return (
+        <TextField
+          id="name"
+          label="Name (Optional)"
+          placeholder="Example: John"
+          value={name}
+          onChange={handleChange}
+          sx={{ flex: 2, minWidth: '150px' }}
         />
-      </Box>
-    );
-  };
-
-  const XMCInput = () => {
-    if (!inputFilter(lineGroup, 'BYODGroup')) {
-      return null;
+      )
     }
 
+    const dataPlanInput = () => {
+      if (!inputFilter(lineGroup, 'dataPlanGroup')) {
+        return null;
+      }
+      return (
+        <FormControlLabel
+          label="Data Plan"
+          labelPlacement="top"
+          sx={{ height: '25px', mb: '5px' }}
+          control={
+            <Select
+              name="dataPlan"
+              id="dataPlan"
+              value={dataPlan}
+              onChange={handleChange}
+              sx={{ fontSize: 'inherit', height: '2em', mt: '5px' }}
+            >
+              <MenuItem value="Unlimited">Unlimited</MenuItem>
+              <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
+            </Select>
+          }
+        />
+      );
+    };
 
-    return (
-      <FormControlLabel
-        labelPlacement="top"
-        sx={{ height: '25px', mb: '5px' }}
-        label="XMC"
-        control={
-          <Select
-            name="xmc"
-            id="xmc"
-            value={xmc}
-            onChange={handleChange}
-            sx={{ fontSize: 'inherit', height: '2.5em', mt: '5px' }}
-          >
-            {[9, 12, 15, 17, 19].map((val) => (
-              <MenuItem key={val} value={val}>
-                ${val}
-              </MenuItem>
-            ))}
-          </Select>
-        }
-      />
-    );
-  };
-
-  const portInput = () => {
-    if (!inputFilter(lineGroup, 'BYODGroup')) {
-      return null;
-    }
-
-    return (
-      <FormControlLabel
-        labelPlacement="top"
-        label="Port"
-        control={<Switch checked={port} id="port" onChange={handleToggle} />}
-      />
-    );
-  };
-
-  const payInFullInput = () => {
-    if (!inputFilter(lineGroup, "payInFullGroup")) {
-      return null
-    }
-    return (
-      <FormControlLabel
-        disabled={isBYOD}
-        control={
+    const BYODInput = () => {
+      if (!inputFilter(lineGroup, 'BYODGroup')) {
+        return null;
+      }
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            width: '70px',
+          }}
+        >
+          <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>
+            BYOD
+          </Typography>
           <Switch
-            checked={payInFull}
-            id="payInFull"
+            sx={{ m: 0 }}
+            checked={isBYOD}
+            id="isBYOD"
             onChange={handleToggle}
           />
-        }
-        label="Pay in Full"
-      />
-    )
-  }
-  const deviceModelInput = () => {
-    if (!inputFilter(lineGroup, 'deviceModelGroup')) {
-      return null
-    }
-    return (
-      <TextField
-        disabled={isBYOD}
-        id="deviceModel"
-        label="Device Model"
-        placeholder="Example: iPhone 16"
-        value={deviceModel}
-        onChange={handleChange}
-        sx={{ flex: 2, minWidth: '150px' }}
-      />
-    )
-  }
+        </Box>
+      );
+    };
 
-  const deviceTotalCostInput = () => {
-    if (!inputFilter(lineGroup, 'deviceTotalCostGroup')) {
-      return null
-    }
+    const XMCInput = () => {
+      if (!inputFilter(lineGroup, 'BYODGroup')) {
+        return null;
+      }
 
-    return (
-      <TextField
-        disabled={isBYOD}
-        id="deviceTotalCost"
-        label="Total Cost"
-        value={deviceTotalCost !== 0 ? deviceTotalCost : ''}
-        onChange={handleChange}
-        sx={{ flex: 1, minWidth: '100px' }}
-      />
-    )
-  }
 
-  const deviceDiscountInput = () => {
-    if (!inputFilter(lineGroup, 'deviceDiscountGroup')) {
-      return null
-    }
-    return (
-      <TextField
-        disabled={isBYOD || payInFull}
-        id="deviceDiscountDesc"
-        label="Device Discount"
-        placeholder="Example: Trade In"
-        value={deviceDiscountDesc}
-        onChange={handleChange}
-        sx={{ flex: 2, minWidth: '150px' }}
-      />
-    )
-  }
-
-  const deviceDiscountAmountInput = () => {
-    if (!inputFilter(lineGroup, 'deviceDiscountAmountGroup')) {
-      return null
-    }
-    return (
-      <TextField
-        disabled={isBYOD || payInFull}
-        id="deviceDiscount"
-        label="Amount"
-        value={deviceDiscount !== 0 ? deviceDiscount : ''}
-        onChange={handleChange}
-        sx={{ flex: 1, minWidth: '100px' }}
-      />
-    )
-  }
-
-  const lineDiscountInput = () => {
-    if (!inputFilter(lineGroup, 'lineDiscountGroup')) {
-      return null
-    }
-    return (
-      <TextField
-              id="lineDiscountDesc"
-              label="Line Discount"
-              placeholder="Example: Free Line"
-              value={lineDiscountDesc}
+      return (
+        <FormControlLabel
+          labelPlacement="top"
+          sx={{ height: '25px', mb: '5px' }}
+          label="XMC"
+          control={
+            <Select
+              name="xmc"
+              id="xmc"
+              value={xmc}
               onChange={handleChange}
-              sx={{ flex: 2, minWidth: '150px' }}
-            />
-    )
-  }
+              sx={{ fontSize: 'inherit', height: '2.5em', mt: '5px' }}
+            >
+              {[null, 9, 12, 15, 17, 19].map((val) => (
+                <MenuItem key={val} value={val}>
+                  {typeof (val) === 'number' ? `$${val}` : "No XMC"}
+                </MenuItem>
+              ))}
 
-  const lineDiscountAmountInput = () => {
-    if (!inputFilter(lineGroup, 'lineDiscountAmountGroup')) {
-      return null
+            </Select>
+          }
+        />
+      );
+    };
+
+    const portInput = () => {
+      if (!inputFilter(lineGroup, 'BYODGroup')) {
+        return null;
+      }
+
+      return (
+        <FormControlLabel
+          labelPlacement="top"
+          label="Port"
+          control={<Switch checked={port} id="port" onChange={handleToggle} />}
+        />
+      );
+    };
+
+    const payInFullInput = () => {
+      if (!inputFilter(lineGroup, "payInFullGroup")) {
+        return null
+      }
+      return (
+        <FormControlLabel
+          disabled={isBYOD}
+          control={
+            <Switch
+              checked={payInFull}
+              id="payInFull"
+              onChange={handleToggle}
+            />
+          }
+          label="Pay in Full"
+        />
+      )
+    }
+    const deviceModelInput = () => {
+      if (!inputFilter(lineGroup, 'deviceModelGroup')) {
+        return null
+      }
+      return (
+        <TextField
+          disabled={isBYOD}
+          id="deviceModel"
+          label="Device Model"
+          placeholder="Example: iPhone 16"
+          value={deviceModel}
+          onChange={handleChange}
+          sx={{ flex: 2, minWidth: '150px' }}
+        />
+      )
+    }
+
+    const deviceTotalCostInput = () => {
+      if (!inputFilter(lineGroup, 'deviceTotalCostGroup')) {
+        return null
+      }
+
+      return (
+        <TextField
+          disabled={isBYOD}
+          id="deviceTotalCost"
+          label="Total Cost"
+          value={deviceTotalCost !== 0 ? deviceTotalCost : ''}
+          onChange={handleChange}
+          sx={{ flex: 1, minWidth: '100px' }}
+        />
+      )
+    }
+
+    const deviceDiscountInput = () => {
+      if (!inputFilter(lineGroup, 'deviceDiscountGroup')) {
+        return null
+      }
+      return (
+        <TextField
+          disabled={isBYOD || payInFull}
+          id="deviceDiscountDesc"
+          label="Device Discount"
+          placeholder="Example: Trade In"
+          value={deviceDiscountDesc}
+          onChange={handleChange}
+          sx={{ flex: 2, minWidth: '150px' }}
+        />
+      )
+    }
+
+    const deviceDiscountAmountInput = () => {
+      if (!inputFilter(lineGroup, 'deviceDiscountAmountGroup')) {
+        return null
+      }
+      return (
+        <TextField
+          disabled={isBYOD || payInFull}
+          id="deviceDiscount"
+          label="Amount"
+          value={deviceDiscount !== 0 ? deviceDiscount : ''}
+          onChange={handleChange}
+          sx={{ flex: 1, minWidth: '100px' }}
+        />
+      )
+    }
+
+    const lineDiscountInput = () => {
+      if (!inputFilter(lineGroup, 'lineDiscountGroup')) {
+        return null
+      }
+      return (
+        <TextField
+          id="lineDiscountDesc"
+          label="Line Discount"
+          placeholder="Example: Free Line"
+          value={lineDiscountDesc}
+          onChange={handleChange}
+          sx={{ flex: 2, minWidth: '150px' }}
+        />
+      )
+    }
+
+    const lineDiscountAmountInput = () => {
+      if (!inputFilter(lineGroup, 'lineDiscountAmountGroup')) {
+        return null
+      }
+
+      return (
+        <TextField
+          id="lineDiscount"
+          label="Amount"
+          value={lineDiscount !== 0 ? lineDiscount : ''}
+          onChange={handleChange}
+          sx={{ flex: 1, minWidth: '100px' }}
+        />
+      )
+    }
+
+    const hotSpotInput = () => {
+      if (!inputFilter(lineGroup, 'hotSpotGroup')) {
+        return null
+      }
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            width: '70px',
+          }}
+        >
+          <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>
+            Hot Spot
+          </Typography>
+          <Switch
+            sx={{ m: 0 }}
+            checked={hasHotSpot}
+            id="hasHotSpot"
+            onChange={handleToggle}
+          />
+        </Box>
+      )
+    }
+
+    const travelPassInput = () => {
+      if (!inputFilter(lineGroup, 'travelPassGroup')) {
+        return null
+      }
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            width: '70px',
+          }}
+        >
+          <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>
+            Travel Pass
+          </Typography>
+          <Switch
+            sx={{ m: 0 }}
+            checked={hasTravelPass}
+            id="hasTravelPass"
+            onChange={handleToggle}
+          />
+        </Box>
+      )
     }
 
     return (
-      <TextField
-              id="lineDiscount"
-              label="Amount"
-              value={lineDiscount !== 0 ? lineDiscount : ''}
-              onChange={handleChange}
-              sx={{ flex: 1, minWidth: '100px' }}
-            />
-    )
-  }
-
-  const hotSpotInput = () => {
-    if (!inputFilter(lineGroup, 'hotSpotGroup')) {
-      return null
-    }
-    return (
-      <Box
+      <Paper
+        elevation={3}
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          width: '70px',
+          justifyContent: 'space-between',
+          alignItems: 'stretch',
+          height: '90%',
+          maxWidth: 600,
+          minWidth: 400,
+          p: 3,
+          fontSize: { xs: '0.75rem', md: '0.85rem' },
+          '& .MuiInputBase-root': {
+            fontSize: 'inherit',
+            height: '100%',
+          },
+          '& .MuiInputLabel-root': {
+            fontSize: 'calc(inherit - 0.1rem)',
+          },
         }}
       >
-        <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>
-          Hot Spot
-        </Typography>
-        <Switch
-          sx={{ m: 0 }}
-          checked={hasHotSpot}
-          id="hasHotSpot"
-          onChange={handleToggle}
-        />
-      </Box>
-    )
-  }
 
-  const travelPassInput = () => {
-    if (!inputFilter(lineGroup, 'travelPassGroup')) {
-      return null
-    }
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          width: '70px',
-        }}
-      >
-        <Typography sx={{ fontSize: '0.75rem', mb: '0px', p: 0 }}>
-          Travel Pass
-        </Typography>
-        <Switch
-          sx={{ m: 0 }}
-          checked={hasTravelPass}
-          id="hasTravelPass"
-          onChange={handleToggle}
-        />
-      </Box>
-    )
-  }
-
-  return (
-    <Paper
-      elevation={3}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'stretch',
-        height: '90%',
-        maxWidth: 600,
-        minWidth: 400,
-        p: 3,
-        fontSize: { xs: '0.75rem', md: '0.85rem' },
-        '& .MuiInputBase-root': {
-          fontSize: 'inherit',
-          height: '100%',
-        },
-        '& .MuiInputLabel-root': {
-          fontSize: 'calc(inherit - 0.1rem)',
-        },
-      }}
-    >
-     
         <Box
           sx={{
             display: 'flex',
@@ -520,12 +530,12 @@ const MobileLineForm = ({
             {hotSpotInput()}
           </Box>
         </Box>
-      
-      <Button variant="contained" onClick={handleStopEdit} sx={{ mt: 2 }}>
-        Done
-      </Button>
-    </Paper>
-  );
-};
 
-export default MobileLineForm;
+        <Button variant="contained" onClick={handleStopEdit} sx={{ mt: 2 }}>
+          Done
+        </Button>
+      </Paper>
+    );
+  };
+
+  export default MobileLineForm;
