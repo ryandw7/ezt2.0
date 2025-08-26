@@ -8,6 +8,7 @@ const PackageForm = ({
   handleDeleteItem,
   items,
 }) => {
+  console.log(items);
   return (
     <Box
       sx={{

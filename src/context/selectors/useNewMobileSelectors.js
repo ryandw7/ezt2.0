@@ -109,7 +109,7 @@ export const getPhoneLineCostById = createSelector(
       }
       const isInNow = nowMobileLines.find((line) => line.id === id);
       if (isInNow) {
-        return 25
+        return 25;
       }
       return 0;
     };
@@ -202,7 +202,9 @@ export const getAllNowMobileTotals = createSelector(
     let travelPassCount = 0;
     let hotSpotCount = 0;
     const lines = Object.values(newMobileLines)
-      ? Object.values(newMobileLines).filter(item => item.dataPlan === "Now Mobile")
+      ? Object.values(newMobileLines).filter(
+          (item) => item.dataPlan === 'Now Mobile'
+        )
       : [];
 
     if (!lines) {
@@ -210,7 +212,7 @@ export const getAllNowMobileTotals = createSelector(
     }
 
     for (const line of lines) {
-      nowLinesCount += 1
+      nowLinesCount += 1;
       if (line.hasTravelPass === true) {
         travelPassCount += 1;
       }
@@ -224,7 +226,11 @@ export const getAllNowMobileTotals = createSelector(
     let hotSpotTotalCost = hotSpotCount * 5;
     let nowMobileTaxesTotalCost = nowLinesCount * 1.81;
 
-    const nowMobilePlanTotalCost = nowLinesTotalCost + travelPassTotalCost + hotSpotTotalCost + nowMobileTaxesTotalCost
+    const nowMobilePlanTotalCost =
+      nowLinesTotalCost +
+      travelPassTotalCost +
+      hotSpotTotalCost +
+      nowMobileTaxesTotalCost;
     return {
       nowLinesCount,
       nowLinesTotalCost,
@@ -233,11 +239,10 @@ export const getAllNowMobileTotals = createSelector(
       hotSpotCount,
       hotSpotTotalCost,
       nowMobilePlanTotalCost,
-      nowMobileTaxesTotalCost
-    }
-
+      nowMobileTaxesTotalCost,
+    };
   }
-)
+);
 export const getAllXfinityMobileTotals = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
@@ -364,14 +369,14 @@ export default useNewMobileSelectors;
 
 const curriedMemoizer =
   (cache = {}) =>
-    (n) => {
-      if (cache[n]) {
-        return cache[n]; //checks if result is already there to prevent recalculation
-      }
+  (n) => {
+    if (cache[n]) {
+      return cache[n]; //checks if result is already there to prevent recalculation
+    }
 
-      const result = n * 2; //lets say this is a hefty calculation
+    const result = n * 2; //lets say this is a hefty calculation
 
-      cache[n] = result;
+    cache[n] = result;
 
-      return result;
-    };
+    return result;
+  };

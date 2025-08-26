@@ -21,7 +21,6 @@ const NewMobileFeature = () => {
     nowMobileLines,
   } = useNewMobileSelectors();
 
-
   const {
     addPhoneLine,
     updateNewMobileLine,
@@ -45,8 +44,8 @@ const NewMobileFeature = () => {
   };
 
   const handleNowMobileAdd = () => {
-    addNowMobileLine()
-  }
+    addNowMobileLine();
+  };
 
   const handleUpdate = (id) => (key, value) => {
     updateNewMobileLine(id, key, value);
@@ -73,7 +72,6 @@ const NewMobileFeature = () => {
 
   const handleFlexJust = () => {
     if (editingLineId) {
-     
       return 'flex-start';
     } else {
       return 'center';
@@ -81,7 +79,7 @@ const NewMobileFeature = () => {
   };
 
   const isEditingLine = (id) => (id === editingLineId ? true : false);
-  
+
   return (
     <Box
       sx={{
@@ -278,13 +276,42 @@ const NewMobileFeature = () => {
               px: 2,
               pb: 1,
             }}
-          >{isXfinityMobile ? <>
-            {[handleAdd, handleTabletAdd, handleWatchAdd].map(
-              (handler, idx) => (
+          >
+            {isXfinityMobile ? (
+              <>
+                {[handleAdd, handleTabletAdd, handleWatchAdd].map(
+                  (handler, idx) => (
+                    <Button
+                      key={idx}
+                      variant="contained"
+                      onClick={handler}
+                      sx={{
+                        flexShrink: 1,
+                        backgroundColor: '#2b2b30',
+
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {idx === 0 ? (
+                        <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+                      ) : idx === 1 ? (
+                        <TabletMacIcon
+                          sx={{ '&:hover': { color: '#5E35B1' } }}
+                        />
+                      ) : (
+                        <WatchIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
+                      )}
+                    </Button>
+                  )
+                )}
+              </>
+            ) : (
+              <>
                 <Button
-                  key={idx}
                   variant="contained"
-                  onClick={handler}
+                  onClick={handleNowMobileAdd}
                   sx={{
                     flexShrink: 1,
                     backgroundColor: '#2b2b30',
@@ -294,33 +321,10 @@ const NewMobileFeature = () => {
                     alignItems: 'center',
                   }}
                 >
-                  {idx === 0 ? (
-                    <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
-                  ) : idx === 1 ? (
-                    <TabletMacIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
-                  ) : (
-                    <WatchIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
-                  )}
+                  <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
                 </Button>
-              )
+              </>
             )}
-          </> : <>
-            <Button
-              
-              variant="contained"
-              onClick={handleNowMobileAdd}
-              sx={{
-                flexShrink: 1,
-                backgroundColor: '#2b2b30',
-
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <PhoneIcon sx={{ '&:hover': { color: '#5E35B1' } }} />
-            </Button>
-          </>}
           </Box>
         </Box>
       </Box>

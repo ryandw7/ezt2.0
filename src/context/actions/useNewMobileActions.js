@@ -14,8 +14,8 @@ const useNewMobileActions = () => {
   };
 
   const addNowMobileLine = () => {
-    dispatch({type: "ADD_NOW_MOBILE_LINE"})
-  }
+    dispatch({ type: 'ADD_NOW_MOBILE_LINE' });
+  };
 
   const removeMobileLine = (id) => {
     dispatch({ type: 'REMOVE_MOBILE_LINE', payload: id });

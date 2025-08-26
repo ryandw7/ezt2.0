@@ -10,10 +10,11 @@ const combineReducers = (reducers) => (state, action) => {
   }, {});
 };
 
+//DOUBLE CHECK REDUCER NAMES WHEN ENCOUNTERING CRYPTIC REDUCER ERRORS
 const reducers = {
   currentServices: currentReducer,
   newMobile: newMobileReducer,
-  newCore: newCoreReducer,
+  newCoreServices: newCoreReducer,
   additional: additionalReducer,
 };
 

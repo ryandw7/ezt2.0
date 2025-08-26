@@ -48,7 +48,7 @@ const useCurrentSelectors = () => {
   const currentServicesItemById = getCurrentServicesItemById(state);
   const currentServicesItemsList = getCurrentServicesItemsList(state);
   const currentServicesTotalCost = getCurrentServicesTotalCost(state) || 0;
-  
+
   return {
     currentServicesItems,
     currentServicesItemById,
