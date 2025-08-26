@@ -6,13 +6,13 @@ import { data } from 'react-router-dom';
 
 const NewView = ({ className, data }) => {
   const {
-    newCoreServices,
+    newCoreServicesItemsList,
     newMobilePlanCost,
     newCoreServicesTotalCost,
     newServicesTotalCost,
     allXfinityMobileTotals,
     allNowMobileTotals,
-    isXfinityMobile
+    isXfinityMobile,
   } = data;
 
   const {
@@ -31,7 +31,7 @@ const NewView = ({ className, data }) => {
     xfinityMobilePlanTotalCost,
   } = allXfinityMobileTotals;
 
-  console.log(allNowMobileTotals)
+  console.log(allNowMobileTotals);
   const {
     nowLinesCount,
     nowLinesTotalCost,
@@ -40,13 +40,13 @@ const NewView = ({ className, data }) => {
     hotSpotCount,
     hotSpotTotalCost,
     nowMobileTaxesTotalCost,
-    nowMobilePlanTotalCost
-  } = allNowMobileTotals || {}
+    nowMobilePlanTotalCost,
+  } = allNowMobileTotals || {};
 
-  console.log(nowMobilePlanTotalCost)
+  console.log(nowMobilePlanTotalCost);
   return (
     <PrintBox header={'New Services'} className={className}>
-      {newCoreServices.map((item) => {
+      {newCoreServicesItemsList.map((item) => {
         return item.cost !== 0 ? (
           <>
             <RowBox>
@@ -121,7 +121,9 @@ const NewView = ({ className, data }) => {
           )}
           <RowBox>
             <Typography>Taxes</Typography>
-            <Typography>${xfinityMobileTaxesTotalCost.toFixed(2)} est.</Typography>
+            <Typography>
+              ${xfinityMobileTaxesTotalCost.toFixed(2)} est.
+            </Typography>
           </RowBox>
 
           <RowBox>
@@ -132,49 +134,53 @@ const NewView = ({ className, data }) => {
           </RowBox>
         </>
       ) : null}
-      {!isXfinityMobile && nowMobilePlanTotalCost != 0 ? <>
-        <RowBox>
-          <Typography variant="h4">NOW Mobile</Typography>
-        </RowBox>
-        {nowLinesCount !== 0 ? (
+      {!isXfinityMobile && nowMobilePlanTotalCost != 0 ? (
+        <>
           <RowBox>
-            <Typography>
-              {nowLinesCount} Now Mobile Line{nowLinesCount > 1 && 's'}
-            </Typography>
-            <Typography>${nowLinesTotalCost.toFixed(2)} est.</Typography>
+            <Typography variant="h4">NOW Mobile</Typography>
           </RowBox>
-        ) : null}
-        {hotSpotCount !== 0 ? (
-          <RowBox>
-            <Typography>
-              {hotSpotCount} Hot Spot Upgrade{hotSpotCount > 1 && 's'}
-            </Typography>
-            <Typography>${hotSpotTotalCost.toFixed(2)} est.</Typography>
-          </RowBox>
-        ) : null}
-        {travelPassCount !== 0 ? (
-          <RowBox>
-            <Typography>
-              {travelPassCount} Travel Pass{travelPassCount > 1 && 'es'}
-            </Typography>
-            <Typography>${travelPassTotalCost.toFixed(2)} est.</Typography>
-          </RowBox>
-        ) : null}
-        {nowMobilePlanTotalCost !== 0 ? <>
-          <RowBox>
-            <Typography>
-              Taxes
-            </Typography>
-            <Typography>${nowMobileTaxesTotalCost.toFixed(2)} est.</Typography>
-          </RowBox>
-          <RowBox>
-            <Typography fontWeight={'bold'}>Total</Typography>
-            <Typography fontWeight={'bold'}>
-              ${nowMobilePlanTotalCost.toFixed(2)} est.
-            </Typography>
-          </RowBox>
-        </> : null}
-      </> : null}
+          {nowLinesCount !== 0 ? (
+            <RowBox>
+              <Typography>
+                {nowLinesCount} Now Mobile Line{nowLinesCount > 1 && 's'}
+              </Typography>
+              <Typography>${nowLinesTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          ) : null}
+          {hotSpotCount !== 0 ? (
+            <RowBox>
+              <Typography>
+                {hotSpotCount} Hot Spot Upgrade{hotSpotCount > 1 && 's'}
+              </Typography>
+              <Typography>${hotSpotTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          ) : null}
+          {travelPassCount !== 0 ? (
+            <RowBox>
+              <Typography>
+                {travelPassCount} Travel Pass{travelPassCount > 1 && 'es'}
+              </Typography>
+              <Typography>${travelPassTotalCost.toFixed(2)} est.</Typography>
+            </RowBox>
+          ) : null}
+          {nowMobilePlanTotalCost !== 0 ? (
+            <>
+              <RowBox>
+                <Typography>Taxes</Typography>
+                <Typography>
+                  ${nowMobileTaxesTotalCost.toFixed(2)} est.
+                </Typography>
+              </RowBox>
+              <RowBox>
+                <Typography fontWeight={'bold'}>Total</Typography>
+                <Typography fontWeight={'bold'}>
+                  ${nowMobilePlanTotalCost.toFixed(2)} est.
+                </Typography>
+              </RowBox>
+            </>
+          ) : null}
+        </>
+      ) : null}
       <RowBox sx={{ marginTop: 'auto', justifySelf: 'flex-end' }}>
         <Typography
           variant="h5"
@@ -191,7 +197,6 @@ const NewView = ({ className, data }) => {
           ${newServicesTotalCost.toFixed(2)} est.
         </Typography>
       </RowBox>
-
     </PrintBox>
   );
 };

@@ -5,13 +5,12 @@ import NewMobileFeature from '../features/NewMobileFeature';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
 import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
 const NewMobilePage = () => {
-  
   const { toggleIsXfinityMobile, setEditingLineId } = useNewMobileActions();
   const { isXfinityMobile } = useNewMobileSelectors();
 
   const handleToggle = () => {
     toggleIsXfinityMobile();
-    setEditingLineId(null)
+    setEditingLineId(null);
   };
   const SubContent = () => (
     <Box

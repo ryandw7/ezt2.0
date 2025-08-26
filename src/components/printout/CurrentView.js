@@ -4,8 +4,7 @@ import RowBox from '../boxes/RowBox';
 import { Typography } from '@mui/material';
 
 const CurrentView = ({ className, data }) => {
-  const { current, currentServicesTotalCost, currentServicesItemsList } = data;
-  //const { internet, internetCost, tv, tvCost, mobile, mobileCost, notes } = current;
+  const { currentServicesTotalCost, currentServicesItemsList } = data;
 
   return (
     <PrintBox header={'Current Services'} className={className}>

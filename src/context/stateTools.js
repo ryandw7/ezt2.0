@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
+
+//Possible Data Plans: Unlimited, Unlimited Premium, NOW Mobile, Watch, Tablet
 export const lineObj = () => ({
   isEdit: true,
   name: '',
@@ -32,8 +34,9 @@ export const nowLineObj = () => ({
   lineDiscount: 0,
   xmc: 0,
   hasTravelPass: false,
-  hasHotSpot: false
+  hasHotSpot: false,
 });
+
 export const phoneLineObj = () => ({
   isEdit: true,
   name: '',
@@ -92,6 +95,8 @@ export const serviceItemObj = () => ({
   additionalNotes: '',
 });
 
+
+// set ID's for initial state values (all item containers start with one item)
 const start_line_id = uuidv4();
 const start_line_obj = phoneLineObj();
 start_line_obj.id = start_line_id;
@@ -108,30 +113,19 @@ const start_new_services_item_id = uuidv4();
 const start_new_services_item_obj = serviceItemObj();
 start_new_services_item_obj.id = start_new_services_item_id;
 
+
+// state hivemind
+// be cautious changing names of object keys, as they are referenced in the root reducer by name
 export const createInitialState = () => ({
   currentServices: {
-    internet: '',
-    internetCost: 0,
-    tv: '',
-    tvCost: 0,
-    mobile: '',
-    mobileCost: 0,
-    notes: '',
     itemsById: {
       [start_current_services_item_id]: start_current_services_item_obj,
     },
-    items: [serviceItemObj()],
   },
-  newCore: {
-    internet: '',
-    internetCost: 0,
-    tv: '',
-    tvCost: 0,
-    items: [serviceItemObj()],
+  newCoreServices: {
     itemsById: {
       [start_new_services_item_id]: start_new_services_item_obj,
     },
-    notes: '',
   },
   newMobile: {
     linesById: {
@@ -149,10 +143,3 @@ export const createInitialState = () => ({
     additionalNotes: '',
   },
 });
-
-export const updateDataFlags = (lines) => {
-  const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
-  const hasBTG = lines.some((line) => line.dataPlan === 'BTG');
-
-  return { hasUnlimited, hasBTG };
-};

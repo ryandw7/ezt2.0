@@ -49,11 +49,11 @@ export default function MobileLineView({
   let deviceMonthly = (line.deviceTotalCost - line.deviceDiscount) / 24;
   totalLineCost += deviceMonthly;
   totalLineCost += tax;
-  if(line.hasTravelPass){
-    totalLineCost += 5
+  if (line.hasTravelPass) {
+    totalLineCost += 5;
   }
-  if(line.hasHotSpot){
-    totalLineCost += 5
+  if (line.hasHotSpot) {
+    totalLineCost += 5;
   }
   let xmc = line.xmc;
 
@@ -165,7 +165,7 @@ export default function MobileLineView({
             -${Number(line.deviceDiscount).toFixed(2)}
           </Typography>
           <Typography sx={{ width: '100px', textAlign: 'right' }}>
-            -${Number((line.deviceDiscount / 24)).toFixed(2)}
+            -${Number(line.deviceDiscount / 24).toFixed(2)}
           </Typography>
         </RowGroup>
       )}
@@ -179,12 +179,14 @@ export default function MobileLineView({
           <Typography>-${Number(line.lineDiscount).toFixed(2)}</Typography>
         </RowGroup>
       )}
-      {line.xmc ? <>
-        <RowGroup>
-          <Typography>Xfinity Mobile Care</Typography>
-          <Typography>${xmc && xmc.toFixed(2)}</Typography>
-        </RowGroup>
-      </> : null}
+      {line.xmc ? (
+        <>
+          <RowGroup>
+            <Typography>Xfinity Mobile Care</Typography>
+            <Typography>${xmc && xmc.toFixed(2)}</Typography>
+          </RowGroup>
+        </>
+      ) : null}
       {line.hasTravelPass && (
         <RowGroup>
           <Typography>Travel Pass</Typography>

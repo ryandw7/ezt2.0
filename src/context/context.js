@@ -1,11 +1,13 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import { createInitialState } from './stateTools';
 import rootReducer from './reducers/rootReducer';
 
+// To make changes to initial state, update rootReducer and stateTools
 const initialState = createInitialState();
 
 const Context = createContext(initialState);
 
+// wrapper for index.js to provide context (obviously)
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
 
@@ -14,6 +16,7 @@ export const ContextProvider = ({ children }) => {
   );
 };
 
+// import useAppContext when testing isolated state logic
 const useAppContext = () => {
   const context = useContext(Context);
 

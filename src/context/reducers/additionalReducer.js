@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const additionalReducer = (state = initialState, action) => {
-  console.log(action);
+ 
   switch (action.type) {
     case 'UPDATE_REP': {
       return { ...state, rep: action.payload };

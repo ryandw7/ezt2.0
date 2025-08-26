@@ -5,10 +5,16 @@ import useNewCoreSelectors from '../context/selectors/useNewCoreSelectors.js';
 import PackageForm from '../components/PackageForm.js';
 
 const NewCoreServicesFeature = () => {
-  const { newCore, newCoreServices } = useNewCoreSelectors();
-  const { addNewCoreItem, deleteNewCoreItem, updateNewCoreItem } =
-    useNewCoreActions();
+  const { newCoreServicesItems, newCoreServicesItemsList } =
+    useNewCoreSelectors();
+  const {
+    addNewCoreServicesItem,
+    updateNewCoreServicesItem,
+    deleteNewCoreServicesItem,
+  } = useNewCoreActions();
 
+  console.log(newCoreServicesItems);
+  console.log(newCoreServicesItemsList);
   const moneyLive = /^(?:\d+|\d+\.\d{0,2}|\.\d{0,2})$/;
   const complete = /^(?:\d+|\d+\.\d{1,2}|\.\d{1,2})$/;
   const handleChange = (id) => (e) => {
@@ -17,23 +23,21 @@ const NewCoreServicesFeature = () => {
     if (key.toLowerCase().includes('cost')) {
       if (value === '' || moneyLive.test(value)) {
         const out = complete.test(value) ? Number(value) : value;
-        return updateNewCoreItem(id, key, out);
+        return updateNewCoreServicesItem(id, key, out);
       }
       return;
     }
 
-    updateNewCoreItem(id, key, value);
+    updateNewCoreServicesItem(id, key, value);
   };
 
   return (
     <PackageForm
       handleChange={handleChange}
       isNew={true}
-      formValues={newCore}
-      hasMobile={true}
-      items={newCoreServices}
-      handleAddItem={addNewCoreItem}
-      handleDeleteItem={deleteNewCoreItem}
+      items={newCoreServicesItemsList}
+      handleAddItem={addNewCoreServicesItem}
+      handleDeleteItem={deleteNewCoreServicesItem}
     />
   );
 };
