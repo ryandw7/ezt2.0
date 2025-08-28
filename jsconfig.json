@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "checkJs": true,          // turn on type checking for .js
+    "module": "esnext",
+    "target": "esnext",
+    "baseUrl": "./src"        // optional, makes absolute imports work
+  },
+  "include": ["src"]
+}

@@ -2,7 +2,7 @@ import { serviceItemObj, createInitialState } from '../stateTools';
 
 const initialState = createInitialState().currentServices;
 
-const currentReducer = (state = initialState, action) => {
+const currentReducer = (state, action) => {
 
   switch (action.type) {
 

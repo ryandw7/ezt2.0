@@ -1,10 +1,14 @@
+
+import React from 'react'
 import { createContext, useContext, useReducer } from 'react';
-import { createInitialState } from './stateTools';
+import { createInitialState, makeUnlimitedLine, makeTabletLine, makeWatchLine, makeNowLine } from './stateTools';
 import rootReducer from './reducers/rootReducer';
 
 // To make changes to initial state, update rootReducer and stateTools
 const initialState = createInitialState();
-
+const buildInitialState = () => {
+          
+}
 const Context = createContext(initialState);
 
 // wrapper for index.js to provide context (obviously)
