@@ -1,17 +1,13 @@
 
 import React from 'react'
 import { createContext, useContext, useReducer } from 'react';
-import { createInitialState, makeUnlimitedLine, makeTabletLine, makeWatchLine, makeNowLine } from './stateTools';
+import { buildInitialState, makeUnlimitedLine, makeTabletLine, makeWatchLine, makeNowLine } from './stateTools';
 import rootReducer from './reducers/rootReducer';
 
-// To make changes to initial state, update rootReducer and stateTools
-const initialState = createInitialState();
-const buildInitialState = () => {
-          
-}
+const initialState = buildInitialState();
+
 const Context = createContext(initialState);
 
-// wrapper for index.js to provide context (obviously)
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
 
@@ -20,7 +16,6 @@ export const ContextProvider = ({ children }) => {
   );
 };
 
-// import useAppContext when testing isolated state logic
 const useAppContext = () => {
   const context = useContext(Context);
 

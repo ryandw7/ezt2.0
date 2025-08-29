@@ -1,13 +1,11 @@
-import { serviceItemObj, createInitialState } from '../stateTools';
-
-const initialState = createInitialState().currentServices;
+import { makeServiceItem} from '../stateTools';
 
 const currentReducer = (state, action) => {
 
   switch (action.type) {
 
     case 'ADD_CURRENT_SERVICES_ITEM': {
-      const itemObj = serviceItemObj();
+      const itemObj = makeServiceItem();
       const id = itemObj.id;
 
       return { ...state, itemsById: { ...state.itemsById, [id]: itemObj } };

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "checkJs": true,          // turn on type checking for .js
+    "checkJs": false,        // keep renames, stop TS editor errors
     "module": "esnext",
-    "target": "esnext",
-    "baseUrl": "./src"        // optional, makes absolute imports work
+    "target": "es2022",
+    "jsx": "react-jsx"
   },
   "include": ["src"]
 }

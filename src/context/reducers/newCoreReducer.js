@@ -1,13 +1,11 @@
-import { serviceItemObj, createInitialState } from '../stateTools';
+import { makeServiceItem} from '../stateTools';
 
-const initialState = createInitialState().newCoreServices;
-
-const newCoreReducer = (state = initialState, action) => {
+const newCoreReducer = (state, action) => {
   
   switch (action.type) {
     
     case 'ADD_NEW_CORE_SERVICES_ITEM': {
-      const itemObj = serviceItemObj();
+      const itemObj = makeServiceItem();
       const id = itemObj.id;
 
       return { ...state, itemsById: { ...state.itemsById, [id]: itemObj } };

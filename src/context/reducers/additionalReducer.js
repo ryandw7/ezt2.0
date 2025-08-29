@@ -1,10 +1,4 @@
-const initialState = {
-  rep: '',
-  contact: '',
-  additionalNotes: '',
-};
-
-const additionalReducer = (state = initialState, action) => {
+const additionalReducer = (state, action) => {
  
   switch (action.type) {
     case 'UPDATE_REP': {

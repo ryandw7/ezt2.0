@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 const PLAN = {
   UNLIMITED: "Unlimited",
   PREMIUM: "Premium Unlimited",
-  NOW: "Now Mobile",
+  NOW: "NOW Mobile",
   TABLET: "Tablet",
   WATCH: "Watch"
 };
@@ -25,7 +25,7 @@ const lineDefaults = {
 };
 
 
-export const nowLineObj = () => ({
+export const makeNowMobileLine = () => ({
   id: uuidv4(),
   ...lineDefaults,
   dataPlan: PLAN.NOW,
@@ -33,28 +33,28 @@ export const nowLineObj = () => ({
   hasHotSpot: false,
 });
 
-export const phoneLineObj = () => ({
+export const makeXfinityMobileLine = () => ({
   id: uuidv4(),
   ...lineDefaults,
   dataPlan: PLAN.UNLIMITED,
   payInFull: false,
 });
 
-export const watchLineObj = () => ({
+export const makeWatchLine = () => ({
   id: uuidv4(),
   ...lineDefaults,
   dataPlan: PLAN.WATCH,
   payInFull: false,
 });
 
-export const tabletLineObj = () => ({
+export const makeTabletLine = () => ({
   id: uuidv4(),
   ...lineDefaults,
   dataPlan: PLAN.TABLET,
   payInFull: false,
 });
 
-export const serviceItemObj = () => ({
+export const makeServiceItem = () => ({
   id: uuidv4(),
   description: '',
   cost: 0,
@@ -62,11 +62,12 @@ export const serviceItemObj = () => ({
 });
 
 // single definition point for initial state (fresh each call)
-export const createInitialState = () => {
-  const startPhone = phoneLineObj();
-  const startNow = nowLineObj();
-  const startCurrentItem = serviceItemObj();
-  const startNewItem = serviceItemObj();
+export const buildInitialState = () => {
+
+  const startPhone = makeXfinityMobileLine();
+  const startNow = makeNowMobileLine();
+  const startCurrentItem = makeServiceItem();
+  const startNewItem = makeServiceItem();
 
   return {
     currentServices: {
