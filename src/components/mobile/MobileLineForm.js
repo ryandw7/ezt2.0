@@ -81,7 +81,7 @@ const MobileLineForm = ({
     case 'Tablet':
       lineGroup = 4;
       break;
-    case 'Now Mobile':
+    case 'NOW Mobile':
       lineGroup = 5;
   }
   //EVENT HANDLERS

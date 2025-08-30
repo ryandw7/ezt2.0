@@ -1,19 +1,18 @@
 import {
-  createInitialState,
-  phoneLineObj,
-  watchLineObj,
-  tabletLineObj,
-  nowLineObj,
+  makeXfinityMobileLine,
+  makeWatchLine,
+  makeTabletLine,
+  makeNowMobileLine,
 } from '../stateTools.js';
 import { v4 as uuidv4 } from 'uuid';
 
-const initialState = createInitialState().newMobile;
 
-const newMobileReducer = (state = initialState, action) => {
+const newMobileReducer = (state, action) => {
   switch (action.type) {
+      
     case 'ADD_PHONE_LINE': {
       const id = uuidv4();
-      const line = phoneLineObj();
+      const line = makeXfinityMobileLine();
       line.id = id;
       return {
         ...state,
@@ -26,7 +25,7 @@ const newMobileReducer = (state = initialState, action) => {
 
     case 'ADD_WATCH_LINE': {
       const id = uuidv4();
-      const line = watchLineObj();
+      const line = makeWatchLine();
       line.id = id;
       return {
         ...state,
@@ -38,7 +37,7 @@ const newMobileReducer = (state = initialState, action) => {
     }
     case 'ADD_TABLET_LINE': {
       const id = uuidv4();
-      const line = tabletLineObj();
+      const line = makeTabletLine();
       line.id = id;
       return {
         ...state,
@@ -51,7 +50,7 @@ const newMobileReducer = (state = initialState, action) => {
 
     case 'ADD_NOW_MOBILE_LINE': {
       const id = uuidv4();
-      const line = nowLineObj();
+      const line = makeNowMobileLine();
       line.id = id;
       return {
         ...state,

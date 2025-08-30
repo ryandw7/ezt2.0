@@ -13,7 +13,7 @@ export const getNowMobileLines = createSelector(
     }
 
     const lines = Object.values(newMobileLines)?.filter(
-      (line) => line.dataPlan === 'Now Mobile'
+      (line) => line.dataPlan === 'NOW Mobile'
     );
     return lines;
   }
@@ -203,7 +203,7 @@ export const getAllNowMobileTotals = createSelector(
     let hotSpotCount = 0;
     const lines = Object.values(newMobileLines)
       ? Object.values(newMobileLines).filter(
-          (item) => item.dataPlan === 'Now Mobile'
+          (item) => item.dataPlan === 'NOW Mobile'
         )
       : [];
 
@@ -255,7 +255,7 @@ export const getAllXfinityMobileTotals = createSelector(
     let lineDiscountsTotalOff = 0;
     let lineDiscountList = [];
     let deviceDiscountsTotalOff = 0;
-
+    let nowLinesCount = 0;
     const lines = Object.values(newMobileLines)
       ? Object.values(newMobileLines)
       : [];
@@ -264,8 +264,7 @@ export const getAllXfinityMobileTotals = createSelector(
       return {};
     }
     const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
-    const xfinityMobileTaxesTotalCost = lines.length * 1.81;
-
+    
     let unlimitedCount = 0;
     let premiumCount = 0;
     let tabletCount = 0;
@@ -297,14 +296,17 @@ export const getAllXfinityMobileTotals = createSelector(
       } else if (dataPlan === 'Watch') {
         watchCount++;
         watchTotalCost += 10;
+      }else if (dataPlan === 'NOW Mobile'){
+        nowLinesCount++
       }
-
       deviceDiscountsTotalOff += deviceDiscount;
       devicePaymentsTotalCost += (deviceTotalCost - deviceDiscount) / 24;
       lineDiscount && lineDiscountList.push(lineDiscount);
       lineDiscountsTotalOff += lineDiscount;
       xmcTotalCost += xmc;
     }
+    const xfinityMobileTaxesTotalCost = (lines.length - nowLinesCount) * 1.81;
+
     const xfinityMobilePlanTotalCost =
       unlimitedTotalCost +
       premiumTotalCost +

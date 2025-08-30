@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "checkJs": false,        // keep renames, stop TS editor errors
+    "module": "esnext",
+    "target": "es2022",
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}
