@@ -1,7 +1,6 @@
 import useAppContext from '../context';
 
 const useAdditionalActions = () => {
-
   const { dispatch } = useAppContext();
 
   const updateRep = (rep) => {
@@ -17,7 +16,6 @@ const useAdditionalActions = () => {
   };
 
   return { updateRep, updateContact, updateAdditionalNotes };
-  
 };
 
 export default useAdditionalActions;

@@ -1,7 +1,12 @@
-
-import React from 'react'
+import React from 'react';
 import { createContext, useContext, useReducer } from 'react';
-import { buildInitialState, makeUnlimitedLine, makeTabletLine, makeWatchLine, makeNowLine } from './stateTools';
+import {
+  buildInitialState,
+  makeUnlimitedLine,
+  makeTabletLine,
+  makeWatchLine,
+  makeNowLine,
+} from './stateTools';
 import rootReducer from './reducers/rootReducer';
 
 const initialState = buildInitialState();

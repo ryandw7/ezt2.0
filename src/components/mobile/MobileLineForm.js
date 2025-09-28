@@ -32,6 +32,7 @@ const inputGroups = {
   deviceDiscountGroup: [1, 2, 3, 4, 5],
   deviceDiscountAmountGroup: [1, 2, 3, 4, 5],
   lineDiscountGroup: [1, 2, 3, 4],
+  lineDiscountDurationGroup: [1, 2, 3, 4],
   lineDiscountAmountGroup: [1, 2, 3, 4],
   travelPassGroup: [5],
   hotSpotGroup: [5],
@@ -59,6 +60,7 @@ const MobileLineForm = ({
     deviceDiscount,
     deviceDiscountDesc,
     lineDiscount,
+    lineDiscountDuration,
     lineDiscountDesc,
     dataPlan,
     name,
@@ -326,6 +328,22 @@ const MobileLineForm = ({
     );
   };
 
+  const lineDiscountDurationInput = () => {
+    if (!inputFilter(lineGroup, 'lineDiscountDurationGroup')) {
+      return null;
+    }
+
+    return (
+      <TextField
+        id="lineDiscountDuration"
+        label="Duration"
+        placeholder="Months"
+        value={lineDiscountDuration !== 0 ? lineDiscountDuration : ''}
+        onChange={handleChange}
+        sx={{ flex: 1, minWidth: '50px' }}
+      />
+    );
+  };
   const lineDiscountAmountInput = () => {
     if (!inputFilter(lineGroup, 'lineDiscountAmountGroup')) {
       return null;
@@ -505,6 +523,7 @@ const MobileLineForm = ({
           }}
         >
           {lineDiscountInput()}
+          {lineDiscountDurationInput()}
           {lineDiscountAmountInput()}
         </Box>
         <Box

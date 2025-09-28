@@ -25,13 +25,14 @@ const NewView = ({ className, data }) => {
     watchCount,
     watchTotalCost,
     devicePaymentsTotalCost,
+    deviceDiscountsTotalOff,
     xmcTotalCost,
     xfinityMobileTaxesTotalCost,
     lineDiscountsTotalOff,
+    lineDiscountList,
     xfinityMobilePlanTotalCost,
   } = allXfinityMobileTotals;
 
-  console.log(allNowMobileTotals);
   const {
     nowLinesCount,
     nowLinesTotalCost,
@@ -107,18 +108,38 @@ const NewView = ({ className, data }) => {
 
           {devicePaymentsTotalCost != 0 && (
             <RowBox>
-              <Typography>New Devices</Typography>
-              <Typography>
-                ${devicePaymentsTotalCost.toFixed(2)} est.
+              <Typography>Device Payments</Typography>
+              <Typography sx={{ whiteSpace: 'pre-wrap' }}>
+                {'24 Months    '}${devicePaymentsTotalCost.toFixed(2)} est.
               </Typography>
             </RowBox>
           )}
-          {lineDiscountsTotalOff != 0 && (
+          {deviceDiscountsTotalOff != 0 && (
             <RowBox>
-              <Typography>Line Discounts</Typography>
-              <Typography>-${lineDiscountsTotalOff.toFixed(2)} est.</Typography>
+              <Typography>Device Discounts</Typography>
+              <Typography sx={{ whiteSpace: 'pre-wrap' }}>
+                {'24 Months   '}
+                -${deviceDiscountsTotalOff.toFixed(2)} est.
+              </Typography>
             </RowBox>
           )}
+          {lineDiscountList.length != 0 &&
+            lineDiscountList.map((lineDiscount) => {
+              console.log(lineDiscount);
+              return (
+                <RowBox>
+                  <Typography>
+                    {lineDiscount.lineDiscountDesc || 'Line Discounts'}
+                  </Typography>
+                  <Typography sx={{ whiteSpace: 'pre-wrap' }}>
+                    {lineDiscount.lineDiscountDuration &&
+                      `${lineDiscount.lineDiscountDuration} Months   `}
+                    -${lineDiscount.lineDiscount.toFixed(2)} est.
+                  </Typography>
+                </RowBox>
+              );
+            })}
+
           <RowBox>
             <Typography>Taxes</Typography>
             <Typography>

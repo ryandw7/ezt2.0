@@ -4,7 +4,6 @@ import { Tab, Tabs, Box, Button, Typography, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 export default function PageWrapper() {
-  
   const href = window.location.href;
   const theme = useTheme();
   const location = useLocation();
