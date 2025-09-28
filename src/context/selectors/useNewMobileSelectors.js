@@ -264,7 +264,7 @@ export const getAllXfinityMobileTotals = createSelector(
       return {};
     }
     const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
-    
+
     let unlimitedCount = 0;
     let premiumCount = 0;
     let tabletCount = 0;
@@ -275,6 +275,8 @@ export const getAllXfinityMobileTotals = createSelector(
         dataPlan,
         deviceTotalCost,
         deviceDiscount,
+        lineDiscountDesc,
+        lineDiscountDuration,
         lineDiscount,
         xmc,
         id,
@@ -296,12 +298,17 @@ export const getAllXfinityMobileTotals = createSelector(
       } else if (dataPlan === 'Watch') {
         watchCount++;
         watchTotalCost += 10;
-      }else if (dataPlan === 'NOW Mobile'){
-        nowLinesCount++
+      } else if (dataPlan === 'NOW Mobile') {
+        nowLinesCount++;
       }
-      deviceDiscountsTotalOff += deviceDiscount;
-      devicePaymentsTotalCost += (deviceTotalCost - deviceDiscount) / 24;
-      lineDiscount && lineDiscountList.push(lineDiscount);
+      deviceDiscountsTotalOff += deviceDiscount / 24;
+      devicePaymentsTotalCost += deviceTotalCost / 24;
+      lineDiscount &&
+        lineDiscountList.push({
+          lineDiscountDesc,
+          lineDiscountDuration,
+          lineDiscount,
+        });
       lineDiscountsTotalOff += lineDiscount;
       xmcTotalCost += xmc;
     }
@@ -327,7 +334,9 @@ export const getAllXfinityMobileTotals = createSelector(
       watchCount,
       watchTotalCost,
       devicePaymentsTotalCost,
+      deviceDiscountsTotalOff,
       lineDiscountsTotalOff,
+      lineDiscountList,
       xmcTotalCost,
       xfinityMobileTaxesTotalCost,
       xfinityMobilePlanTotalCost,

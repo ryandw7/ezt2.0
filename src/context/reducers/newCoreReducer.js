@@ -1,9 +1,7 @@
-import { makeServiceItem} from '../stateTools';
+import { makeServiceItem } from '../stateTools';
 
 const newCoreReducer = (state, action) => {
-  
   switch (action.type) {
-    
     case 'ADD_NEW_CORE_SERVICES_ITEM': {
       const itemObj = makeServiceItem();
       const id = itemObj.id;

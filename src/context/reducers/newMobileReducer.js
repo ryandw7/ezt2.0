@@ -6,10 +6,8 @@ import {
 } from '../stateTools.js';
 import { v4 as uuidv4 } from 'uuid';
 
-
 const newMobileReducer = (state, action) => {
   switch (action.type) {
-      
     case 'ADD_PHONE_LINE': {
       const id = uuidv4();
       const line = makeXfinityMobileLine();

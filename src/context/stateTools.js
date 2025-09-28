@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
 const PLAN = {
-  UNLIMITED: "Unlimited",
-  PREMIUM: "Premium Unlimited",
-  NOW: "NOW Mobile",
-  TABLET: "Tablet",
-  WATCH: "Watch"
+  UNLIMITED: 'Unlimited',
+  PREMIUM: 'Premium Unlimited',
+  NOW: 'NOW Mobile',
+  TABLET: 'Tablet',
+  WATCH: 'Watch',
 };
 
 // only fields shared by every line type
@@ -21,9 +21,10 @@ const lineDefaults = {
   deviceDiscount: 0,
   cost: 0,
   lineDiscount: 0,
+  lineDiscountDesc: '',
+  lineDiscountDuration: null,
   xmc: 0,
 };
-
 
 export const makeNowMobileLine = () => ({
   id: uuidv4(),
@@ -63,7 +64,6 @@ export const makeServiceItem = () => ({
 
 // single definition point for initial state (fresh each call)
 export const buildInitialState = () => {
-
   const startPhone = makeXfinityMobileLine();
   const startNow = makeNowMobileLine();
   const startCurrentItem = makeServiceItem();

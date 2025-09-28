@@ -1,9 +1,7 @@
-import { makeServiceItem} from '../stateTools';
+import { makeServiceItem } from '../stateTools';
 
 const currentReducer = (state, action) => {
-
   switch (action.type) {
-
     case 'ADD_CURRENT_SERVICES_ITEM': {
       const itemObj = makeServiceItem();
       const id = itemObj.id;
@@ -19,7 +17,7 @@ const currentReducer = (state, action) => {
 
     case 'UPDATE_CURRENT_SERVICES_ITEM': {
       const { id, key, value } = action.payload;
-      
+
       return {
         ...state,
         itemsById: {

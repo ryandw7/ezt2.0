@@ -1,5 +1,4 @@
 const additionalReducer = (state, action) => {
- 
   switch (action.type) {
     case 'UPDATE_REP': {
       return { ...state, rep: action.payload };
