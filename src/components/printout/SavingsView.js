@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 const SavingsView = ({ className, data }) => {
   const { totalSavings } = data;
-
+  const annualSavings = totalSavings * 12
   return (
     <>
       {totalSavings > 0 ? (
@@ -15,8 +15,8 @@ const SavingsView = ({ className, data }) => {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h3">
-            Save ${totalSavings.toFixed(2)} a month!
+          <Typography variant="h4">
+            Save: ${totalSavings.toFixed(2)} Monthly ${annualSavings.toFixed(2)} Annualy
           </Typography>
         </Box>
       ) : null}
