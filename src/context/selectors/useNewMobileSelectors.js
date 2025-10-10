@@ -320,7 +320,8 @@ export const getAllXfinityMobileTotals = createSelector(
       tabletTotalCost +
       watchTotalCost +
       devicePaymentsTotalCost +
-      xfinityMobileTaxesTotalCost +
+      xfinityMobileTaxesTotalCost -
+      deviceDiscountsTotalOff +
       xmcTotalCost -
       lineDiscountsTotalOff;
 
