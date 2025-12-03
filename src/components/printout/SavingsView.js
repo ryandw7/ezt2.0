@@ -16,7 +16,7 @@ const SavingsView = ({ className, data }) => {
           }}
         >
           <Typography variant="h4">
-            Save: ${totalSavings.toFixed(2)} Monthly ${annualSavings.toFixed(2)} Annualy
+            Save: ${totalSavings.toFixed(2)} Monthly ${annualSavings.toFixed(2)} Annually
           </Typography>
         </Box>
       ) : null}
