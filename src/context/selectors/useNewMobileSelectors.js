@@ -250,12 +250,15 @@ export const getAllXfinityMobileTotals = createSelector(
     let premiumTotalCost = 0;
     let tabletTotalCost = 0;
     let watchTotalCost = 0;
-    let devicePaymentsTotalCost = 0;
+    let devicePaymentsTotalCost24 = 0;
+    let devicePaymentsTotalCost36 = 0;
     let xmcTotalCost = 0;
     let lineDiscountsTotalOff = 0;
     let lineDiscountList = [];
-    let deviceDiscountsTotalOff = 0;
+    let deviceDiscountsTotalOff24 = 0;
+    let deviceDiscountsTotalOff36 = 0;
     let nowLinesCount = 0;
+    
     const lines = Object.values(newMobileLines)
       ? Object.values(newMobileLines)
       : [];
@@ -274,6 +277,7 @@ export const getAllXfinityMobileTotals = createSelector(
       const {
         dataPlan,
         deviceTotalCost,
+        devicePaymentDuration,
         deviceDiscount,
         lineDiscountDesc,
         lineDiscountDuration,
@@ -301,8 +305,14 @@ export const getAllXfinityMobileTotals = createSelector(
       } else if (dataPlan === 'NOW Mobile') {
         nowLinesCount++;
       }
-      deviceDiscountsTotalOff += deviceDiscount / 24;
-      devicePaymentsTotalCost += deviceTotalCost / 24;
+      if(devicePaymentDuration === 24){
+        deviceDiscountsTotalOff24 += deviceDiscount / 24;
+        devicePaymentsTotalCost24 += deviceTotalCost / 24;
+      } else if(devicePaymentDuration === 36){
+        deviceDiscountsTotalOff36 += deviceDiscount / 36;
+        devicePaymentsTotalCost36 += deviceTotalCost / 36;
+      }
+
       lineDiscount &&
         lineDiscountList.push({
           lineDiscountDesc,
@@ -319,9 +329,11 @@ export const getAllXfinityMobileTotals = createSelector(
       premiumTotalCost +
       tabletTotalCost +
       watchTotalCost +
-      devicePaymentsTotalCost +
+      devicePaymentsTotalCost24 +
+      devicePaymentsTotalCost36 +
       xfinityMobileTaxesTotalCost -
-      deviceDiscountsTotalOff +
+      deviceDiscountsTotalOff36
+      deviceDiscountsTotalOff24 +
       xmcTotalCost -
       lineDiscountsTotalOff;
 
@@ -334,8 +346,10 @@ export const getAllXfinityMobileTotals = createSelector(
       tabletTotalCost,
       watchCount,
       watchTotalCost,
-      devicePaymentsTotalCost,
-      deviceDiscountsTotalOff,
+      devicePaymentsTotalCost24,
+      deviceDiscountsTotalOff24,
+      devicePaymentsTotalCost36,
+      deviceDiscountsTotalOff36,
       lineDiscountsTotalOff,
       lineDiscountList,
       xmcTotalCost,

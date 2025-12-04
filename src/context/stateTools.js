@@ -39,6 +39,7 @@ export const makeXfinityMobileLine = () => ({
   ...lineDefaults,
   dataPlan: PLAN.UNLIMITED,
   payInFull: false,
+  devicePaymentDuration: 24
 });
 
 export const makeWatchLine = () => ({
@@ -46,6 +47,7 @@ export const makeWatchLine = () => ({
   ...lineDefaults,
   dataPlan: PLAN.WATCH,
   payInFull: false,
+  devicePaymentDuration: 24
 });
 
 export const makeTabletLine = () => ({
@@ -53,6 +55,7 @@ export const makeTabletLine = () => ({
   ...lineDefaults,
   dataPlan: PLAN.TABLET,
   payInFull: false,
+  devicePaymentDuration: 24
 });
 
 export const makeServiceItem = () => ({

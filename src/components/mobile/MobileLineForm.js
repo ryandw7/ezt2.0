@@ -27,6 +27,7 @@ const inputGroups = {
   XMCGroup: [1, 2, 3, 4, 5],
   portGroup: [1, 2, 3, 4, 5],
   payInFullGroup: [1, 2, 3, 4],
+  devicePaymentDurationGroup: [1, 2, 3, 4],
   deviceModelGroup: [1, 2, 3, 4, 5],
   deviceTotalCostGroup: [1, 2, 3, 4, 5],
   deviceDiscountGroup: [1, 2, 3, 4, 5],
@@ -56,6 +57,7 @@ const MobileLineForm = ({
     port,
     deviceModel,
     payInFull,
+    devicePaymentDuration,
     deviceTotalCost,
     deviceDiscount,
     deviceDiscountDesc,
@@ -245,6 +247,35 @@ const MobileLineForm = ({
       />
     );
   };
+
+  const devicePaymentDurationInput = () => {
+    if (!inputFilter(lineGroup, 'devicePaymentDurationGroup')) {
+      return null;
+    }
+    return (
+      <FormControlLabel
+        labelPlacement="top"
+        sx={{ height: '25px', mb: '5px' }}
+        label="Payment Duration"
+        control={
+          <Select
+            name="devicePaymentDuration"
+            id="devicePaymentDuration"
+            value={devicePaymentDuration}
+            onChange={handleChange}
+            sx={{ fontSize: 'inherit', height: '2.5em', mt: '5px' }}
+          >
+            {[24, 36].map((val) => (
+              <MenuItem key={val} value={val}>
+                {val}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+      />
+    );
+  };
+
   const deviceModelInput = () => {
     if (!inputFilter(lineGroup, 'deviceModelGroup')) {
       return null;
@@ -483,6 +514,7 @@ const MobileLineForm = ({
           }}
         >
           {payInFullInput()}
+          {devicePaymentDurationInput()}
         </Box>
         {/* Device Model + Cost */}
         <Box

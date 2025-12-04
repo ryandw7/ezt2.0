@@ -15,7 +15,7 @@ const NewView = ({ className, data }) => {
     isXfinityMobile,
   } = data;
 
-  const {
+ const {
     unlimitedCount,
     unlimitedTotalCost,
     premiumCount,
@@ -24,8 +24,10 @@ const NewView = ({ className, data }) => {
     tabletTotalCost,
     watchCount,
     watchTotalCost,
-    devicePaymentsTotalCost,
-    deviceDiscountsTotalOff,
+    devicePaymentsTotalCost24,
+    deviceDiscountsTotalOff24,
+    devicePaymentsTotalCost36,  // Changed from devicePaymentsTotalCost36
+    deviceDiscountsTotalOff36,
     xmcTotalCost,
     xfinityMobileTaxesTotalCost,
     lineDiscountsTotalOff,
@@ -106,20 +108,37 @@ const NewView = ({ className, data }) => {
             </RowBox>
           )}
 
-          {devicePaymentsTotalCost != 0 && (
+          {devicePaymentsTotalCost24 != 0 && (
             <RowBox>
               <Typography>Device Payments</Typography>
               <Typography sx={{ whiteSpace: 'pre-wrap' }}>
-                {'24 Months    '}${devicePaymentsTotalCost.toFixed(2)} est.
+                {'24 Months    '}${devicePaymentsTotalCost24.toFixed(2)} est.
               </Typography>
             </RowBox>
           )}
-          {deviceDiscountsTotalOff != 0 && (
+          {deviceDiscountsTotalOff24 != 0 && (
             <RowBox>
               <Typography>Device Discounts</Typography>
               <Typography sx={{ whiteSpace: 'pre-wrap' }}>
                 {'24 Months   '}
-                -${deviceDiscountsTotalOff.toFixed(2)} est.
+                -${deviceDiscountsTotalOff24.toFixed(2)} est.
+              </Typography>
+            </RowBox>
+          )}
+          {devicePaymentsTotalCost36 != 0 && (
+            <RowBox>
+              <Typography>Device Payments</Typography>
+              <Typography sx={{ whiteSpace: 'pre-wrap' }}>
+                {'36 Months    '}${devicePaymentsTotalCost36.toFixed(2)} est.
+              </Typography>
+            </RowBox>
+          )}
+          {deviceDiscountsTotalOff36 != 0 && (
+            <RowBox>
+              <Typography>Device Discounts</Typography>
+              <Typography sx={{ whiteSpace: 'pre-wrap' }}>
+                {'36 Months   '}
+                -${deviceDiscountsTotalOff36.toFixed(2)} est.
               </Typography>
             </RowBox>
           )}
