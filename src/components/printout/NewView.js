@@ -46,7 +46,7 @@ const NewView = ({ className, data }) => {
     nowMobilePlanTotalCost,
   } = allNowMobileTotals || {};
 
-  console.log(nowMobilePlanTotalCost);
+  
   return (
     <PrintBox header={'New Services'} className={className}>
       {newCoreServicesItemsList.map((item) => {

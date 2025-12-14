@@ -325,17 +325,24 @@ export const getAllXfinityMobileTotals = createSelector(
     const xfinityMobileTaxesTotalCost = (lines.length - nowLinesCount) * 1.81;
 
     const xfinityMobilePlanTotalCost =
+
+    //ADDITIONS
       unlimitedTotalCost +
       premiumTotalCost +
       tabletTotalCost +
       watchTotalCost +
       devicePaymentsTotalCost24 +
       devicePaymentsTotalCost36 +
-      xfinityMobileTaxesTotalCost -
-      deviceDiscountsTotalOff36
-      deviceDiscountsTotalOff24 +
+      xfinityMobileTaxesTotalCost 
+      -
+    //SUBTRACTIONS
+      deviceDiscountsTotalOff36 -
+      deviceDiscountsTotalOff24 -
       xmcTotalCost -
       lineDiscountsTotalOff;
+
+    console.log("discounts" + lineDiscountsTotalOff);
+    console.log("total" + xfinityMobilePlanTotalCost);
 
     return {
       unlimitedCount,
