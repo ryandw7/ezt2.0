@@ -82,6 +82,11 @@ export const buildInitialState = () => {
       itemsById: {
         [startNewItem.id]: startNewItem,
       },
+      serviceDeals: {
+        data: null,
+        loading: false,
+        error: null
+      }
     },
     newMobile: {
       linesById: {

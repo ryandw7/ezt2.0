@@ -31,6 +31,37 @@ const newCoreReducer = (state, action) => {
       };
     }
 
+    case 'FETCH_SERVICE_DEALS_START': {
+      return {
+        ...state,
+        serviceDeals: {
+          ...state.serviceDeals,
+          loading: true
+        }
+      }
+    }
+
+    case 'FETCH_SERVICE_DEALS_SUCCESS': {
+      return {
+        ...state,
+        serviceDeals: {
+          data: action.payload,
+          loading: false,
+          error: null
+        }
+      }
+    }
+
+    case 'FETCH_SERVICE_DEALS_ERROR': {
+      return {
+        ...state,
+        serviceDeals: {
+          ...state.serviceDeals,
+          loading: false,
+          error: action.payload
+        }
+      }
+    }
     default:
       return state;
   }

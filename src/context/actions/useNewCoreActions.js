@@ -18,10 +18,23 @@ const useNewCoreActions = () => {
     });
   };
 
+  const fetchServiceDeals = async (serviceType) => {
+    dispatch({ type: 'FETCH_SERVICE_DEALS_START' });
+    try {
+      const response = await fetch(`http://68.61.168.65:9001/service-deals`);
+      const data = await response.json();
+      dispatch({ type: 'FETCH_SERVICE_DEALS_SUCCESS', payload: data });
+
+    }catch (error) {
+      dispatch({ type: 'FETCH_SERVICE_DEALS_ERROR', payload: error.message });
+    }
+  }
+
   return {
     addNewCoreServicesItem,
     updateNewCoreServicesItem,
     deleteNewCoreServicesItem,
+    fetchServiceDeals
   };
 };
 

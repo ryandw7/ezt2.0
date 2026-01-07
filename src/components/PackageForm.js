@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Paper, TextField, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import NewServicePackagePopup from './NewServicePackagePopup';
+
 const PackageForm = ({
   isNew,
   handleChange,
@@ -79,6 +81,7 @@ const PackageForm = ({
       >
         Add
       </Button>
+      <NewServicePackagePopup />
     </Box>
   );
 };
