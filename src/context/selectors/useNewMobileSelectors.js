@@ -284,15 +284,12 @@ export const getAllXfinityMobileTotals = createSelector(
       } = line;
 
       if (dataPlan === 'Mobile Select') {
-        selectTotalCost += selectCount === 0 ? 40 : 20;
+        selectTotalCost += 30;
         selectCount++;
       } else if (dataPlan === 'Mobile Plus') {
-        if (hasSelect) {
-          plusTotalCost += 30;
-        } else {
-          plusTotalCost += plusCount === 0 ? 50 : 30;
-        }
-        plusCount++;
+        plusTotalCost += 45
+        plusCount ++;
+
       } else if (dataPlan === 'Tablet') {
         tabletCount++;
         tabletTotalCost += 20;
