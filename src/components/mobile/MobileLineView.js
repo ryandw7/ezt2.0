@@ -56,6 +56,7 @@ export default function MobileLineView({
     totalLineCost += 5;
   }
   let xmc = line.xmc;
+  
 
   return (
     <Paper
@@ -170,7 +171,7 @@ export default function MobileLineView({
         </RowGroup>
       )}
       <RowGroup>
-        <Typography>{line.dataPlan}</Typography>
+        <Typography>{(line.dataPlan != "Watch" && line.dataPlan != "Tablet") ? line.dataPlan : line.dataPlan + " Service"}</Typography>
         <Typography>${Number(lineCost).toFixed(2)}</Typography>
       </RowGroup>
       {line.lineDiscount !== 0 && (

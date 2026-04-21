@@ -5,6 +5,31 @@ export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
 export const getIsXfinityMobile = (state) =>
   state.newMobile?.isXfinityMobile || false;
 
+export const getAllInWablets = createSelector(
+  [getNewMobileLines],
+  (newMobileLines) => {
+    let wabletTotalCost = 0;
+    const lines = Object.values(newMobileLines)
+      ? Object.values(newMobileLines)
+      : [];
+
+    if (!lines) {
+      return {};
+    }
+
+    for (const line of lines) {
+      const { dataPlan } = line;
+
+      if (dataPlan === 'Tablet') {
+        wabletTotalCost += 20;
+      } else if (dataPlan === 'Watch') {
+        wabletTotalCost += 10;
+      }
+    }
+    return wabletTotalCost >= 35 ? true : false;
+  }
+); 
+
 export const getNowLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
@@ -114,8 +139,8 @@ export const getPhoneLineCostById = createSelector(
 );
 
 export const getMobileLineCostById = createSelector(
-  [getPhoneLineCostById, getNewMobileLines],
-  (phoneLineCostById, newMobileLines) => {
+  [getPhoneLineCostById, getNewMobileLines, getAllInWablets],
+  (phoneLineCostById, newMobileLines, allInWablets) => {
     return (id) => {
       if (
         newMobileLines[id].dataPlan === 'Mobile Select' ||
@@ -123,9 +148,9 @@ export const getMobileLineCostById = createSelector(
       ) {
         return phoneLineCostById(id);
       } else if (newMobileLines[id].dataPlan === 'Tablet') {
-        return 20;
+        return allInWablets ? 0 : 20;
       } else if (newMobileLines[id].dataPlan === 'Watch') {
-        return 10;
+        return allInWablets ? 0 : 10;
       }
       return 0;
     };
@@ -269,7 +294,8 @@ export const getAllXfinityMobileTotals = createSelector(
     let plusCount = 0;
     let tabletCount = 0;
     let watchCount = 0;
-
+    let wabletTotalCost = 0;
+    let allInWablets = false;
     for (const line of lines) {
       const {
         dataPlan,
@@ -292,9 +318,11 @@ export const getAllXfinityMobileTotals = createSelector(
 
       } else if (dataPlan === 'Tablet') {
         tabletCount++;
+        wabletTotalCost += 20
         tabletTotalCost += 20;
       } else if (dataPlan === 'Watch') {
         watchCount++;
+        wabletTotalCost += 10;
         watchTotalCost += 10;
       } else if (dataPlan === 'NOW Mobile') {
         nowLinesCount++;
@@ -318,16 +346,17 @@ export const getAllXfinityMobileTotals = createSelector(
     }
     const xfinityMobileTaxesTotalCost = (lines.length - nowLinesCount) * 1.81;
 
+    wabletTotalCost >= 35 ? allInWablets = true : allInWablets = false;
+
     const xfinityMobilePlanTotalCost =
 
     //ADDITIONS
       selectTotalCost +
       plusTotalCost +
-      tabletTotalCost +
-      watchTotalCost +
       devicePaymentsTotalCost24 +
       devicePaymentsTotalCost36 +
-      xfinityMobileTaxesTotalCost 
+      xfinityMobileTaxesTotalCost + 
+      (wabletTotalCost >= 35 ? 35 : (watchTotalCost + tabletTotalCost))
       -
     //SUBTRACTIONS
       deviceDiscountsTotalOff36 -
@@ -339,6 +368,7 @@ export const getAllXfinityMobileTotals = createSelector(
     console.log("total" + xfinityMobilePlanTotalCost);
 
     return {
+      allInWablets,
       selectCount: selectCount,
       selectTotalCost: selectTotalCost,
       plusCount: plusCount,
@@ -362,10 +392,11 @@ export const getAllXfinityMobileTotals = createSelector(
 
 const useNewMobileSelectors = () => {
   const { state } = useAppContext();
+  const allInWablets = getAllInWablets(state);
   const isXfinityMobile = getIsXfinityMobile(state);
   const editingLineId = getEditingLineId(state);
   const editingLine = getEditingLine(state);
-  const getNewMobileLineCost = getMobileLineCostById(state);
+  const mobileLineCostById = getMobileLineCostById(state);
   const newMobileLines = getNewMobileLines(state);
   const selectLines = getSelectLines(state);
   const plusLines = getPlusLines(state);
@@ -376,6 +407,7 @@ const useNewMobileSelectors = () => {
   const allNowMobileTotals = getAllNowMobileTotals(state);
   const nowMobileLines = getNowLines(state);
   return {
+    allInWablets,
     allNowMobileTotals,
     nowMobileLines,
     editingLine,
@@ -387,7 +419,7 @@ const useNewMobileSelectors = () => {
     tabletLines,
     watchLines,
     newMobileLines,
-    getNewMobileLineCost,
+    mobileLineCostById,
     isXfinityMobile,
   };
 };

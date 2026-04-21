@@ -15,7 +15,7 @@ const NewView = ({ className, data }) => {
     isXfinityMobile,
   } = data;
 
- const {
+  const {
     selectCount,
     selectTotalCost,
     plusCount,
@@ -24,6 +24,7 @@ const NewView = ({ className, data }) => {
     tabletTotalCost,
     watchCount,
     watchTotalCost,
+    allInWablets,
     devicePaymentsTotalCost24,
     deviceDiscountsTotalOff24,
     devicePaymentsTotalCost36,  // Changed from devicePaymentsTotalCost36
@@ -46,7 +47,7 @@ const NewView = ({ className, data }) => {
     nowMobilePlanTotalCost,
   } = allNowMobileTotals || {};
 
-  
+
   return (
     <PrintBox header={'New Services'} className={className}>
       {newCoreServicesItemsList.map((item) => {
@@ -83,24 +84,33 @@ const NewView = ({ className, data }) => {
               <Typography>${plusTotalCost.toFixed(2)} est.</Typography>
             </RowBox>
           )}
-          {tabletCount !== 0 && (
+          {allInWablets ? (
             <RowBox>
               <Typography>
-                {tabletCount} Tablet{tabletCount > 1 && 's'}
+                {watchCount + tabletCount} Watch/Tablet Line
+                {(watchCount + tabletCount) > 1 && 's'}
               </Typography>
-              <Typography>${tabletTotalCost.toFixed(2)} est.</Typography>
+              <Typography>${(35).toFixed(2)} est.</Typography>
             </RowBox>
-          )}
+          ) : <>
+            {tabletCount !== 0 && (
+              <RowBox>
+                <Typography>
+                  {tabletCount} Tablet{tabletCount > 1 && 's'}
+                </Typography>
+                <Typography>${tabletTotalCost.toFixed(2)} est.</Typography>
+              </RowBox>
+            )}
 
-          {watchCount !== 0 && (
-            <RowBox>
-              <Typography>
-                {watchCount} Watch{watchCount > 1 && 'es'}
-              </Typography>
-              <Typography>${watchTotalCost.toFixed(2)} est.</Typography>
-            </RowBox>
-          )}
-
+            {watchCount !== 0 && (
+              <RowBox>
+                <Typography>
+                  {watchCount} Watch{watchCount > 1 && 'es'}
+                </Typography>
+                <Typography>${watchTotalCost.toFixed(2)} est.</Typography>
+              </RowBox>
+            )}
+          </>}
           {xmcTotalCost != 0 && (
             <RowBox>
               <Typography>Xfinity Mobile Care</Typography>
