@@ -16,10 +16,10 @@ const NewView = ({ className, data }) => {
   } = data;
 
  const {
-    unlimitedCount,
-    unlimitedTotalCost,
-    premiumCount,
-    premiumTotalCost,
+    selectCount,
+    selectTotalCost,
+    plusCount,
+    plusTotalCost,
     tabletCount,
     tabletTotalCost,
     watchCount,
@@ -67,20 +67,20 @@ const NewView = ({ className, data }) => {
           <RowBox>
             <Typography variant="h4">Xfinity Mobile</Typography>
           </RowBox>
-          {unlimitedCount !== 0 && (
+          {selectCount !== 0 && (
             <RowBox>
               <Typography>
-                {unlimitedCount} Unlimited Line{unlimitedCount > 1 && 's'}
+                {selectCount} Mobile Select Line{selectCount > 1 && 's'}
               </Typography>
-              <Typography>${unlimitedTotalCost.toFixed(2)} est.</Typography>
+              <Typography>${selectTotalCost.toFixed(2)} est.</Typography>
             </RowBox>
           )}
-          {premiumCount !== 0 && (
+          {plusCount !== 0 && (
             <RowBox>
               <Typography>
-                {premiumCount} Unlimited Plus Line{premiumCount > 1 && 's'}
+                {plusCount} Mobile Plus Line{plusCount > 1 && 's'}
               </Typography>
-              <Typography>${premiumTotalCost.toFixed(2)} est.</Typography>
+              <Typography>${plusTotalCost.toFixed(2)} est.</Typography>
             </RowBox>
           )}
           {tabletCount !== 0 && (

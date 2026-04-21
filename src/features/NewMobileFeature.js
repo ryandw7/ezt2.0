@@ -11,9 +11,9 @@ import WatchIcon from '@mui/icons-material/Watch';
 const NewMobileFeature = () => {
   const {
     isXfinityMobile,
-    unlimitedLines,
+    selectLines,
     phoneLineCostById,
-    unlimitedPremiumLines,
+    plusLines,
     tabletLines,
     watchLines,
     editingLineId,
@@ -127,9 +127,9 @@ const NewMobileFeature = () => {
         >
           {isXfinityMobile ? (
             <>
-              {unlimitedLines && unlimitedLines.length !== 0 ? (
+              {selectLines && selectLines.length !== 0 ? (
                 <>
-                  {unlimitedLines.map((item, index) => (
+                  {selectLines.map((item, index) => (
                     <>
                       <MobileLineView
                         key={item.id}
@@ -137,7 +137,7 @@ const NewMobileFeature = () => {
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
                         lineCost={phoneLineCostById(item.id)}
-                        defaultName={`Line ${index + 1}`}
+                        defaultName={`Select Line ${index + 1}`}
                         config={{
                           isFull: false,
                           isForm: true,
@@ -148,9 +148,9 @@ const NewMobileFeature = () => {
                   ))}
                 </>
               ) : null}
-              {unlimitedPremiumLines && unlimitedPremiumLines.length !== 0 ? (
+              {plusLines && plusLines.length !== 0 ? (
                 <>
-                  {unlimitedPremiumLines.map((item, index) => (
+                  {plusLines.map((item, index) => (
                     <>
                       <MobileLineView
                         key={item.id}
@@ -158,7 +158,7 @@ const NewMobileFeature = () => {
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
                         lineCost={phoneLineCostById(item.id)}
-                        defaultName={`Premium Line ${index + 1}`}
+                        defaultName={`Plus Line ${index + 1}`}
                         config={{
                           isFull: false,
                           isForm: true,
@@ -169,6 +169,7 @@ const NewMobileFeature = () => {
                   ))}
                 </>
               ) : null}
+             
               {watchLines && watchLines.length !== 0 ? (
                 <>
                   {watchLines.map((item, index) => (
@@ -211,6 +212,7 @@ const NewMobileFeature = () => {
                   ))}
                 </>
               ) : null}
+              : 
             </>
           ) : (
             <>

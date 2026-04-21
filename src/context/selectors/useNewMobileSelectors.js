@@ -5,7 +5,7 @@ export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
 export const getIsXfinityMobile = (state) =>
   state.newMobile?.isXfinityMobile || false;
 
-export const getNowMobileLines = createSelector(
+export const getNowLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     if (!newMobileLines) {
@@ -19,7 +19,7 @@ export const getNowMobileLines = createSelector(
   }
 );
 
-export const getUnlimitedLines = createSelector(
+export const getSelectLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     if (!newMobileLines) {
@@ -27,20 +27,20 @@ export const getUnlimitedLines = createSelector(
     }
 
     const lines = Object.values(newMobileLines)?.filter(
-      (line) => line.dataPlan === 'Unlimited'
+      (line) => line.dataPlan === 'Mobile Select'
     );
     return lines;
   }
 );
 
-export const getUnlimitedPremiumLines = createSelector(
+export const getPlusLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     if (!newMobileLines) {
       return [];
     }
     return Object.values(newMobileLines).filter(
-      (line) => line.dataPlan === 'Unlimited Premium'
+      (line) => line.dataPlan === 'Mobile Plus'
     );
   }
 );
@@ -86,29 +86,26 @@ export const getEditingLine = createSelector(
 );
 
 export const getPhoneLineCostById = createSelector(
-  [getUnlimitedLines, getUnlimitedPremiumLines, getNowMobileLines],
-  (unlimitedLines, unlimitedPremiumLines, nowMobileLines) => {
-    if (!unlimitedLines && !unlimitedPremiumLines) {
+  [getSelectLines, getPlusLines, getNowLines],
+  (selectLines, plusLines, nowLines) => {
+    if (!selectLines && !plusLines) {
       return 0;
     }
-    const hasUnlimited = unlimitedLines.length > 0;
+    const hasSelect = selectLines.length > 0;
     return (id) => {
       // Check if the line is in unlimited
-      const isInUnlimited = unlimitedLines.find((line) => line.id === id);
-      if (isInUnlimited) {
-        return unlimitedLines[0]?.id === id ? 40 : 20;
+      const isSelect = selectLines.find((line) => line.id === id);
+      if (isSelect) {
+        return 30;
       }
 
       // Check if it's in unlimited premium
-      const isInPremium = unlimitedPremiumLines.find((line) => line.id === id);
-      if (isInPremium) {
-        if (hasUnlimited) {
-          return 30;
-        }
-        return unlimitedPremiumLines[0]?.id === id ? 50 : 30;
+      const isPlus = plusLines.find((line) => line.id === id);
+      if (isPlus) {
+       return 45;
       }
-      const isInNow = nowMobileLines.find((line) => line.id === id);
-      if (isInNow) {
+      const isNow = nowLines.find((line) => line.id === id);
+      if (isNow) {
         return 25;
       }
       return 0;
@@ -121,8 +118,8 @@ export const getMobileLineCostById = createSelector(
   (phoneLineCostById, newMobileLines) => {
     return (id) => {
       if (
-        newMobileLines[id].dataPlan === 'Unlimited' ||
-        newMobileLines[id].dataPlan === 'Unlimited Premium'
+        newMobileLines[id].dataPlan === 'Mobile Select' ||
+        newMobileLines[id].dataPlan === 'Mobile Plus'
       ) {
         return phoneLineCostById(id);
       } else if (newMobileLines[id].dataPlan === 'Tablet') {
@@ -135,20 +132,20 @@ export const getMobileLineCostById = createSelector(
   }
 );
 
-export const getUnlimitedLinesTotalCost = createSelector(
-  [getUnlimitedLines, getPhoneLineCostById],
-  (unlimitedLines, phoneLineCostById) => {
-    return unlimitedLines.reduce(
+export const getSelectLinesTotalCost = createSelector(
+  [getSelectLines, getPhoneLineCostById],
+  (selectLines, phoneLineCostById) => {
+    return selectLines.reduce(
       (accumulator, line) => phoneLineCostById(line.id) + accumulator,
       0
     );
   }
 );
 
-export const getUnlimitedPremiumLinesTotalCost = createSelector(
-  [getUnlimitedPremiumLines, getPhoneLineCostById],
-  (unlimitedPremiumLines, phoneLineCostById) => {
-    return unlimitedPremiumLines.reduce(
+export const getPlusLinesTotalCost = createSelector(
+  [getPlusLines, getPhoneLineCostById],
+  (plusLines, phoneLineCostById) => {
+    return plusLines.reduce(
       (accumulator, line) => accumulator + phoneLineCostById(line.id),
       0
     );
@@ -246,8 +243,8 @@ export const getAllNowMobileTotals = createSelector(
 export const getAllXfinityMobileTotals = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
-    let unlimitedTotalCost = 0;
-    let premiumTotalCost = 0;
+    let selectTotalCost = 0;
+    let plusTotalCost = 0;
     let tabletTotalCost = 0;
     let watchTotalCost = 0;
     let devicePaymentsTotalCost24 = 0;
@@ -266,10 +263,10 @@ export const getAllXfinityMobileTotals = createSelector(
     if (!lines) {
       return {};
     }
-    const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
+    const hasSelect = lines.some((line) => line.dataPlan === 'Mobile Select');
 
-    let unlimitedCount = 0;
-    let premiumCount = 0;
+    let selectCount = 0;
+    let plusCount = 0;
     let tabletCount = 0;
     let watchCount = 0;
 
@@ -286,16 +283,16 @@ export const getAllXfinityMobileTotals = createSelector(
         id,
       } = line;
 
-      if (dataPlan === 'Unlimited') {
-        unlimitedTotalCost += unlimitedCount === 0 ? 40 : 20;
-        unlimitedCount++;
-      } else if (dataPlan === 'Unlimited Premium') {
-        if (hasUnlimited) {
-          premiumTotalCost += 30;
+      if (dataPlan === 'Mobile Select') {
+        selectTotalCost += selectCount === 0 ? 40 : 20;
+        selectCount++;
+      } else if (dataPlan === 'Mobile Plus') {
+        if (hasSelect) {
+          plusTotalCost += 30;
         } else {
-          premiumTotalCost += premiumCount === 0 ? 50 : 30;
+          plusTotalCost += plusCount === 0 ? 50 : 30;
         }
-        premiumCount++;
+        plusCount++;
       } else if (dataPlan === 'Tablet') {
         tabletCount++;
         tabletTotalCost += 20;
@@ -327,8 +324,8 @@ export const getAllXfinityMobileTotals = createSelector(
     const xfinityMobilePlanTotalCost =
 
     //ADDITIONS
-      unlimitedTotalCost +
-      premiumTotalCost +
+      selectTotalCost +
+      plusTotalCost +
       tabletTotalCost +
       watchTotalCost +
       devicePaymentsTotalCost24 +
@@ -345,10 +342,10 @@ export const getAllXfinityMobileTotals = createSelector(
     console.log("total" + xfinityMobilePlanTotalCost);
 
     return {
-      unlimitedCount,
-      unlimitedTotalCost,
-      premiumCount,
-      premiumTotalCost,
+      selectCount: selectCount,
+      selectTotalCost: selectTotalCost,
+      plusCount: plusCount,
+      plusTotalCost: plusTotalCost,
       tabletCount,
       tabletTotalCost,
       watchCount,
@@ -373,23 +370,23 @@ const useNewMobileSelectors = () => {
   const editingLine = getEditingLine(state);
   const getNewMobileLineCost = getMobileLineCostById(state);
   const newMobileLines = getNewMobileLines(state);
-  const unlimitedLines = getUnlimitedLines(state);
-  const unlimitedPremiumLines = getUnlimitedPremiumLines(state);
+  const selectLines = getSelectLines(state);
+  const plusLines = getPlusLines(state);
   const phoneLineCostById = getPhoneLineCostById(state);
   const tabletLines = getTabletLines(state);
   const watchLines = getWatchLines(state);
   const allXfinityMobileTotals = getAllXfinityMobileTotals(state);
   const allNowMobileTotals = getAllNowMobileTotals(state);
-  const nowMobileLines = getNowMobileLines(state);
+  const nowMobileLines = getNowLines(state);
   return {
     allNowMobileTotals,
     nowMobileLines,
     editingLine,
     editingLineId,
     allXfinityMobileTotals,
-    unlimitedLines,
+    selectLines,
     phoneLineCostById,
-    unlimitedPremiumLines,
+    plusLines,
     tabletLines,
     watchLines,
     newMobileLines,

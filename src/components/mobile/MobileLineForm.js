@@ -73,10 +73,10 @@ const MobileLineForm = ({
   console.log(line);
   let lineGroup;
   switch (dataPlan) {
-    case 'Unlimited':
+    case 'Mobile Select':
       lineGroup = 1;
       break;
-    case 'Unlimited Premium':
+    case 'Mobile Plus':
       lineGroup = 2;
       break;
     case 'Watch':
@@ -155,8 +155,8 @@ const MobileLineForm = ({
             onChange={handleChange}
             sx={{ fontSize: 'inherit', height: '2em', mt: '5px' }}
           >
-            <MenuItem value="Unlimited">Unlimited</MenuItem>
-            <MenuItem value="Unlimited Premium">Unlimited +</MenuItem>
+            <MenuItem value="Mobile Select">Select</MenuItem>
+            <MenuItem value="Mobile Plus">Plus</MenuItem>
           </Select>
         }
       />
