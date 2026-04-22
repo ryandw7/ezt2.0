@@ -1,19 +1,20 @@
 import React from 'react';
-import { Box, Button, Typography, List } from '@mui/material';
+import { Box, Button, Typography, List, mobileStepperClasses, Paper } from '@mui/material';
 import useNewMobileActions from '../context/actions/useNewMobileActions';
-import useNewMobileSelectors from '../context/selectors/useNewMobileSelectors';
+import useNewMobileSelectors, { getMobileLineCostById } from '../context/selectors/useNewMobileSelectors';
 import MobileLineForm from '../components/mobile/MobileLineForm';
 import MobileLineView from '../components/mobile/MobileLineView';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
-import WatchIcon from '@mui/icons-material/Watch';
+import WatchIcon from '@mui/icons-material/Watch';``
 
 const NewMobileFeature = () => {
   const {
+    allInWablets,
     isXfinityMobile,
-    unlimitedLines,
-    phoneLineCostById,
-    unlimitedPremiumLines,
+    selectLines,
+    mobileLineCostById,
+    plusLines,
     tabletLines,
     watchLines,
     editingLineId,
@@ -30,6 +31,37 @@ const NewMobileFeature = () => {
     removeMobileLine,
     setEditingLineId,
   } = useNewMobileActions();
+
+  const allInWabletsView = (<Paper
+      elevation={8}
+      sx={{
+        transition: 'height 0.3s ease-in-out',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        justifyContent: 'space-around',
+        alignContent: 'center',
+        minWidth: '300px',
+        p: 3,
+        borderRadius: '0px',
+      }}
+    >
+<Box
+        sx={{
+          width: '90%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          margin: '5px auto',
+        }}
+      >
+        <Typography fontWeight="bold">
+          Watch and Tablet Plan
+        </Typography>
+         <Typography fontWeight="bold">
+          $35.00 est.
+        </Typography>
+      </Box>
+    </Paper>)
 
   const handleAdd = () => {
     addPhoneLine();
@@ -127,17 +159,17 @@ const NewMobileFeature = () => {
         >
           {isXfinityMobile ? (
             <>
-              {unlimitedLines && unlimitedLines.length !== 0 ? (
+              {selectLines && selectLines.length !== 0 ? (
                 <>
-                  {unlimitedLines.map((item, index) => (
+                  {selectLines.map((item, index) => (
                     <>
                       <MobileLineView
                         key={item.id}
                         line={item}
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
-                        lineCost={phoneLineCostById(item.id)}
-                        defaultName={`Line ${index + 1}`}
+                        lineCost={mobileLineCostById(item.id)}
+                        defaultName={`Select Line ${index + 1}`}
                         config={{
                           isFull: false,
                           isForm: true,
@@ -148,17 +180,17 @@ const NewMobileFeature = () => {
                   ))}
                 </>
               ) : null}
-              {unlimitedPremiumLines && unlimitedPremiumLines.length !== 0 ? (
+              {plusLines && plusLines.length !== 0 ? (
                 <>
-                  {unlimitedPremiumLines.map((item, index) => (
+                  {plusLines.map((item, index) => (
                     <>
                       <MobileLineView
                         key={item.id}
                         line={item}
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
-                        lineCost={phoneLineCostById(item.id)}
-                        defaultName={`Premium Line ${index + 1}`}
+                        lineCost={mobileLineCostById(item.id)}
+                        defaultName={`Plus Line ${index + 1}`}
                         config={{
                           isFull: false,
                           isForm: true,
@@ -169,6 +201,7 @@ const NewMobileFeature = () => {
                   ))}
                 </>
               ) : null}
+              {allInWablets ? allInWabletsView : null}
               {watchLines && watchLines.length !== 0 ? (
                 <>
                   {watchLines.map((item, index) => (
@@ -178,7 +211,7 @@ const NewMobileFeature = () => {
                         line={item}
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
-                        lineCost={10}
+                        lineCost={mobileLineCostById(item.id)}
                         defaultName={`Watch ${index + 1}`}
                         config={{
                           isFull: false,
@@ -199,7 +232,7 @@ const NewMobileFeature = () => {
                         line={item}
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
-                        lineCost={20}
+                        lineCost={mobileLineCostById(item.id)}
                         defaultName={`Tablet ${index + 1}`}
                         config={{
                           isFull: false,
@@ -211,6 +244,7 @@ const NewMobileFeature = () => {
                   ))}
                 </>
               ) : null}
+              : 
             </>
           ) : (
             <>
@@ -223,7 +257,7 @@ const NewMobileFeature = () => {
                         line={item}
                         handleDelete={() => handleDelete(item.id)}
                         handleStartEdit={() => handleStartEdit(item.id)}
-                        lineCost={phoneLineCostById(item.id)}
+                        lineCost={mobileLineCostById(item.id)}
                         defaultName={`Line ${index + 1}`}
                         config={{
                           isFull: false,
@@ -344,7 +378,7 @@ const NewMobileFeature = () => {
             key={editingLineId}
             line={editingLine}
             handleUpdate={handleUpdate(editingLine.id)}
-            lineCost={phoneLineCostById(editingLine.id)}
+            lineCost={mobileLineCostById(editingLine.id)}
             handleStopEdit={handleStopEdit}
             isXfinityMobile={isXfinityMobile}
           />

@@ -5,7 +5,32 @@ export const getNewMobileLines = (state) => state.newMobile?.linesById || {};
 export const getIsXfinityMobile = (state) =>
   state.newMobile?.isXfinityMobile || false;
 
-export const getNowMobileLines = createSelector(
+export const getAllInWablets = createSelector(
+  [getNewMobileLines],
+  (newMobileLines) => {
+    let wabletTotalCost = 0;
+    const lines = Object.values(newMobileLines)
+      ? Object.values(newMobileLines)
+      : [];
+
+    if (!lines) {
+      return {};
+    }
+
+    for (const line of lines) {
+      const { dataPlan } = line;
+
+      if (dataPlan === 'Tablet') {
+        wabletTotalCost += 20;
+      } else if (dataPlan === 'Watch') {
+        wabletTotalCost += 10;
+      }
+    }
+    return wabletTotalCost >= 35 ? true : false;
+  }
+); 
+
+export const getNowLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     if (!newMobileLines) {
@@ -19,7 +44,7 @@ export const getNowMobileLines = createSelector(
   }
 );
 
-export const getUnlimitedLines = createSelector(
+export const getSelectLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     if (!newMobileLines) {
@@ -27,20 +52,20 @@ export const getUnlimitedLines = createSelector(
     }
 
     const lines = Object.values(newMobileLines)?.filter(
-      (line) => line.dataPlan === 'Unlimited'
+      (line) => line.dataPlan === 'Mobile Select'
     );
     return lines;
   }
 );
 
-export const getUnlimitedPremiumLines = createSelector(
+export const getPlusLines = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
     if (!newMobileLines) {
       return [];
     }
     return Object.values(newMobileLines).filter(
-      (line) => line.dataPlan === 'Unlimited Premium'
+      (line) => line.dataPlan === 'Mobile Plus'
     );
   }
 );
@@ -86,29 +111,26 @@ export const getEditingLine = createSelector(
 );
 
 export const getPhoneLineCostById = createSelector(
-  [getUnlimitedLines, getUnlimitedPremiumLines, getNowMobileLines],
-  (unlimitedLines, unlimitedPremiumLines, nowMobileLines) => {
-    if (!unlimitedLines && !unlimitedPremiumLines) {
+  [getSelectLines, getPlusLines, getNowLines],
+  (selectLines, plusLines, nowLines) => {
+    if (!selectLines && !plusLines) {
       return 0;
     }
-    const hasUnlimited = unlimitedLines.length > 0;
+    const hasSelect = selectLines.length > 0;
     return (id) => {
       // Check if the line is in unlimited
-      const isInUnlimited = unlimitedLines.find((line) => line.id === id);
-      if (isInUnlimited) {
-        return unlimitedLines[0]?.id === id ? 40 : 20;
+      const isSelect = selectLines.find((line) => line.id === id);
+      if (isSelect) {
+        return 30;
       }
 
       // Check if it's in unlimited premium
-      const isInPremium = unlimitedPremiumLines.find((line) => line.id === id);
-      if (isInPremium) {
-        if (hasUnlimited) {
-          return 30;
-        }
-        return unlimitedPremiumLines[0]?.id === id ? 50 : 30;
+      const isPlus = plusLines.find((line) => line.id === id);
+      if (isPlus) {
+       return 45;
       }
-      const isInNow = nowMobileLines.find((line) => line.id === id);
-      if (isInNow) {
+      const isNow = nowLines.find((line) => line.id === id);
+      if (isNow) {
         return 25;
       }
       return 0;
@@ -117,38 +139,38 @@ export const getPhoneLineCostById = createSelector(
 );
 
 export const getMobileLineCostById = createSelector(
-  [getPhoneLineCostById, getNewMobileLines],
-  (phoneLineCostById, newMobileLines) => {
+  [getPhoneLineCostById, getNewMobileLines, getAllInWablets],
+  (phoneLineCostById, newMobileLines, allInWablets) => {
     return (id) => {
       if (
-        newMobileLines[id].dataPlan === 'Unlimited' ||
-        newMobileLines[id].dataPlan === 'Unlimited Premium'
+        newMobileLines[id].dataPlan === 'Mobile Select' ||
+        newMobileLines[id].dataPlan === 'Mobile Plus'
       ) {
         return phoneLineCostById(id);
       } else if (newMobileLines[id].dataPlan === 'Tablet') {
-        return 20;
+        return allInWablets ? 0 : 20;
       } else if (newMobileLines[id].dataPlan === 'Watch') {
-        return 10;
+        return allInWablets ? 0 : 10;
       }
       return 0;
     };
   }
 );
 
-export const getUnlimitedLinesTotalCost = createSelector(
-  [getUnlimitedLines, getPhoneLineCostById],
-  (unlimitedLines, phoneLineCostById) => {
-    return unlimitedLines.reduce(
+export const getSelectLinesTotalCost = createSelector(
+  [getSelectLines, getPhoneLineCostById],
+  (selectLines, phoneLineCostById) => {
+    return selectLines.reduce(
       (accumulator, line) => phoneLineCostById(line.id) + accumulator,
       0
     );
   }
 );
 
-export const getUnlimitedPremiumLinesTotalCost = createSelector(
-  [getUnlimitedPremiumLines, getPhoneLineCostById],
-  (unlimitedPremiumLines, phoneLineCostById) => {
-    return unlimitedPremiumLines.reduce(
+export const getPlusLinesTotalCost = createSelector(
+  [getPlusLines, getPhoneLineCostById],
+  (plusLines, phoneLineCostById) => {
+    return plusLines.reduce(
       (accumulator, line) => accumulator + phoneLineCostById(line.id),
       0
     );
@@ -246,8 +268,8 @@ export const getAllNowMobileTotals = createSelector(
 export const getAllXfinityMobileTotals = createSelector(
   [getNewMobileLines],
   (newMobileLines) => {
-    let unlimitedTotalCost = 0;
-    let premiumTotalCost = 0;
+    let selectTotalCost = 0;
+    let plusTotalCost = 0;
     let tabletTotalCost = 0;
     let watchTotalCost = 0;
     let devicePaymentsTotalCost24 = 0;
@@ -266,13 +288,14 @@ export const getAllXfinityMobileTotals = createSelector(
     if (!lines) {
       return {};
     }
-    const hasUnlimited = lines.some((line) => line.dataPlan === 'Unlimited');
+    const hasSelect = lines.some((line) => line.dataPlan === 'Mobile Select');
 
-    let unlimitedCount = 0;
-    let premiumCount = 0;
+    let selectCount = 0;
+    let plusCount = 0;
     let tabletCount = 0;
     let watchCount = 0;
-
+    let wabletTotalCost = 0;
+    let allInWablets = false;
     for (const line of lines) {
       const {
         dataPlan,
@@ -286,21 +309,20 @@ export const getAllXfinityMobileTotals = createSelector(
         id,
       } = line;
 
-      if (dataPlan === 'Unlimited') {
-        unlimitedTotalCost += unlimitedCount === 0 ? 40 : 20;
-        unlimitedCount++;
-      } else if (dataPlan === 'Unlimited Premium') {
-        if (hasUnlimited) {
-          premiumTotalCost += 30;
-        } else {
-          premiumTotalCost += premiumCount === 0 ? 50 : 30;
-        }
-        premiumCount++;
+      if (dataPlan === 'Mobile Select') {
+        selectTotalCost += 30;
+        selectCount++;
+      } else if (dataPlan === 'Mobile Plus') {
+        plusTotalCost += 45
+        plusCount ++;
+
       } else if (dataPlan === 'Tablet') {
         tabletCount++;
+        wabletTotalCost += 20
         tabletTotalCost += 20;
       } else if (dataPlan === 'Watch') {
         watchCount++;
+        wabletTotalCost += 10;
         watchTotalCost += 10;
       } else if (dataPlan === 'NOW Mobile') {
         nowLinesCount++;
@@ -324,16 +346,17 @@ export const getAllXfinityMobileTotals = createSelector(
     }
     const xfinityMobileTaxesTotalCost = (lines.length - nowLinesCount) * 1.81;
 
+    wabletTotalCost >= 35 ? allInWablets = true : allInWablets = false;
+
     const xfinityMobilePlanTotalCost =
 
     //ADDITIONS
-      unlimitedTotalCost +
-      premiumTotalCost +
-      tabletTotalCost +
-      watchTotalCost +
+      selectTotalCost +
+      plusTotalCost +
       devicePaymentsTotalCost24 +
       devicePaymentsTotalCost36 +
-      xfinityMobileTaxesTotalCost 
+      xfinityMobileTaxesTotalCost + 
+      (wabletTotalCost >= 35 ? 35 : (watchTotalCost + tabletTotalCost))
       -
     //SUBTRACTIONS
       deviceDiscountsTotalOff36 -
@@ -345,10 +368,11 @@ export const getAllXfinityMobileTotals = createSelector(
     console.log("total" + xfinityMobilePlanTotalCost);
 
     return {
-      unlimitedCount,
-      unlimitedTotalCost,
-      premiumCount,
-      premiumTotalCost,
+      allInWablets,
+      selectCount: selectCount,
+      selectTotalCost: selectTotalCost,
+      plusCount: plusCount,
+      plusTotalCost: plusTotalCost,
       tabletCount,
       tabletTotalCost,
       watchCount,
@@ -368,32 +392,34 @@ export const getAllXfinityMobileTotals = createSelector(
 
 const useNewMobileSelectors = () => {
   const { state } = useAppContext();
+  const allInWablets = getAllInWablets(state);
   const isXfinityMobile = getIsXfinityMobile(state);
   const editingLineId = getEditingLineId(state);
   const editingLine = getEditingLine(state);
-  const getNewMobileLineCost = getMobileLineCostById(state);
+  const mobileLineCostById = getMobileLineCostById(state);
   const newMobileLines = getNewMobileLines(state);
-  const unlimitedLines = getUnlimitedLines(state);
-  const unlimitedPremiumLines = getUnlimitedPremiumLines(state);
+  const selectLines = getSelectLines(state);
+  const plusLines = getPlusLines(state);
   const phoneLineCostById = getPhoneLineCostById(state);
   const tabletLines = getTabletLines(state);
   const watchLines = getWatchLines(state);
   const allXfinityMobileTotals = getAllXfinityMobileTotals(state);
   const allNowMobileTotals = getAllNowMobileTotals(state);
-  const nowMobileLines = getNowMobileLines(state);
+  const nowMobileLines = getNowLines(state);
   return {
+    allInWablets,
     allNowMobileTotals,
     nowMobileLines,
     editingLine,
     editingLineId,
     allXfinityMobileTotals,
-    unlimitedLines,
+    selectLines,
     phoneLineCostById,
-    unlimitedPremiumLines,
+    plusLines,
     tabletLines,
     watchLines,
     newMobileLines,
-    getNewMobileLineCost,
+    mobileLineCostById,
     isXfinityMobile,
   };
 };

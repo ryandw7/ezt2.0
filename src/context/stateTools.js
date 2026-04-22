@@ -1,11 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
 const PLAN = {
-  UNLIMITED: 'Unlimited',
-  PREMIUM: 'Premium Unlimited',
+
+  SELECT: 'Mobile Select',
+  PLUS: 'Mobile Plus',
   NOW: 'NOW Mobile',
   TABLET: 'Tablet',
   WATCH: 'Watch',
+
 };
 
 // only fields shared by every line type
@@ -37,7 +39,7 @@ export const makeNowMobileLine = () => ({
 export const makeXfinityMobileLine = () => ({
   id: uuidv4(),
   ...lineDefaults,
-  dataPlan: PLAN.UNLIMITED,
+  dataPlan: PLAN.SELECT,
   payInFull: false,
   devicePaymentDuration: 24
 });
@@ -100,3 +102,4 @@ export const buildInitialState = () => {
     },
   };
 };
+

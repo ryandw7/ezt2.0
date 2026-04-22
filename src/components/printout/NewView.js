@@ -15,15 +15,16 @@ const NewView = ({ className, data }) => {
     isXfinityMobile,
   } = data;
 
- const {
-    unlimitedCount,
-    unlimitedTotalCost,
-    premiumCount,
-    premiumTotalCost,
+  const {
+    selectCount,
+    selectTotalCost,
+    plusCount,
+    plusTotalCost,
     tabletCount,
     tabletTotalCost,
     watchCount,
     watchTotalCost,
+    allInWablets,
     devicePaymentsTotalCost24,
     deviceDiscountsTotalOff24,
     devicePaymentsTotalCost36,  // Changed from devicePaymentsTotalCost36
@@ -46,7 +47,7 @@ const NewView = ({ className, data }) => {
     nowMobilePlanTotalCost,
   } = allNowMobileTotals || {};
 
-  
+
   return (
     <PrintBox header={'New Services'} className={className}>
       {newCoreServicesItemsList.map((item) => {
@@ -67,40 +68,49 @@ const NewView = ({ className, data }) => {
           <RowBox>
             <Typography variant="h4">Xfinity Mobile</Typography>
           </RowBox>
-          {unlimitedCount !== 0 && (
+          {selectCount !== 0 && (
             <RowBox>
               <Typography>
-                {unlimitedCount} Unlimited Line{unlimitedCount > 1 && 's'}
+                {selectCount} Mobile Select Line{selectCount > 1 && 's'}
               </Typography>
-              <Typography>${unlimitedTotalCost.toFixed(2)} est.</Typography>
+              <Typography>${selectTotalCost.toFixed(2)} est.</Typography>
             </RowBox>
           )}
-          {premiumCount !== 0 && (
+          {plusCount !== 0 && (
             <RowBox>
               <Typography>
-                {premiumCount} Unlimited Plus Line{premiumCount > 1 && 's'}
+                {plusCount} Mobile Plus Line{plusCount > 1 && 's'}
               </Typography>
-              <Typography>${premiumTotalCost.toFixed(2)} est.</Typography>
+              <Typography>${plusTotalCost.toFixed(2)} est.</Typography>
             </RowBox>
           )}
-          {tabletCount !== 0 && (
+          {allInWablets ? (
             <RowBox>
               <Typography>
-                {tabletCount} Tablet{tabletCount > 1 && 's'}
+                {watchCount + tabletCount} Watch/Tablet Line
+                {(watchCount + tabletCount) > 1 && 's'}
               </Typography>
-              <Typography>${tabletTotalCost.toFixed(2)} est.</Typography>
+              <Typography>${(35).toFixed(2)} est.</Typography>
             </RowBox>
-          )}
+          ) : <>
+            {tabletCount !== 0 && (
+              <RowBox>
+                <Typography>
+                  {tabletCount} Tablet{tabletCount > 1 && 's'}
+                </Typography>
+                <Typography>${tabletTotalCost.toFixed(2)} est.</Typography>
+              </RowBox>
+            )}
 
-          {watchCount !== 0 && (
-            <RowBox>
-              <Typography>
-                {watchCount} Watch{watchCount > 1 && 'es'}
-              </Typography>
-              <Typography>${watchTotalCost.toFixed(2)} est.</Typography>
-            </RowBox>
-          )}
-
+            {watchCount !== 0 && (
+              <RowBox>
+                <Typography>
+                  {watchCount} Watch{watchCount > 1 && 'es'}
+                </Typography>
+                <Typography>${watchTotalCost.toFixed(2)} est.</Typography>
+              </RowBox>
+            )}
+          </>}
           {xmcTotalCost != 0 && (
             <RowBox>
               <Typography>Xfinity Mobile Care</Typography>
